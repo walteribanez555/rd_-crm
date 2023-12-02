@@ -1,0 +1,105 @@
+<!-- Nombre(s)
+Apellido(s)
+Nro. Pasaporte
+Fec. Nacimiento
+Teléfono
+Destino
+ERNESTO
+BARRÓN
+A54682
+06/11/1998
++591 65823459
+ESPAÑA -->
+<div class="container">
+  <div class="container-polizas">
+    <div class="list-polizas">
+      <poliza-pdf></poliza-pdf>
+
+  </div>
+
+  <div class="info">
+
+    <div class="top">
+      <div class="left">
+        <div class="title">
+          <span>Poliza : 31542</span>
+        </div>
+      </div>
+
+      <div class="right">
+
+      </div>
+
+
+    </div>
+
+    <hr>
+    <div class="actions">
+      <button  (click)="onEditPoliza = true" >
+
+        <span>Editar Detalles</span>
+      </button>
+    </div>
+    <div class="content">
+
+      <div class="content-top">
+        <div class="item">
+          <div class="title-item">
+            <i class="fa-solid fa-plane-departure" style="color: var(--main-color);"></i>
+            <span style="padding-left: 20px; color: var(--main-color);">Fecha de Salida</span>
+          </div>
+          <div class="data-item">
+            <span>20/12/2023</span>
+          </div>
+        </div>
+        <div class="item">
+          <div class="title-item">
+            <i class="fa-solid fa-plane-arrival"  style="color: var(--main-color);"></i>
+            <span style="padding-left: 20px; color: var(--main-color);">Fecha de Retorno</span>
+          </div>
+          <div class="data-item">
+            <span>20/12/2023</span>
+          </div>
+        </div>
+        <div class="item">
+          <div class="title-item">
+            <i class="fa-solid fa-location-dot" style="color: var(--main-color);"></i>
+            <span style="padding-left: 20px; color: var(--main-color);">Destino</span>
+          </div>
+          <div class="data-item">
+            <span>Mundial</span>
+          </div>
+        </div>
+        <div class="item">
+          <div class="title-item">
+            <i class="fa-solid fa-file" style="color: var(--main-color);"></i>
+            <span style="padding-left: 20px; color: var(--main-color);">Plan</span>
+          </div>
+          <div class="data-item">
+            <span>Red Mundial</span>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="content-info">
+        <div class="left">
+          <list-beneficiarios style="height: 100%;" (messageSent)="receiveBenId($event)" ></list-beneficiarios>
+        </div>
+        <div class="right">
+          <beneficiario  [actualChild]="actualChild" ></beneficiario>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<modal-edit-poliza (closeModal)="onEditPoliza = false" *ngIf="onEditPoliza" ></modal-edit-poliza>
+

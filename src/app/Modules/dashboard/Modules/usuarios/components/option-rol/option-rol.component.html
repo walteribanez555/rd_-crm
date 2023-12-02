@@ -1,0 +1,10 @@
+<div class="container">
+
+  <div class="option">
+    <input type="checkbox" [id]="option + rol.area" [(ngModel)]="isChecked" (change)="onCheckBoxChange()"  >
+    <label [for]="option + rol.area" class="button"></label>
+
+  </div>
+  <span>{{option}}</span>
+</div>
+

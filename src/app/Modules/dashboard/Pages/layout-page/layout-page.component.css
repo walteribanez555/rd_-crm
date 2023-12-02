@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 100%;
+  height: 100vh;
+
+}
+
+.content{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+}
+
+
+
+
+
+/* SMALL SCREEN */
+
+@media only screen and (max-width: 850px) {
+
+  sidebar{
+      scrollbar-width: normal;
+      scrollbar-color : #777 #555;
+  }
+
+  nav{
+    padding: 0px;
+    display: none;
+  }
+
+
+  html::-webkit-scrollbar{
+      width: 4vw;
+  }
+
+
+}
+

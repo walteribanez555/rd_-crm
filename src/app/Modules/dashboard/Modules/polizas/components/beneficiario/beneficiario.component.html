@@ -1,0 +1,94 @@
+<div class="content" *ngIf="actualChild ; else noChild">
+  <div class="top">
+    <span>Beneficiario Nro : {{actualChild}}</span>
+    <div class="button-section">
+      <button (click)="onEditModal = true" >
+        <span>Modificar</span>
+      </button>
+      <button  (click)="onShowPdf = true">
+        <span>Imprimir</span>
+      </button>
+    </div>
+
+  </div>
+  <hr>
+  <div class="info">
+    <div class="left">
+      <div class="field">
+        <div class="title">
+          <span>Nombre/s</span>
+        </div>
+        <div class="data">
+          <span>Walter Ronny</span>
+        </div>
+      </div>
+      <div class="field">
+        <div class="title">
+          <span>Pasaporte</span>
+        </div>
+        <div class="data">
+          <span>8912915</span>
+        </div>
+      </div>
+      <div class="field">
+        <div class="title">
+          <span>Nacionalidad</span>
+        </div>
+        <div class="data">
+          <span>Bolivia</span>
+        </div>
+      </div>
+      <div class="field">
+        <div class="title">
+          <span>Nro Telefonico</span>
+        </div>
+        <div class="data">
+          <span>+591 78140498</span>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="field">
+        <div class="title">
+          <span>Apellido/s</span>
+        </div>
+        <div class="data">
+          <span>Walter Ronny</span>
+        </div>
+      </div>
+      <div class="field">
+        <div class="title">
+          <span>Fecha de Nacimiento</span>
+        </div>
+        <div class="data">
+          <span>07/01/2002</span>
+        </div>
+
+      </div>
+      <div class="field">
+        <div class="title">
+          <span>Email</span>
+        </div>
+        <div class="data">
+          <span>walteribanez555@gmail.com</span>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+</div>
+
+<ng-template #noChild >
+  <div class="no-content">
+    <span>
+      Seleccione Una Poliza
+    </span>
+  </div>
+
+</ng-template>
+
+
+<modal-edit-ben  *ngIf="onEditModal"  (closeModal)="onEditModal= false" ></modal-edit-ben>
+

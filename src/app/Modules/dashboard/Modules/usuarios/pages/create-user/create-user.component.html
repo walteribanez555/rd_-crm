@@ -1,0 +1,77 @@
+<div class="container">
+
+  <div class="top">
+
+    <div class="title">
+      <i class="fa-solid fa-user-plus  fa-xl" style="color: var(--main-color);"></i>
+      <span>Crear Usuario</span>
+    </div>
+
+
+  </div>
+  <hr>
+  <div class="info">
+    <div class="left">
+
+      <div class="card">
+
+        <div class="row">
+          <h3 >Agrega a un Nuevo Usuario</h3>
+
+        </div>
+        <div class="steps">
+          <span class="circle" [class.active]="pos >= 0"  (click)="onChangeStepForm(0)" >Usuario</span>
+          <span class="circle active" [class.active]="pos >= 1" (click)="onChangeStepForm(1)">Rol</span>
+          <span class="circle active" [class.active]="pos >= 2" (click)="onChangeStepForm(2)">Confirma</span>
+          <div class="progress-bar">
+            <span class="indicator" [style.width]="dynamicWidth">
+            </span>
+          </div>
+        </div>
+        <div class="buttons">
+          <button  (click)="onChangeStepForm(pos-1)">
+            <span>Paso Previo</span>
+          </button>
+
+          <button  (click)="onChangeStepForm(pos+1)">
+            <span>Siguiente Paso</span>
+          </button>
+
+
+        </div>
+
+        <div class="page">
+          <user-form-data [hidden]="pos !== 0"  ></user-form-data>
+          <rol-form-data [hidden]="pos !== 1"  ></rol-form-data>
+          <detail-form-data [hidden]="pos !== 2"  ></detail-form-data>
+
+
+
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+    <div class="right">
+      <div class="title">
+        <span>Acciones</span>
+      </div>
+      <hr style="border: 1px solid gainsboro; width: 100%;">
+
+      <button>
+        <i class="fa-solid fa-user-plus  fa-xl" style="color: var(--main-color);"></i>
+        <span>Agregar Usuario</span>
+      </button>
+
+
+
+    </div>
+
+
+
+  </div>
+
+</div>

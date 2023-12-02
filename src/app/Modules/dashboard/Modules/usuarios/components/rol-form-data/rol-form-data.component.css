@@ -1,0 +1,57 @@
+
+
+.container{
+  display: flex;
+  flex-direction: column;
+  height: calc((100vh - 250px) / 2);
+  overflow-y: auto;
+  width: 50%;
+}
+
+
+.container::-webkit-scrollbar {
+  width: 0.3em;
+  height: 0.1em;
+}
+
+.container::-webkit-scrollbar-track {
+  background: #efedf7;;
+  border-radius: 50vw;
+  margin-block: 0.1em;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background: var(--main-color);
+  border-radius: 10px;
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+  background: var(--main-color);
+  border-radius: 10px;
+}
+
+
+a{
+  text-decoration: none;
+  color: var(--text-color);
+}
+a:link {
+  color: var(--text-color);
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--text-color);
+  background-color: transparent;
+}
+
+a:active {
+  color: var(--text-color);
+  background-color: transparent;
+}

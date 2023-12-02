@@ -1,0 +1,9 @@
+<div class="container">
+
+  <div class="option">
+    <input type="checkbox"  [(ngModel)]="option.state" (change)="onCheckBoxChange()"  >
+    <label [for]="option.name" class="button"></label>
+
+  </div>
+  <span>{{option.description}}</span>
+</div>

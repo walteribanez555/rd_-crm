@@ -1,0 +1,20 @@
+<div class="container">
+  <tree-root  #tree style="margin-left: 20px; "
+  (moveNode)="onMoveNode($event)"
+  [nodes]="nodes"
+  [options]="options"
+  >
+  <ng-template #treeNodeTemplate let-node let-index="index">
+    <a [routerLink]="'./'+node.id" >
+      <div class="node-item">
+        <img src="../assets/svg/domain_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+        <span>{{ node.data.name }}</span>
+
+      </div>
+
+    </a>
+
+    <!-- <button (click)="go($event)">Custom Action</button> -->
+  </ng-template>
+
+</tree-root>

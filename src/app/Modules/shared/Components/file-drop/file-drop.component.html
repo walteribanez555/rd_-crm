@@ -1,0 +1,5 @@
+<div class="file-drop" *ngIf="inputControl">
+  <label for="fileInput">{{inputControl.value}}</label>
+  <label *ngIf="!inputControl.value" for="fileInput" uploadFile></label>
+  <input *ngIf="inputControl" id="fileInput" multiple type="file" [formControl]="inputControl" (change)="selectFile($event)">
+</div>

@@ -1,0 +1,20 @@
+<!-- <p>{{rol.area}}</p>
+<ul style="display: flex;flex-direction: row;align-items: flex-start;" >
+  <li style="margin: 0px 20px;" *ngFor="let option of rol.area_permissions">
+    {{option}}
+  </li>
+</ul>
+ -->
+
+<div class="container">
+  <span class="area">{{rol.area}}</span>
+
+  <div class="options" style="padding: 10px 0px;">
+
+    <option-rol  *ngFor="let option of rol.area_permissions" [option]="option" [rol]="rol"  (toggleOption)="onChangeOption($event)" >
+    </option-rol>
+
+  </div>
+
+
+</div>

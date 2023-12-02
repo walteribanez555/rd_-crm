@@ -1,0 +1,315 @@
+<div class="polizaToPdf" [id]="1">
+  <div class="poliza-imprimir">
+    <div class="top">
+
+      <div class="items">
+        <div class="saludo">
+          <img style="width: 35px; height: 50px; object-fit: fill;"
+            src="../../../../../../../assets/images/isologo-blanco.png">
+
+          <h1>Póliza de Asistencia</h1>
+        </div>
+        <div class="qr_space">
+          <div class="qr">
+            <qrcode [qrdata]="qrCode" [width]="100"></qrcode>
+          </div>
+          <div class="message">
+            Verifica los datos de tu Póliza
+          </div>
+        </div>
+      </div>
+
+
+
+
+    </div>
+    <div class="datos-beneficiario">
+      <i style="color: var(--main-color); " class="fa-solid fa-circle-info fa-lg"></i>
+      <span style="color: var(--main-color); font-weight: 600; margin-left: 20px;">Detalles de la Póliza</span>
+      <div class="data">
+        <div class="left">
+          <div class="descriptions">
+            <span>
+              Nombre(s)
+            </span>
+            <span>
+              Apellido(s)
+            </span>
+            <span>
+              Nro. Pasaporte
+            </span>
+            <span>
+              Fec. Nacimiento
+            </span>
+            <span>
+              Teléfono
+            </span>
+
+
+          </div>
+          <div class="info">
+            <div class="nombre-beneficiario">
+              <span>Walter Ronny </span>
+            </div>
+            <div class="nombre-beneficiario">
+              <span>Ibañez Saucedo</span>
+            </div>
+
+            <div class="nombre-beneficiario">
+              <span>8912914</span>
+            </div>
+            <div class="nombre-beneficiario">
+              <span>07/01/2002</span>
+            </div>
+            <div class="nombre-beneficiario">
+              <span>78140498</span>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="right">
+          <div class="descriptions">
+            <span>
+              Salida
+            </span>
+            <span>
+              Retorno
+            </span>
+            <span>
+              Nro. Póliza
+            </span>
+            <span>
+              Dias
+            </span>
+            <span>
+              Destino
+            </span>
+
+          </div>
+          <div class="info">
+            <div class="nombre-beneficiario">
+              <span>20-12-2023</span>
+            </div>
+            <div class="nombre-beneficiario">
+              <span>20-12-2023</span>
+            </div>
+
+            <div class="nombre-beneficiario">
+              <span>20582</span>
+            </div>
+            <div class="nombre-beneficiario">
+              <span>22</span>
+            </div>
+            <div class="nombre-beneficiario">
+              <span>Bolivia</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <!-- <hr style="width: 100%; border: 1px solid gainsboro;"> -->
+
+
+
+    <div class="data_plan">
+
+      <div class="catalogo">
+        <div class="plan">
+          <!-- <span>PLAN {{servicio.servicio}}</span> -->
+        </div>
+        <div class="description">
+          <span>CERTIFICAMOS QUE:</span>
+          <span>ESTÁ PROTEGIDO POR LA PÓLIZA DE ASISTENCIA DE VIAJES</span>
+          <span style="color: var(--main-color); margin-top: 20px; font-size: 25px;">PLAN EURORED</span>
+          <hr style="width: calc(100% - 50px); border: 1px solid gainsboro;">
+        </div>
+        <div class="beneficios">
+          <div class="beneficio">
+            <div class="title">
+              <span>Beneficios Medicos</span>
+            </div>
+            <div class="list-cats">
+              <div class="data">
+                <ng-container>
+
+                  <span>{{150.32 | currency:'USD':'$':'1.2-2' |uppercase}}</span>
+                  <span>{{150.32 | currency:'USD':'$':'1.2-2' |uppercase}}</span>
+                  <span>{{150.32 | currency:'USD':'$':'1.2-2' |uppercase}}</span>
+                  <span>{{150.32 | currency:'USD':'$':'1.2-2' |uppercase}}</span>
+                  <span>{{150.32 | currency:'USD':'$':'1.2-2' |uppercase}}</span>
+                  <span>{{150.32 | currency:'USD':'$':'1.2-2' |uppercase}}</span>
+
+                </ng-container>
+
+              </div>
+              <div class="cats">
+                <ng-container>
+
+                  <span>Lorem ipsum dolor sit amet consectetur adipisicing</span>
+                  <span>Cobertura Covid</span>
+                  <span>Cobertura Covid</span>
+                  <span>Cobertura Covid</span>
+                  <span>Cobertura Covid</span>
+                  <span>Cobertura Covid</span>
+
+
+                </ng-container>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="beneficio">
+            <div class="title">
+              <span>Beneficios Medicos</span>
+            </div>
+            <div class="list-cats">
+              <div class="data">
+                <ng-container>
+
+                  <span>{{150.32 | currency:'USD':'$':'1.2-2' |uppercase}}</span>
+                  <span>{{150.32 | currency:'USD':'$':'1.2-2' |uppercase}}</span>
+                  <span>{{150.32 | currency:'USD':'$':'1.2-2' |uppercase}}</span>
+                  <span>{{150.32 | currency:'USD':'$':'1.2-2' |uppercase}}</span>
+                  <span>{{150.32 | currency:'USD':'$':'1.2-2' |uppercase}}</span>
+                  <span>{{150.32 | currency:'USD':'$':'1.2-2' |uppercase}}</span>
+
+                </ng-container>
+
+              </div>
+              <div class="cats">
+                <ng-container>
+
+                  <span>Cobertura Covid</span>
+                  <span>Cobertura Covid</span>
+                  <span>Cobertura Covid</span>
+                  <span>Cobertura Covid</span>
+                  <span>Cobertura Covid</span>
+                  <span>Cobertura Covid</span>
+
+
+                </ng-container>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="beneficio">
+            <div class="title">
+              <span>Beneficios Medicos</span>
+            </div>
+            <div class="list-cats">
+              <div class="data">
+                <ng-container>
+
+                  <span>{{150.32 | currency:'USD':'$':'1.2-2' |uppercase}}</span>
+                  <span>{{150.32 | currency:'USD':'$':'1.2-2' |uppercase}}</span>
+                  <span>{{150.32 | currency:'USD':'$':'1.2-2' |uppercase}}</span>
+                  <span>{{150.32 | currency:'USD':'$':'1.2-2' |uppercase}}</span>
+                  <span>{{150.32 | currency:'USD':'$':'1.2-2' |uppercase}}</span>
+                  <span>{{150.32 | currency:'USD':'$':'1.2-2' |uppercase}}</span>
+
+                </ng-container>
+
+              </div>
+              <div class="cats">
+                <ng-container>
+
+                  <span>Cobertura Covid</span>
+                  <span>Cobertura Covid</span>
+                  <span>Cobertura Covid</span>
+                  <span>Cobertura Covid</span>
+                  <span>Cobertura Covid</span>
+                  <span>Cobertura Covid</span>
+
+
+                </ng-container>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="beneficio">
+            <div class="title">
+              <span>Beneficios Medicos</span>
+            </div>
+            <div class="list-cats">
+              <div class="data">
+                <ng-container>
+
+                  <span>{{150.32 | currency:'USD':'$':'1.2-2' |uppercase}}</span>
+                  <span>{{150.32 | currency:'USD':'$':'1.2-2' |uppercase}}</span>
+                  <span>{{150.32 | currency:'USD':'$':'1.2-2' |uppercase}}</span>
+                  <span>{{150.32 | currency:'USD':'$':'1.2-2' |uppercase}}</span>
+                  <span>{{150.32 | currency:'USD':'$':'1.2-2' |uppercase}}</span>
+                  <span>{{150.32 | currency:'USD':'$':'1.2-2' |uppercase}}</span>
+
+                </ng-container>
+
+              </div>
+              <div class="cats">
+                <ng-container>
+
+                  <span>Cobertura Covid</span>
+                  <span>Cobertura Covid</span>
+                  <span>Cobertura Covid</span>
+                  <span>Cobertura Covid</span>
+                  <span>Cobertura Covid</span>
+                  <span>Cobertura Covid</span>
+
+
+                </ng-container>
+              </div>
+            </div>
+
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="ayuda">
+        <i style="color: var(--main-color); position: absolute; top: -5px; right: 0;"
+          class="fa-solid fa-circle-exclamation fa-xl"></i>
+        <span>En caso de emergencia y de necesitar hacer uso de la asistencia debe comunicarse con
+          al numero de contacto:
+        </span>
+
+        <div class="contacto">
+          <i class="fa-brands fa-whatsapp"></i>
+          <span>+1-305-280-8950</span>
+        </div>
+        <span>Al contactarse con este numero acepta nuestras politicas que se especifican en el enlace QR que esta
+          en la parte superior de este documento</span>
+      </div>
+
+      <div class="footer">
+        <div class="info">
+          <div class="line">
+            <hr>
+
+            <div class="img">
+              <img src="../../../../../../../assets/images/isologo-red-card-assist.png" alt="">
+            </div>
+
+          </div>
+          <div class="date">
+            <span>07/07/2023</span>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+
+
+</div>
+

@@ -1,0 +1,41 @@
+
+.top{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
+}
+
+.top span{
+  padding-left: 20px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+
+.info{
+  display:  grid;
+  grid-template-columns: 2fr 2fr;
+
+}
+
+.info .left,
+.info .right{
+  display: flex;
+  flex-direction: column;
+}
+
+.field{
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  font-size: 15px;
+}
+
+.field input{
+  margin: 10px;
+  padding: 5px 10px;
+  border:  1px solid gainsboro;
+  border-radius: 5px;
+  outline: none;
+}

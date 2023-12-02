@@ -1,0 +1,112 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px;
+}
+
+
+.top{
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 100px;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.top .title span{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
+.top button{
+  display: flex;
+  flex-direction: row;
+  border: none;
+  background-color: var(--main-color);
+  border-radius: 10px;
+  padding: 10px 20px;
+  color: white;
+
+}
+
+
+
+.info{
+  padding: 0px;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 1fr;
+}
+
+
+.field{
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+}
+
+
+.field label{
+  font-size: 14px;
+  font-weight: bold;
+}
+
+
+.field input,
+.field select
+{
+  margin-top: 10px;
+  width: 90%;
+  font-size: 14px;
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: 1px solid gray;
+  outline: none;
+}
+
+
+.field input:focus,
+.field select{
+  border:  1px solid gray;
+}
+
+
+
+.bottom{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.bottom button{
+  border: none;
+  font-size: 16px;
+  border-radius: 8px;
+  background-color: var(--main-color);
+  padding: 10px 20px;
+  color: white;
+  cursor: pointer;
+}
+
+
+.container-tree{
+  display: flex;
+  width: 150px;
+  height: 80px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: gainsboro;
+  margin-top: 20px;
+  border-radius: 4px;
+}

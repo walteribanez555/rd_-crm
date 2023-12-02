@@ -1,0 +1,65 @@
+<div class="modal">
+
+  <div class="top">
+    <i class="fa-solid fa-pen-to-square" style="color: var(--main-color);"></i>
+    <h2 style="margin-left: 20px;">Editar Detalle del beneficiario</h2>
+
+    <button class="btn_close" (click)="close()">X</button>
+
+  </div>
+  <hr>
+  <div class="data">
+
+
+    <div class="field">
+      <label for="">Nombre</label>
+      <input type="text" name="" id="" placeholder="nombre">
+    </div>
+
+    <div class="field">
+      <label for="">Segundo Nombre</label>
+      <input type="text" name="" id="" placeholder="secondName">
+    </div>
+
+    <div class="field">
+      <label for="">Apellido</label>
+      <input type="text" name="" id="" placeholder="lastname">
+    </div>
+
+    <div class="field">
+      <label for="">Segundo Apellido</label>
+      <input type="text" name="" id="" placeholder="last-secondname">
+    </div>
+    <div class="field">
+      <label for="">Fecha Nacimiento</label>
+      <input type="text" name="" id="" placeholder="fecha nacimiento">
+    </div>
+    <div class="field">
+      <label for="">Correo</label>
+      <input type="text" name="" id="" placeholder="correo electronico">
+    </div>
+    <div class="field">
+      <label for="">Nro Telefono</label>
+      <input type="text" name="" id="" placeholder="nro telefonico">
+    </div>
+
+
+    <button>
+      <span>Editar</span>
+    </button>
+
+
+
+    <!-- <loading-div *ngIf="loading"  [message]="'Este es un proceso pesado, espere un momento por favor'"></loading-div> -->
+
+  </div>
+</div>
+<div class="modal-backdrop" (click)="close()"></div>
+
+
+
+
+  <!-- <div class="list-polizas" *ngIf="servicio && !loading">
+    <poliza-pdf *ngFor="let beneficiario of beneficiarios" [beneficiario]="beneficiario" [servicio]="servicio" [beneficiosMapped]="listBeneficiosMapped" [poliza]="poliza" (isLoaded)="getCanva($event)" ></poliza-pdf>
+
+  </div> -->

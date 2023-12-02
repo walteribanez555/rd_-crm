@@ -1,0 +1,31 @@
+
+
+.input-field{
+  position: relative;
+  width: 50%;
+  /* width: max-content; */
+}
+
+.input-field svg{
+  position: absolute;
+  right: 20px;
+  bottom: 10px;
+
+  fill: var(--main-color);
+}
+
+ input{
+  width: 100%;
+  margin-top: 20px;
+  font-size: 16px;
+  border: 1px solid gainsboro;
+  padding: 10px 20px;
+  border-radius: 10px;
+  outline: none;
+  font-weight: lighter;
+
+}
+
+ input:focus{
+  border: 1px solid gainsboro;
+}

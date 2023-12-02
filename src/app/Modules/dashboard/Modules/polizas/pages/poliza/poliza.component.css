@@ -1,0 +1,140 @@
+
+.container{
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 80px);
+  overflow: hidden;
+}
+
+
+
+.container-polizas{
+  width: 100%;
+  height: calc(100vh - 80px);
+  overflow: hidden;
+  position: relative;
+  overflow-y: auto;
+}
+
+
+.list-polizas{
+  top:-150%;
+  left: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  width: fit-content;
+  height: fit-content;
+  z-index: 20;
+}
+
+
+poliza-pdf{
+  width: fit-content;
+}
+
+/* Diseño de las polizas a imprimir */
+
+
+.info{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+
+}
+
+
+.top{
+  padding:  20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+hr{
+  width: calc(100% - 50px);
+  border: 1px solid gainsboro;
+}
+
+
+.title{
+  font-size: 30px;
+}
+
+.title span{
+  text-transform: uppercase;
+}
+
+.actions{
+  padding: 5px 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: end;
+  padding-top: 10px;
+
+}
+
+
+.actions button{
+  border: 1px solid var(--main-color);
+  background: transparent;
+  color: var(--main-color);
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.content {
+  padding: 0px 20px 20px 20px;
+}
+
+.content-top{
+  width: 100%;
+  padding: 10px 20px;
+  border: 1px solid var(--main-color);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.item{
+  margin-right: 10px;
+  /* border-right: 1px solid gainsboro; */
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  align-items: center;
+  justify-content: cen;
+}
+
+
+.content-info{
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  padding: 20px;
+}
+
+
+@media (max-width:768px) {
+
+  .content-top{
+    flex-direction: column;
+  }
+
+  .info{
+    height: calc(100vh - 80px);
+    overflow: auto;
+  }
+
+  .content-info{
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+}
