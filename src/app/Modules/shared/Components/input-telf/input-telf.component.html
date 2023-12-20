@@ -1,0 +1,29 @@
+<div class="telf-input">
+  <div class="wrapper" [class.active]="isToggle">
+    <div class="select-btn" (click)="updateToggle()">
+      <span>{{searchInput}}</span>
+      <!-- <i class="uil uil-angle-down"></i> -->
+      <i class="fa-solid fa-chevron-down fa-2xs"></i>
+    </div>
+
+
+    <ng-container *ngIf="isToggle">
+      <div class="content">
+        <div class="search">
+          <i class="uil uil-search"></i>
+          <input (keyup)="filterBySearch()" spellcheck="false" type="text" placeholder="Search" [(ngModel)]="searchText" >
+        </div>
+        <ul class="options">
+          <li *ngFor="let country of  filteredCountries" (click)="updateActualName(country)">{{country.name + ' (' +country.phone_code +') ' }}</li>
+        </ul>
+      </div>
+
+    </ng-container>
+
+  </div>
+
+  <input type="text" placeholder="numero" [(ngModel)]="inputTelf" (keydown)="onWriteInput($event)" autocomplete="false">
+
+
+</div>
+

@@ -6,6 +6,7 @@ import { LayoutPageComponent } from './Pages/layout-page/layout-page.component';
 import { AdminComponent } from './Pages/admin/admin.component';
 import { SidebarComponent } from './Components/sidebar/sidebar.component';
 import { NavbarComponent } from './Components/navbar/navbar.component';
+import { CoreModule } from '../core/core.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { NavbarComponent } from './Components/navbar/navbar.component';
   ],
   imports: [
     CommonModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    CoreModule,
   ]
 })
 export class DashboardModule { }

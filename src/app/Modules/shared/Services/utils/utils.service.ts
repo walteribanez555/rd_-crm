@@ -129,11 +129,8 @@ export class UtilsService {
 
 
   getDate(value : string){
-    const date = new Date(value);
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    return `${year}/${month}/${day}`;
+    const dateToStringMapped = value.split('T')[0].split('-').join('/');
+    return  dateToStringMapped;
   }
 
   getDateDto(fechaDto : string){

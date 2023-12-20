@@ -1,0 +1,14 @@
+export { Beneficiario } from "./Beneficiario.model";
+export { Beneficio } from "./Beneficio.model";
+export { Catalogo } from "./Catalogo.model";
+export { Cliente } from "./Cliente.model";
+export { ComunicacionSiniestro } from "./ComunicacionSiniestro.model";
+export { Cupon } from "./Cupon.model";
+export { Extra } from "./Extra.model";
+export { Plan } from "./Plan.model";
+export { Poliza } from "./Poliza.model";
+export { Precio } from "./Precio.model";
+export { Reembolso } from "./Reembolso.model";
+export { Servicio } from "./Servicio.model";
+export { Siniestro } from "./Siniestro.model";
+export { Venta } from "./Venta.model";

@@ -1,0 +1,33 @@
+<div class="descuento" *ngIf="descuentos" >
+  <div class="field">
+    <span >Tipo de Descuento</span>
+
+    <span class="data"  *ngIf="descuentos[0].tipo_valor===1">%</span>
+    <span class="data"  *ngIf="descuentos[0].tipo_valor===2">Total</span>
+  </div>
+  <div class="field">
+    <span>Cantidad Minima de personas</span>
+    <span class="data">{{descuentos[0].cantidad}}</span>
+  </div>
+  <div class="field">
+    <span>Cantidad en descontar en base a porcentaje o monto fijo</span>
+    <span class="data">{{descuentos[0].valor}}</span>
+  </div>
+  <div class="field">
+    <span>Fecha Inicial</span>
+    <span class="data">{{descuentos[0].fecha_desde  | extractDate}}</span>
+  </div>
+  <div class="field">
+    <span>Fecha Final</span>
+    <span class="data" >{{descuentos[0].fecha_hasta | extractDate}}</span>
+  </div>
+  <div class="status active" *ngIf="descuentos[0].status ===1">
+
+    <span class="data " *ngIf="descuentos[0].status ===1">Activo</span>
+  </div>
+  <div class="status innactive" *ngIf="descuentos[0].status ===2">
+
+    <span class="data innactive" >Inactivo</span>
+  </div>
+
+</div>

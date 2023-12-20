@@ -1,0 +1,7 @@
+<div class="modal {{size +' ' + positions}}" [class.cursor-active]="onTouchModal" (click)="onTouchModal()">
+  <img [src]="imageUrl">
+  <span class="message">
+    {{message}}
+  </span>
+</div>
+<div class="modal-backdrop" (click)="onTouchModal()" [class.cursor-active]="onTouchModal"></div>

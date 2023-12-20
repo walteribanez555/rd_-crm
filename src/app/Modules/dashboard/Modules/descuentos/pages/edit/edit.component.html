@@ -1,0 +1,65 @@
+<div class="container"  >
+  <form class="list"  *ngIf="isReadyForm"  [formGroup]="editDescForm!" >
+    <h2>Editar Descuento</h2>
+    <hr>
+    <div class="field">
+      <div class="title">
+        <span>Tipo de Descuento</span>
+      </div>
+
+
+      <switch-descuento [typeDesc]="tipo_valor!"  style="margin-top: 10px;"  ></switch-descuento>
+    </div>
+
+
+    <div class="field">
+      <div class="title">
+        <span>Cantidad</span>
+      </div>
+      <input type="text"  name="cantidad"  [formControl]="cantidad!" >
+
+    </div>
+
+    <div class="field">
+      <div class="title">
+        <span>Valor</span>
+      </div>
+      <input type="text" name="valor"  formControlName="valor">
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <div class="title">
+          <span>Fecha inicial</span>
+        </div>
+        <input-date [dateControl]="fecha_desde!" ></input-date>
+      </div>
+
+      <div class="field">
+        <div class="title">
+          <span>Fecha final</span>
+        </div>
+        <input-date [dateControl]="fecha_hasta!" ></input-date>
+      </div>
+    </div>
+
+
+
+  </form>
+  <div class="actions">
+    <h2>Acciones</h2>
+    <hr>
+
+    <div class="buttons">
+
+
+      <button class="emitir"  (click)="onUpdateDescuento()"  >
+        Editar Descuento
+      </button>
+    </div>
+
+
+  </div>
+
+
+</div>

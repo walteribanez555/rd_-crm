@@ -1,0 +1,15 @@
+export  {BeneficiariosService} from './beneficiarios.service';
+export { BeneficiosService } from './beneficios.service';
+export { CatalogosService } from './catalogos.service';
+export { ClientesService } from './clientes.service';
+export { ComunicacionSiniestroService } from './comunicacion-siniestro.service';
+export { CuponesService } from './cupones.service';
+export { ExtrasService } from './extras.service';
+export { PlanesService } from './planes.service';
+export { PolizasService } from './polizas.service';
+export { PreciosService } from './precios.service';
+export { ReembolsosService } from './reembolsos.service';
+export { ServiciosService } from './servicios.service';
+export { SiniestrosService } from './siniestros.service';
+export { VentasService } from './ventas.service';
+export {DescuentosService} from './descuentos.service';

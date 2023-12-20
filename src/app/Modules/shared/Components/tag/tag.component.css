@@ -1,0 +1,8 @@
+.tag {
+  border: 1px solid var(--main-color);
+  padding: 2px 4px;
+  border-radius: 10px;
+  color: var(--main-color);
+  font-weight: bold;
+  font-size: 8px;
+}

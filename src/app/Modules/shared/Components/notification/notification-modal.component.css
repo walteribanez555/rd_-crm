@@ -1,0 +1,129 @@
+@keyframes displayBackground {
+  0% {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  100% {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+}
+
+@keyframes setModal-fromTop {
+  0% {
+    top: 0%;
+  }
+
+  100% {
+    top: 5%;
+  }
+}
+
+@keyframes setModal-fromBottom {
+  0% {
+    bottom: 0%;
+  }
+
+  100% {
+    bottom: 5%;
+  }
+}
+
+@keyframes setModal-fromCenter {
+  0% {
+    top: 45%;
+  }
+  100% {
+    top: 50%;
+  }
+}
+
+.modal-backdrop {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 24;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* animation-name: displayBackground;
+      animation-duration: 0.4s;
+      animation-timing-function:cubic-bezier(0.445, 0.05, 0.55, 0.95);
+      animation-iteration-count: 1; */
+}
+
+.modal {
+  z-index: 999;
+  position: absolute;
+  /* width: 500px;
+  height: auto; */
+  border: 1px solid gainsboro;
+  background-color: white;
+  border-radius: 5px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.top {
+  top: 5%;
+
+  animation: 0.5s setModal-fromTop forwards;
+}
+
+.left {
+  left: 5%;
+}
+
+.right {
+  right: 5%;
+}
+
+.center {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  animation: 0.5s setModal-fromCenter forwards;
+}
+
+.bottom {
+  bottom: 5%;
+  animation: 0.5s setModal-fromTop forwards;
+}
+
+.sm {
+  height: 200px;
+}
+
+.lg {
+  height: 300px;
+}
+
+.xl {
+  height: 500px;
+}
+
+.xxl {
+  height: 800px;
+}
+
+img {
+  width: 100px;
+  height: 100px;
+}
+
+span {
+  font-size: 20px;
+  color: var(--text-color);
+  margin-top: 20px;
+  text-align: center;
+}
+
+.cursor-active {
+  cursor: pointer;
+}

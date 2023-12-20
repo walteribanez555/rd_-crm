@@ -1,10 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, Subject } from 'rxjs';
+import { CuponesService } from 'src/app/Modules/core/services';
+import { Size, PositionMessage } from 'src/app/Modules/shared/Components/notification/enums';
+import { NotificationService } from 'src/app/Modules/shared/Components/notification/notification.service';
+import { loadingAnimation } from 'src/app/Modules/shared/animations/loading.animation';
 import { Cupon } from 'src/app/Modules/shared/models/data/Cupon';
 
 @Component({
   templateUrl: './list-cupon.component.html',
-  styleUrls: ['./list-cupon.component.css']
+  styleUrls: ['./list-cupon.component.css'],
+  animations : [
+    loadingAnimation
+  ]
 })
 export class ListCuponComponent {
 
@@ -12,6 +20,10 @@ export class ListCuponComponent {
   hasLoaded = true;
 
 
+  cuponesService  = inject(CuponesService);
+
+
+  private notificacionesModalService = inject(NotificationService);
 
 
 
@@ -24,13 +36,31 @@ export class ListCuponComponent {
 
   ngOnInit(){
 
-    // this.hasLoaded = false;
-    // this.cupones.getCupones().subscribe(
-    //   (data)=>{
-    //     this.hasLoaded= true;
-    //     this.listado_Cupones = data.filter(item => item.status!=2);
-    //   }
-    // )
+
+    const onProcces = new Subject();
+
+    const observerProcess : Observable<any> = onProcces.asObservable();
+
+
+    this.onLoading(observerProcess);
+
+
+    this.cuponesService.getAll().subscribe({
+      next : (data) => {
+        onProcces.complete();
+        this.listado_Cupones = data;
+      },
+      error : (err) => {
+        onProcces.complete();
+        console.log(err);
+
+      },
+      complete : () => {
+
+      }
+    })
+
+
   }
 
 
@@ -46,10 +76,42 @@ export class ListCuponComponent {
 
 
   editDetails(idCupon : number){
-    this.router.navigate([`../dashboard/cupones/${idCupon}/editar`]);
+    this.router.navigate([`../dashboard/cupones/${idCupon}/edit`]);
 
   }
 
+
+
+
+  onSuccess( message: string) {
+    this.notificacionesModalService.show(message, {
+      size: Size.normal,
+      duration :3000,
+      positions : [PositionMessage.center],
+      imageUrl : 'assets/icons/check.svg',
+      closeOnTouch : true,
+    })
+  }
+
+  onError( message : string) {
+    this.notificacionesModalService.show(message, {
+      size : Size.normal,
+      duration : 3000,
+      positions : [PositionMessage.center],
+      imageUrl : 'assets/icons/warning.svg',
+      closeOnTouch : true,
+    })
+  }
+
+  onLoading( observerProcess: Observable<any> ){
+    this.notificacionesModalService.show("Cargando", {
+      size: Size.normal,
+      positions : [PositionMessage.center],
+      imageUrl : 'assets/icons/loading.svg',
+      closeOnTouch : true,
+      notifier : observerProcess
+    })
+  }
 
 
 }

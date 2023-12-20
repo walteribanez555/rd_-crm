@@ -57,11 +57,7 @@ export class SidebarComponent {
       dropdownHeight: '0',
       icon : 'fa-solid fa-building-user',
       submenuItems : [
-        // {
-        //   label : 'Polizas',
-        //   route : 'myoficina/polizas',
-        //   icon : 'fa-solid fa-file'
-        // },
+
         {
           label : 'reportes-polizas',
           route : 'myoficina/reporte',
@@ -70,6 +66,24 @@ export class SidebarComponent {
 
       ]
 
+    },
+    {
+      label : 'Descuentos',
+      isDropdownOpen : false,
+      dropdownHeight : '0',
+      icon : 'fa-solid fa-money-bill',
+      submenuItems : [
+        {
+          label : 'Crear Descuento',
+          route :'descuentos/create',
+          icon : 'fa-solid fa-square-plus',
+        },
+        {
+          label : 'Buscar Descuento',
+          route : 'descuentos/list',
+          icon : 'fa-solid fa-magnifying-glass-dollar'
+        }
+      ]
     },
     {
 
