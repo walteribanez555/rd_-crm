@@ -1,0 +1,27 @@
+<div class="extra-container" [class.selected]="isSelected">
+  <div class="icon">
+    <i class="{{ plan.icono }}"></i>
+  </div>
+
+  <div class="info">
+    <div class="details">
+      <div class="top">
+        <span>{{plan.beneficio}}</span>
+      </div>
+      <span class="price">
+        {{plan.incremento + " %"}} - por persona
+      </span>
+      <div class="content">
+        <span>{{plan.complemento}}</span>
+      </div>
+
+    </div>
+
+    <switch  [isSelected]="isSelected" [indexPos]="indexPos"  (changeState)="changeState($event)"></switch>
+
+
+  </div>
+
+
+
+</div>

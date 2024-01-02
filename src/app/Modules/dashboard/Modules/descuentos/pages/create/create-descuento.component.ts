@@ -5,6 +5,7 @@ import { DescuentoToPost } from 'src/app/Modules/core/models/Descuento.model';
 import { DescuentosService } from 'src/app/Modules/core/services';
 import { PositionMessage, Size } from 'src/app/Modules/shared/Components/notification/enums';
 import { NotificationService } from 'src/app/Modules/shared/Components/notification/notification.service';
+import { DatesAction } from 'src/app/Modules/shared/utils/dates/dates-action';
 
 @Component({
   styleUrls: ['./create-descuento.component.css'],
@@ -64,8 +65,8 @@ export class CreateDescuentoComponent implements OnInit {
       tipo_valor : tipo,
       cantidad : cantidad,
       valor : valor,
-      fecha_desde : fecha_desde,
-      fecha_hasta : fecha_hasta,
+      fecha_desde : DatesAction.invert_date(fecha_desde),
+      fecha_hasta : DatesAction.invert_date(fecha_hasta),
       status : 1,
     };
 

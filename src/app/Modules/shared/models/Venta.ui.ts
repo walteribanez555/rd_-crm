@@ -15,6 +15,7 @@ export interface VentaUi {
   total_plus : number;
   selectedExtras : PlanUi[];
   total_polizas :number;
-
+  total_cupones : number;
+  tipo_cupones : number;
 
 }

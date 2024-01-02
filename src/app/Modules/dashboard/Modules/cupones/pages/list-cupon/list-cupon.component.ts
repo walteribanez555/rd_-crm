@@ -66,7 +66,7 @@ export class ListCuponComponent {
 
 
   createCupones(){
-    this.router.navigate(['../dashboard/cupones/crear-cupones']);
+    this.router.navigate(['../dashboard/cupones/create']);
   }
 
   showDetails(idCupon : number){
@@ -108,7 +108,7 @@ export class ListCuponComponent {
       size: Size.normal,
       positions : [PositionMessage.center],
       imageUrl : 'assets/icons/loading.svg',
-      closeOnTouch : true,
+      closeOnTouch : false,
       notifier : observerProcess
     })
   }

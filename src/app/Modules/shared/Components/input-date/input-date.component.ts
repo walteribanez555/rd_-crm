@@ -40,7 +40,7 @@ export class InputDateComponent  implements OnInit {
     }
 
     // console.log(this.date?.split('-'));
-    if (this.date!.length === 10) {
+    if (this.date?.length === 10) {
       const arrayToMap = this.date!.split('-');
       this.arraymove(arrayToMap, 0, 1);
 

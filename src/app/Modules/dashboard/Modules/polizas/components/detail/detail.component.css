@@ -1,0 +1,304 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* justify-content: center; */
+  /* justify-content: n; */
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 100px 20px;
+  text-align: center;
+}
+
+.container::-webkit-scrollbar {
+  width: 7px;
+}
+.container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 25px;
+}
+.container::-webkit-scrollbar-thumb {
+  background: gray;
+
+  border-radius: 25px;
+}
+.container::-webkit-scrollbar-thumb:hover {
+  background: gray;
+}
+
+/*
+hr{
+  width: 50%;
+  border:  1px solid gainsboro;
+} */
+
+h1 {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 35px;
+  right: 20px;
+  color: var(--main-color);
+}
+
+h1 span {
+  font-size: 15px;
+}
+
+h1 span.title {
+  margin-top: -15px;
+  font-size: 30px;
+}
+
+.field {
+  margin-top: 15px;
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.field select,
+.field input {
+  width: 50vh;
+  padding: 10px 20px;
+  outline: none;
+  border: 1px solid gainsboro;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2vw;
+}
+
+button {
+  padding: 15px 30px;
+  border-radius: 10px;
+  background-color: #f04b46;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+  transition: all 0.3s ease-in-out;
+  background-color: var(--main-color);
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 0px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap-reverse;
+  gap: 10px;
+  margin: 20px 0px;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.prices {
+  width: 30vw;
+  border: 1px solid gainsboro;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f4f5f6;
+}
+
+.details {
+  width: 60vw;
+  border: 1px solid gainsboro;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.details,
+.prices {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.prices .list {
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  border: 1px solid gainsboro;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.prices .list .field {
+  border: none;
+}
+
+.list .field {
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 5px 20px;
+  border: 1px solid gainsboro;
+  border-radius: 8px;
+}
+
+.details hr,
+.prices hr {
+  width: 100%;
+  border: 1px solid gainsboro;
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-left: 10px;
+  width: 100%;
+}
+
+.info .list {
+  flex-direction: column;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.details .list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.tag {
+  padding: 5px 10px;
+  border: 1px solid var(--main-color);
+  border-radius: 8px;
+  color: var(--main-color);
+  font-weight: bold;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.item.discount {
+  color: green;
+}
+
+.info hr {
+  width: 100%;
+  border: 1px solid gainsboro;
+}
+
+.prices button {
+  width: 100%;
+  margin: 10px 0px;
+}
+
+.left span::before{
+  content: '-';
+  padding-right: 2px;
+}
+
+.left span.total::before{
+  content: '';
+}
+
+@media (max-width: 1024px) {
+  .container {
+    justify-content: normal;
+    height: calc(90vh - var(--main-header-height));
+    overflow-y: auto;
+    padding: 20px 30px;
+    overflow-x: hidden;
+    padding-top: 50px;
+  }
+
+  .button-group {
+    flex-wrap: wrap-reverse;
+  }
+
+  h1,
+  h2 {
+    font-size: 15px;
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+
+  .field {
+    padding: 0px;
+  }
+
+  button {
+    margin: 15px 20px;
+    padding: 15px 0px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    width: calc(100vw - 50px);
+  }
+
+  h1 span.title {
+    font-size: 15px;
+    margin-top: -10px;
+  }
+
+  .details,
+  .prices {
+    width: 100%;
+  }
+
+  .item {
+    font-size: 12px;
+  }
+
+  .left {
+    display: flex;
+  }
+
+  .left span {
+    text-align: start;
+  }
+
+  .info{
+    font-size: 12px;
+  }
+
+  .title{
+    font-size: 10px;
+  }
+}

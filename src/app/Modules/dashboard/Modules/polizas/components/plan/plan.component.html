@@ -1,0 +1,54 @@
+<div class="container"  [class.selected]="servicioUi.isSelected">
+  <div class="top"  (click)="changeState()">
+    <span>Plan</span>
+    <span class="plan-name">{{servicioUi.servicio}}</span>
+    <span>Precio por Persona</span>
+    <span style="font-size: 20px; font-weight: bold;">{{ servicioUi.precioSelected | currency }}</span>
+  </div>
+  <div class="info">
+    <div class="field">
+      <span>Cobertura de:</span>
+      <span class="price">{{servicioUi.cobertura_global | currency}}</span>
+    </div>
+
+    <div class="field">
+      <span>Regiones que Abarca</span>
+      <div class="regions">
+        <tag  *ngFor="let tag of tags"  [tag]="tag"></tag>
+
+      </div>
+
+    </div>
+    <div class="field">
+      <span>Rango de Edad</span>
+      <div class="age-limit">
+        <span>{{servicioUi.edad_base}}</span>
+        <span>-</span>
+        <span>{{servicioUi.edad_limite -1}}</span>
+      </div>
+    </div>
+
+
+    <div class="field">
+      <span  class="see-more" (click)="openModal(modalTemplate)"   >
+        Ver Mas Detalles
+
+      </span>
+      <span class="see-more"  *ngIf="!servicioUi.isSelected; else selected" (click)="changeState()" >
+        Seleccionar
+      </span>
+      <ng-template #selected >
+        <span  class="see-more active" (click)="changeState()">
+          Seleccionado
+        </span>
+      </ng-template>
+    </div>
+
+  </div>
+
+</div>
+
+<ng-template  #modalTemplate>
+  <!-- <list-cobertura></list-cobertura> -->
+  <!-- <modal-plan-details  *ngIf="isOpenDetails"></modal-plan-details> -->
+</ng-template>

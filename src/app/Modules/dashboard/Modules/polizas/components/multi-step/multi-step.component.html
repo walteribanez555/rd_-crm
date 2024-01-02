@@ -1,0 +1,127 @@
+<div class="content" [class.onDisplay]="isClicked" [class.collapsed]="isHideInfo">
+  <div class="steps" [class.expanded]="isHideInfo">
+    <!-- <span>Prueba Limite</span> -->
+
+    <dates-to-travel [class.hidden]="actualStep !== 1" [places]="locationsForm" (onChangePage)="onChangeStep(2)"
+      [class.appears]="actualStep == 1"></dates-to-travel>
+    <destiny [class.hidden]="actualStep !== 2" [datesForm]="datesForm" (onBackStep)="onChangeStep(1)"
+      (onChangePage)="onChangeStep(3)" [class.appears]="actualStep == 2"></destiny>
+    <ages-traveler [class.hidden]="actualStep !== 3" [agesForm]="quantityForm" (onBackStep)="onChangeStep(2)"
+      (onChangePage)="onChangeStep(4)" [class.appears]="actualStep == 3"></ages-traveler>
+    <planes [class.hidden]="actualStep !==4" [planForm]="planForm" [observerSelection]="observerServiciosUi"
+      (onSelectedPlan)="onPlanSelected($event)" (onBackStep)="onChangeStep(3)" (onChangePage)="onChangeStep(5)"
+      [class.appears]="actualStep == 4" [serviciosUi]="serviciosToUi"></planes>
+    <extra-poliza [class.hidden]="actualStep!==5" [onSelectedPlan]="observerOnSelectedPlan"
+      (onBackStep)="onChangeStep(4)" (onChangePage)="onChangeStep(6)" [class.appears]="actualStep == 5"></extra-poliza>
+    <detail [class.hidden]="actualStep!==6" [onDetail]="observerOnShowDetails" [forms]="listForms"
+      (onBackStep)="onChangeStep(5)" (onChangePage)="onChangeStep(7)" [class.appears]="actualStep == 6"></detail>
+    <datos-polizas [class.hidden]="actualStep!==7" [onPageChanged]="observerOnShowDetails" [forms]="listForms"
+      (onBackStep)="onChangeStep(6)" (onChangePage)="onChangeStep(8)" [class.appears]="actualStep == 7"></datos-polizas>
+
+
+
+  </div>
+  <div class="info" [class.active]="isClicked" [class.hidden]="isHideInfo">
+    <div class="top" (click)="onChangeClick()">
+      <img src="assets/images/isologo-blanco.png" alt="">
+      <div class="container-text">
+        <p class="text">
+          Cotiza Tu
+        </p>
+        <p class="second-text">
+          Asistencia
+        </p>
+      </div>
+
+      <div class="expand">
+        <i class="fa-solid fa-caret-up fa-2xl" style="color: white;"></i>
+      </div>
+    </div>
+    <div class="process">
+      <p style="font-size: 20px; color: gainsboro; font-weight: bold;">Pasos a Seguir</p>
+      <div class="progress">
+        <div class="progress-top">
+
+        </div>
+        <ul class="progress-steps">
+          <li class="step" (click)="onStepClicked(1)" [class.active]="actualStep >= 1">
+            <span>1</span>
+            <div class="data-step">
+              <span>Paso 1:</span>
+              <p>Destino y Origen...</p>
+              <span *ngIf="locationsForm.valid" class="response">{{locationsForm.get('fromLocation')?.value}} -
+                {{locationsForm.get('toLocation')?.value}}</span>
+            </div>
+          </li>
+          <li class="step" (click)="onStepClicked(2)" [class.active]="actualStep >= 2">
+            <span>2</span>
+            <div class="data-step">
+              <span>Paso 2:</span>
+              <p>¿Cúales son las Fechas de su viaje?</p>
+              <span *ngIf="datesForm.valid" class="response">{{datesForm.get('initialDate')?.value}} ||
+                {{datesForm.get('finalDate')?.value}} </span>
+              <span *ngIf="datesForm.valid" class="response">{{datesForm.get('quantityDays')?.value}} Dias</span>
+            </div>
+          </li>
+          <li class="step" (click)="onStepClicked(3)" [class.active]="actualStep >= 3">
+            <span>3</span>
+            <div class="data-step">
+              <span>Paso 3:</span>
+              <p>¿Cúantos Pasajeros Son?</p>
+              <span *ngIf="quantityForm.get('adultQuantity')!.value! > 0" class="response">
+                {{quantityForm.get('adultQuantity')!.value}} Adultos</span>
+              <span *ngIf="quantityForm.get('seniorQuantity')!.value! > 0" class="response">
+                {{quantityForm.get('seniorQuantity')!.value}} Adultos Mayores</span>
+            </div>
+          </li>
+          <li class="step" (click)="onStepClicked(4)" [class.active]="actualStep >= 4">
+            <span>4</span>
+            <div class="data-step">
+              <span>Paso 4:</span>
+              <p>Selecciona tu Plan</p>
+              <span *ngIf="planForm.valid" class="response">{{ planForm.get('planSelected')!.value!.servicio }}</span>
+            </div>
+          </li>
+          <li class="step" (click)="onStepClicked(5)" [class.active]="actualStep >= 5">
+            <span>5</span>
+            <div class="data-step">
+              <span>Paso 5:</span>
+              <p>Selecciona los extras</p>
+            </div>
+          </li>
+          <li class="step" (click)="onStepClicked(6)" [class.active]="actualStep >= 6">
+            <span>6</span>
+            <div class="data-step">
+              <span>Paso 6:</span>
+              <p>Revisa los detalles</p>
+            </div>
+          </li>
+          <span style="padding-top: 20px;" [class.active]="actualStep >= 7">
+            Revisa los detalles para continuar
+          </span>
+          <li class="step" (click)="onStepClicked(7)" [class.active]="actualStep >= 7">
+            <span>7</span>
+            <div class="data-step">
+              <span>Paso 7:</span>
+              <p>Rellena la informacion</p>
+            </div>
+          </li>
+          <li class="step" (click)="onStepClicked(8)" [class.active]="actualStep >= 8">
+            <span> 8</span>
+            <div class="data-step">
+              <span>Paso 8:</span>
+              <p>Pagar</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+
+    </div>
+    <button class="expand-info" (click)="onClickInfo()">
+      <span>></span>
+    </button>
+  </div>
+
+
+</div>

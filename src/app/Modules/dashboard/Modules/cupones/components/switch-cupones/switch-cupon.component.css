@@ -1,0 +1,57 @@
+label{
+  padding-left: 10px;
+}
+
+
+
+.container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 10px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.item{
+  padding: 10px 20px;
+  border: 1px solid var(--main-color);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+}
+
+
+/* Style the checkbox */
+input[type="checkbox"] {
+  /* Hide the default checkbox */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  /* Define width and height */
+  width: 15px;
+  height: 15px;
+  /* Add a custom background and border */
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid #999;
+  /* Position relative to create space for pseudo-elements */
+  position: relative;
+  cursor: pointer;
+}
+
+/* Style the checked state */
+input[type="checkbox"]:checked {
+  /* Change background color when checked */
+  background-color: var(--main-color);
+}
+
+/* Style the custom checkmark inside the checkbox */
+
+
+/* Show the checkmark when checkbox is checked */
+input[type="checkbox"]:checked::before {
+  visibility: visible;
+}
+
+

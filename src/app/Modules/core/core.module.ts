@@ -19,6 +19,7 @@ import {
   SiniestrosService,
   VentasService,
 } from './services';
+import { PolizasExtrasService } from './services/polizas-extras.service';
 
 @NgModule({
   declarations: [],
@@ -39,6 +40,7 @@ import {
     SiniestrosService,
     VentasService,
     DescuentosService,
+    PolizasExtrasService
   ],
   exports: [],
   bootstrap: [],

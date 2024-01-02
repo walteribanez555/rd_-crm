@@ -1,0 +1,43 @@
+<div class="container">
+  <h1>
+    <span style="color: gainsboro;">Paso 8: </span>
+    <span class="title">Pagar...</span>
+  </h1>
+
+
+  <h2>Detalles Del Pago</h2>
+
+  <hr>
+
+  <div class="row"  >
+
+    <div class="list"  *ngIf="htmlContent" [class.visible]="getPaymentIntentReady()" [innerHTML]="htmlContent" ></div>
+
+
+    <div class="details" *ngIf="getPaymentIntentReady()">
+
+              <div class="fr-payment"    >
+                <div   style="width: 100%; height: fit-content;" [innerHTML]="paymentFragment">
+                </div>
+              </div>
+
+
+
+    </div>
+
+
+
+  </div>
+
+
+  <!-- <div class="button-group">
+
+    <button (click)="onBackStepBtn()">
+      <span>Paso Previo</span>
+    </button>
+
+    <button (click)="onChangeStep()">
+      <span>Sigamos</span>
+    </button>
+  </div> -->
+</div>

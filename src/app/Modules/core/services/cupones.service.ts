@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { CRUDService } from '../interfaces/CRUD_service.interface';
-import { Cupon } from '../models/Cupon.model';
+import { Cupon, CuponToPost } from '../models/Cupon.model';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -20,10 +20,16 @@ export class CuponesService implements CRUDService<Cupon> {
     return this.http.get<Cupon[]>(this.apiUrl);
   }
   getOne(id: string | number): Observable<Cupon[]> {
-    throw new Error('Method not implemented.');
+    let params  = new HttpParams;
+
+    params = params.append('id', id);
+    return this.http.get<Cupon[]>(this.apiUrl, {params});
+
+
   }
-  create(item: Cupon): Observable<Cupon> {
-    throw new Error('Method not implemented.');
+  create(item: CuponToPost): Observable<Cupon> {
+    return this.http.post<Cupon>(this.apiUrl, item );
+
   }
   update(id: string | number, item: Cupon): Observable<Cupon> {
     throw new Error('Method not implemented.');

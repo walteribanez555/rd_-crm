@@ -1,10 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { CRUDService } from '../interfaces/CRUD_service.interface';
-import { Cupon } from '../models/Cupon.model';
 import { Observable } from 'rxjs';
-import { Descuento, DescuentoToPost } from '../models/Descuento.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Descuento, DescuentoToPost } from '../models/Descuento.model';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +31,8 @@ export class DescuentosService implements CRUDService<Descuento> {
   create(item: DescuentoToPost): Observable<Descuento> {
     return this.http.post<Descuento>(this.apiUrl, item);
   }
+
+
   update(id: string | number, item: DescuentoToPost): Observable<Descuento> {
 
     return this.http.put<Descuento>(this.apiUrl +`?id=${id}`,item);

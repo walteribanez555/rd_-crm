@@ -1,0 +1,182 @@
+
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* justify-content: center; */
+  /* justify-content: n; */
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 100px 20px;
+  text-align: center;
+
+}
+
+
+
+.container::-webkit-scrollbar{
+  width: 7px;
+}
+.container::-webkit-scrollbar-track{
+  background: #f1f1f1;
+  border-radius: 25px;
+}
+.container::-webkit-scrollbar-thumb{
+  background: gray;
+
+  border-radius: 25px;
+}
+.container::-webkit-scrollbar-thumb:hover{
+  background:gray;
+}
+
+/*
+hr{
+  width: 50%;
+  border:  1px solid gainsboro;
+} */
+
+
+h1{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 35px;
+  right: 20px;
+  color: var(--main-color);
+}
+
+h1 span{
+  font-size: 15px;
+}
+
+h1 span.title{
+  margin-top: -15px;
+  font-size: 30px;
+}
+
+.field{
+  margin-top: 15px;
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.field select,
+.field input{
+  width: 50vh;
+  padding: 10px 20px;
+  outline: none;
+  border: 1px solid gainsboro;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+
+.list-location{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.button-group{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+
+
+button{
+  padding: 15px 30px;
+  border-radius: 10px;
+  background-color: #f04b46;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover{
+  transition: all 0.3s ease-in-out;
+  background-color: var(--main-color);
+}
+
+.list{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 0px;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
+@media (max-width: 1024px) {
+  .container{
+    justify-content: normal;
+    height: calc(90vh - var(--main-header-height));
+    overflow-y: auto;
+    padding: 20px 30px;
+    overflow-x: hidden;
+    padding-top: 50px;
+  }
+
+  .button-group{
+    flex-wrap: wrap-reverse;
+  }
+
+
+
+  h1, h2 {
+    font-size: 15px;
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+
+
+
+  .field{
+    padding: 0px;
+  }
+
+
+  button{
+    margin: 15px 20px;
+    padding: 15px 0px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    width: calc(100vw - 50px);
+  }
+
+
+
+  h1 span.title{
+    font-size: 15px;
+    margin-top: -10px;
+  }
+
+
+  extra{
+    width: 100%;
+  }
+
+
+}

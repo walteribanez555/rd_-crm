@@ -1,0 +1,273 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 100px 20px;
+  text-align: center;
+}
+
+.container::-webkit-scrollbar {
+  width: 7px;
+}
+.container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 25px;
+}
+.container::-webkit-scrollbar-thumb {
+  background: gray;
+
+  border-radius: 25px;
+}
+.container::-webkit-scrollbar-thumb:hover {
+  background: gray;
+}
+
+/*
+hr{
+  width: 50%;
+  border:  1px solid gainsboro;
+} */
+
+h1 {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 35px;
+  right: 20px;
+  color: var(--main-color);
+}
+
+h1 span {
+  font-size: 15px;
+}
+
+h1 span.title {
+  margin-top: -15px;
+  font-size: 30px;
+}
+
+.field {
+  margin-top: 15px;
+  display: grid;
+  grid-auto-flow: column-reverse;
+  grid-template-columns: repeat(2, 1fr); /* Repeat pattern every 2 elements */
+  grid-gap: 5px;
+}
+
+.field select,
+.field input {
+  width: 50vh;
+  padding: 10px 20px;
+  outline: none;
+  border: 1px solid gainsboro;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.list-location {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  padding: 15px 30px;
+  border-radius: 10px;
+  background-color: #f04b46;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+  transition: all 0.3s ease-in-out;
+  background-color: var(--main-color);
+}
+
+.button-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.list {
+  display: flex;
+  width: 40vw;
+  border-radius: 8px;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+poliza{
+  width: 100%;
+}
+
+.details {
+  width: 80%;
+  border: 1px solid gainsboro;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.details .item{
+  padding-top: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+
+}
+
+
+.left {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.right {
+  padding: 0px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap-reverse;
+  gap: 10px;
+  margin: 20px 0px;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.info-data {
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid gainsboro;
+  padding: 10px;
+  box-shadow: 0 0 10px #e4e4e4;
+}
+
+.poliza.titular {
+  border: 3px solid var(--main-color);
+  box-shadow: 0 10px 25px rgba(220, 24, 24, 0.1);
+}
+
+.visible{
+  display: none;
+}
+
+
+
+
+.poliza .top {
+  height: 40px;
+}
+
+.poliza .info {
+  height: 260px;
+}
+
+.top {
+  padding: 0px 20px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  color: var(--main-color);
+}
+
+.top span {
+  padding-left: 20px;
+}
+
+
+.title{
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.details hr{
+  border:  1px solid gainsboro;
+  width: 100%;
+}
+
+
+button{
+  margin-top: 20px;
+  width: 100%;
+  background-color: var(--main-color);
+  border-radius: 10px;
+}
+
+
+@media (max-width: 1024px) {
+  .button-group {
+    flex-wrap: wrap-reverse;
+  }
+  .container {
+    justify-content: normal;
+    height: calc(90vh - var(--main-header-height));
+    overflow-y: auto;
+    padding: 20px 30px;
+    overflow-x: hidden;
+    padding-top: 50px;
+  }
+
+  h1,
+  h2 {
+    font-size: 15px;
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+
+  .field {
+    padding: 0px;
+  }
+
+
+  .list{
+    width: 100%;
+  }
+
+  button {
+    /* margin: 15px 20px; */
+    padding: 15px 0px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    /* width: calc(100vw - 50px); */
+  }
+
+  h1 span.title {
+    font-size: 15px;
+    margin-top: -10px;
+  }
+
+  .details {
+    width: 100%;
+  }
+}

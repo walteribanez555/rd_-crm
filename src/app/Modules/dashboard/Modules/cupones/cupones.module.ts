@@ -10,6 +10,8 @@ import { CreateCouponComponent } from './pages/create-coupon/create-coupon.compo
 import { SharedModule } from 'src/app/Modules/shared/shared.module';
 import { PipesModule } from "../../../shared/pipes/pipes.module";
 import { RouterModule } from '@angular/router';
+import { SwitchCuponComponent } from './components/switch-cupones/switch-cupon.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -18,7 +20,8 @@ import { RouterModule } from '@angular/router';
         EditCuponComponent,
         ListCuponComponent,
         LayoutPageComponent,
-        CreateCouponComponent
+        CreateCouponComponent,
+        SwitchCuponComponent,
     ],
     imports: [
         RouterModule,
@@ -26,6 +29,8 @@ import { RouterModule } from '@angular/router';
         SharedModule,
         PipesModule,
         CuponesRoutingModule,
+        FormsModule,
+        ReactiveFormsModule
     ]
 })
 export class CuponesModule { }

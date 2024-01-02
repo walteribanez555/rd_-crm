@@ -35,4 +35,8 @@ export class DatesAction {
     }
     return diff;
   }
+
+  static invert_date(date : string) {
+    return date.split('-').reverse().join('-');
+  }
 }

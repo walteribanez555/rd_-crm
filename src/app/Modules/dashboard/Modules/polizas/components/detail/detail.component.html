@@ -1,0 +1,163 @@
+<div class="container" *ngIf="ventaUi">
+  <h1>
+    <span style="color: gainsboro;">Paso 6: </span>
+    <span class="title">Detalles</span>
+  </h1>
+
+  <h2>Confirma los Detalles de tu Cotizacion...</h2>
+
+  <hr>
+
+  <div class="field">
+    <span>Confirma los detalles</span>
+
+  </div>
+
+  <div class="row">
+
+    <div class="details">
+      <span class="title">Detalles del Viaje</span>
+      <div class="list">
+        <div class="field">
+          <div class="title">
+            <span>Origen</span>
+          </div>
+          <div class="info">
+            <span class="tag">{{forms[0].get('fromLocation')?.value}}</span>
+          </div>
+
+        </div>
+        <div class="field">
+          <div class="title">
+            <span>Destino</span>
+          </div>
+          <div class="info">
+            <span class="tag" *ngFor="let destiny of destinyList">{{destiny}}</span>
+          </div>
+        </div>
+        <div class="field">
+          <div class="title">
+            <span>Fecha Salida</span>
+          </div>
+          <div class="info">
+            <span>{{forms[1].get('initialDate')?.value}}</span>
+          </div>
+        </div>
+        <div class="field">
+          <div class="title">
+            <span>Fecha Retorno</span>
+          </div>
+          <div class="info">
+            <span>{{forms[1].get('finalDate')?.value}}</span>
+          </div>
+        </div>
+        <div class="field">
+          <div class="title">
+            <span> Cantidad de Pasajeros</span>
+          </div>
+          <div class="info">
+            <span  >{{ventaUi.beneficiarys}}</span>
+
+          </div>
+        </div>
+        <div class="field">
+          <div class="title">
+            <span>Plan Seleccionado</span>
+          </div>
+          <div class="info">
+            <span>{{ventaUi.servicioUi.servicio}}</span>
+          </div>
+        </div>
+        <div class="field">
+          <div class="title">
+            <span>Extras</span>
+          </div>
+          <div class="info">
+            <div class="list">
+              <span *ngFor="let extra of ventaUi.selectedExtras">{{extra.beneficio}}</span>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+
+    </div>
+    <div class="prices">
+      <span class="title">Total a Pagar</span>
+      <div class="list">
+
+        <div class="field">
+          <div class="title">
+            Plan
+          </div>
+          <div class="info">
+            <div class="item">
+              <div class="left">
+                <!-- <span>{{forms[3].get('planSelected')?.value.servicio}}</span> -->
+                <span>{{ventaUi.servicioUi.servicio}}</span>
+
+              </div>
+              <div class="right">
+                <!-- <span>{{forms[3].get('planSelected')?.value.precioSelected | currency}}</span> -->
+                <span>{{ventaUi.total_polizas  | currency}}</span>
+
+              </div>
+            </div>
+            <div class="item">
+              <div class="left">
+                <span>Plus</span>
+              </div>
+              <div class="right">
+                {{ventaUi.total_plus | currency}}
+              </div>
+            </div>
+            <div class="item discount" *ngIf="ventaUi.total_descuento > 0">
+              <div class="left">
+                <span>Descuento</span>
+              </div>
+              <div class="right">
+                {{ventaUi.total_descuento | currency}}
+              </div>
+            </div>
+            <div class="item discount"  *ngIf="ventaUi.total_cupones > 0">
+              <div class="left">
+                <span>Cupones</span>
+              </div>
+              <div class="right">
+                {{ ventaUi.total_cupones | currency }}
+              </div>
+            </div>
+
+            <hr>
+            <div class="item">
+              <div class="left">
+                <span class="total" style="font-weight: bold;">Total</span>
+              </div>
+              <div class="right">
+                <span style="font-weight: bold;" >{{ventaUi.totalPago | currency}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <button (click)="onChangeStep()">
+        <span>Rellenar Polizas</span>
+      </button>
+
+    </div>
+
+
+
+
+  </div>
+
+
+  <div class="button-group">
+    <button (click)="onBackStepBtn()">
+      <span>Paso Previo</span>
+    </button>
+  </div>
+</div>

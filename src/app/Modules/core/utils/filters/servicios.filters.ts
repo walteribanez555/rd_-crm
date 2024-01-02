@@ -1,5 +1,5 @@
 import { FormGroup } from '@angular/forms';
-import { ServicioUi } from 'src/app/Modules/shared/models';
+import { ServicioUi } from 'src/app/Modules/shared/models/Servicio.ui';
 
 export class ServiciosFilter {
   filterByActions(

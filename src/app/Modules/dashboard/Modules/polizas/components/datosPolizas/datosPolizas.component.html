@@ -1,0 +1,50 @@
+<div class="container">
+  <h1>
+    <span style="color: gainsboro;" >Paso 7: </span>
+    <span  class="title">Rellena la Informacion...</span>
+  </h1>
+
+
+  <h2>Rellena la Informacion de los beneficiarios</h2>
+
+  <hr>
+  <div class="row">
+    <div class="list">
+      <poliza *ngFor="let poliza of polizasForm"  [polizaForm]="poliza"  [finalDate]="travelDate!" ></poliza>
+
+    </div>
+    <div class="details">
+        <div class="title">
+          Detalle de tus polizas
+        </div>
+        <div class="item" style="margin-bottom:  20px;">
+          <div class="left">
+            <span>Pasajeros</span>
+          </div>
+          <div class="right">
+            <span>{{polizasForm.length}}</span>
+          </div>
+        </div>
+        <hr>
+
+        <button   (click)="onChangeStep()">
+          <span>Generar Polizas</span>
+        </button>
+
+
+    </div>
+
+
+
+
+  </div>
+
+  <div class="button-group">
+
+    <button (click)="onBackStepBtn()">
+      <span>Paso Previo</span>
+    </button>
+
+
+  </div>
+</div>

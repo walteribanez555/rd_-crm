@@ -9,6 +9,9 @@ export interface Extra {
   incremento:     number;
   color:          Color | null;
   icono:          Icono | null;
+  beneficio_id : number;
+  tipo_valor : number;
+
 }
 
 export enum Color {

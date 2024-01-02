@@ -1,5 +1,6 @@
-import { Beneficio, Plan, Servicio } from 'src/app/Modules/Core/models';
-import { BeneficioUi } from '../../models';
+import { Beneficio } from "src/app/Modules/core/models/Beneficio.model";
+import { Plan } from "src/app/Modules/core/models/Plan.model";
+import { BeneficioUi } from "../../models/Beneficio.ui";
 
 export function mapToBeneficio(
   beneficio: Beneficio,

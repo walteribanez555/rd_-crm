@@ -1,1 +1,134 @@
-<p>create-coupon works!</p>
+<div class="container">
+
+
+  <form class="list" *ngIf="createCuponForm"  [formGroup]="createCuponForm" >
+    <h2>Crear Cupon</h2>
+    <hr>
+    <div class="field">
+      <div class="title">
+        <span>Tipo de Cupon</span>
+      </div>
+
+
+      <switch-descuento  [typeDesc]="tipo_valor"    style="margin-top: 10px;"  ></switch-descuento>
+    </div>
+
+
+    <div class="field">
+      <div class="title">
+        <span>Nombre</span>
+      </div>
+      <input type="text"  name="nombre"  formControlName="nombre" >
+
+    </div>
+
+    <div class="field">
+      <div class="title">
+        <span>Valor</span>
+      </div>
+      <input type="text" name="valor"  formControlName="valor">
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <div class="title">
+          <span>Fecha inicial</span>
+        </div>
+        <input-date [dateControl]="fecha_desde" ></input-date>
+      </div>
+
+      <div class="field">
+        <div class="title">
+          <span>Fecha final</span>
+        </div>
+        <input-date [dateControl]="fecha_hasta" ></input-date>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="title">
+        <span>Servivios</span>
+      </div>
+      <div class="servicios-data">
+        <div class="information-container" *ngIf="hasLoaded">
+          <app-popup [@loadingAnimation]="hasLoaded ? 'show' : 'hide'" [message]="'Solamente puedes seleccionar un servicio'" [duration]="3000" ></app-popup>
+        </div>
+        <div class="table-container">
+            <div class="table-data" [class.info]="hasLoaded">
+              <div class="loading" [@loadingAnimation]="hasLoaded ? 'hide' : 'show'">
+                <img
+                src="assets/svg/loading.svg"
+                alt=""
+                >
+                <span>Espere un momento, cargando la informacion</span>
+              </div>
+
+
+
+              <table   [@loadingAnimation]="hasLoaded ? 'show' : 'hide'" >
+                <thead>
+                  <tr>
+                    <th>Estado</th>
+                    <th >Nombre</th>
+                    <th>costo</th>
+                    <th>cobertura</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let servicio of list_servicios">
+                    <td style="padding-left: 20px;" (click)="selectItem(servicio)"  class="f-start">
+                      <input  [checked]="servicio.isSelected" class="checkbox" type="checkbox">
+                    </td>
+                    <td >
+                      <span  >{{servicio.servicio}}</span>
+                    </td>
+                    <td>{{servicio.precio_base  | currency:'USD':'$':'1.2-2' }}</td>
+                    <td>{{servicio.cobertura_global  | currency:'USD':'$':'1.2-2' }}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+            <!-- <div class="table-selector">
+              <div class="pagination">
+                  <button class=" btn active">
+                    <span>1</span>
+                  </button>
+                  <button class="btn">
+                    <span>2</span>
+                  </button>
+                <div class="btn">
+                      Siguiente
+                </div>
+
+              </div>
+            </div> -->
+          </div>
+      </div>
+
+    </div>
+
+
+
+  </form>
+  <div class="actions">
+    <h2>Acciones</h2>
+    <hr>
+
+    <div class="buttons">
+
+
+      <button class="emitir" (click)="createCupon()"    >
+        Crear Cupon
+      </button>
+    </div>
+
+    <hr>
+
+
+
+
+
+  </div>
+
+</div>

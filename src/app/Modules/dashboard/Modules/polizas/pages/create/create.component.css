@@ -1,0 +1,239 @@
+.layout{
+    display: flex;
+    z-index: 5;
+    height: calc(100vh - var(--main-header-height));
+    width: 100vw;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow-x: hidden;
+    transition: 0.4s all ease-in-out;
+
+}
+
+.floating-container{
+  padding-left: 10px;
+  position : absolute;
+  width: 100px;
+  height: 65px;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  margin: 35px 25px;
+  transition: 0.3s all ease-in-out;
+
+
+}
+
+
+.floating-container.active,
+.floating-container:hover{
+  height: 220px;
+  background-color: rgba(220, 220, 220, 0.4);;
+  border-radius: 10px;
+  transition: 0.3s all ease-in-out;
+
+}
+
+
+.floating-container.active .floating-button,
+.floating-container:hover .floating-button{
+  box-shadow: 0 6px 10px rgba(253, 13, 1, 0.6);
+  transform:  translateY(5px);
+  transition: all 0.3s;
+}
+
+.floating-button{
+  position: absolute;
+  width: 65px;
+  height: 65px;
+  background: var(--main-color);
+  border-radius: 50%;
+  left: 10px;
+  right: 0;
+  color: white;
+  text-align: center;
+  line-height: 65px;
+  font-size: 23px;
+  z-index: 100;
+  box-shadow: 0 10px 25px -5px rgba(228, 50, 10, 0.6);
+  cursor: pointer;
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+
+}
+
+.element-container{
+  margin-top: 80px;
+  margin-left: 2.5px;
+}
+
+.float-element{
+  position: relative;
+  display: block;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin: 15px 5px;
+
+  color: white;
+  display: grid;
+  place-items: center;
+  z-index: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+
+
+.float-element:nth-child(2){
+  background: #2cf050;
+  box-shadow: 0 20px 20px -10px rgba(47, 240, 44, 0.6);
+
+}
+
+
+.float-element:nth-child(1){
+  background: #d9f02c;
+  box-shadow: 0 20px 20px -10px rgba(201, 240, 44, 0.6);
+
+}
+
+@keyframes come-in {
+  0% {
+    opacity: 0;
+
+  }
+
+  30% {
+
+    transform: translateX(-50px) scale(0.4);
+  }
+
+
+  70%  {
+    transform: translateX(50px) scale(1.2);
+
+  }
+
+  100%  {
+    transform: translateX(100px) scale(1.5);
+    transform: scale(1);
+    opacity: 1;
+
+  }
+
+
+}
+
+
+
+
+.floating-container.active .element-container .float-element:nth-child(1),
+.floating-container:hover .element-container .float-element:nth-child(1){
+  animation: come-in 0.4s forwards 0.4s;
+}
+
+
+.floating-container.active .element-container .float-element:nth-child(2),
+.floating-container:hover .element-container .float-element:nth-child(2){
+  animation: come-in 0.4s forwards 0.6s;
+}
+
+.float-element{
+  transition: 0.2s all ease-in-out;
+}
+
+.float-element:hover{
+  scale: 1.2;
+  transition: 0.2s all ease-in-out;
+
+}
+
+
+@media (max-width: 768px) {
+  .floating-container{
+    margin: 0px 0px;
+    padding: 10px;
+  }
+
+
+  .floating-container{
+    padding-left: 10px;
+    position : absolute;
+    width: 60px;
+    height: 30px;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    margin: 0px 10px;
+    transition: 0.3s all ease-in-out;
+
+
+  }
+
+
+  .floating-container.active,
+  .floating-container:hover{
+    height: 150px;
+    background-color: rgba(220, 220, 220, 0.4);;
+    border-radius: 10px;
+    transition: 0.3s all ease-in-out;
+
+  }
+
+
+  .floating-container.active .floating-button,
+  .floating-container:hover .floating-button{
+    box-shadow: 0 6px 10px rgba(253, 13, 1, 0.6);
+    transform:  translateY(5px);
+    transition: all 0.3s;
+  }
+
+  .floating-button{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: var(--main-color);
+    border-radius: 50%;
+    left: 10px;
+    right: 0;
+    color: white;
+    text-align: center;
+    line-height: 30px;
+    font-size: 23px;
+    z-index: 100;
+    box-shadow: 0 10px 25px -5px rgba(228, 50, 10, 0.6);
+    cursor: pointer;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+
+  }
+
+  .element-container{
+    margin-top: 50px;
+    margin-left: 2.5px;
+  }
+
+  .float-element{
+    position: relative;
+    display: block;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin: 15px 0px;
+
+    color: white;
+    display: grid;
+    place-items: center;
+    z-index: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+
+
+}
+
+

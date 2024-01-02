@@ -1,5 +1,5 @@
-import { Extra, Plan } from "../../Core/models";
-import { PlanUi } from "./Plan.ui";
+import { Extra } from "../../core/models/Extra.model";
+import { Plan } from "../../core/models/Plan.model";
 
 
 export interface ExtraUi extends Extra {

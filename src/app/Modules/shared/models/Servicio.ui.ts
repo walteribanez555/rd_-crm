@@ -1,6 +1,8 @@
-import {  Cupon, Precio, Servicio } from '../../Core/models';
+import { Precio } from '../../core/models/Precio.model';
+import { Servicio } from '../../core/models/Servicio.model';
 import { CatalogoUi } from './Catalogo.ui';
 import { PlanUi } from './Plan.ui';
+import { Cupon } from './data/Cupon';
 
 export interface ServicioUi extends Servicio {
   catalogos: CatalogoUi[] | null;

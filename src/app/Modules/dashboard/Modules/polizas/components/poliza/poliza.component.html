@@ -1,0 +1,76 @@
+<form class="poliza"  [formGroup]="polizaForm"  [class.titular]="polizaForm.get('titular')?.value" >
+
+  <div class="tag"  *ngIf="polizaForm.get('titular')?.value">
+      <span>Titular</span>
+  </div>
+
+
+  <div class="row error" *ngIf="!polizaForm.valid; else noValid" >
+    <i class="fa-solid fa-circle-exclamation"></i>
+    <span style="padding-left: 20px;">Aun no esta rellenada correctamente la poliza</span>
+  </div>
+  <ng-template  #noValid  >
+    <div class="row success">
+      <i class="fa-solid fa-square-check"></i>
+      <span style="padding-left: 20px;">Poliza Correcta</span>
+    </div>
+  </ng-template>
+
+  <div class="field">
+    <div class="title">
+      <span>Nombres</span>
+    </div>
+    <input type="text" placeholder="Primer Nombre" formControlName="nombres"  name="nombres" >
+  </div>
+
+  <div class="field">
+    <div class="title">
+      <span>Apellidos</span>
+    </div>
+    <input type="text" placeholder="Primer Apellido"  formControlName="apellidos" name="apellidos" >
+  </div>
+
+  <div class="field">
+    <div class="title">
+      <span>Numero de Identificacion (Dni o Pasaporte)</span>
+    </div>
+    <input type="text" placeholder="abc-123"  formControlName="iden" name="iden" >
+  </div>
+
+  <div class="field">
+    <div class="title">
+      <span>email</span>
+    </div>
+    <input type="text" placeholder="usuario@redcard.com" formControlName="email" name="email" >
+  </div>
+  <div class="field">
+    <div class="title">
+      <span>Edad</span>
+    </div>
+    <input-date [dateControl]="dateBirth!"  [ageControl]="ageInput!"  [travelDate]="finalDate" ></input-date>
+  </div>
+
+  <div class="field">
+    <div class="title">
+      <span>Sexo</span>
+    </div>
+    <gender-input  [genderControl]="sexoInput!" ></gender-input>
+  </div>
+
+  <div class="field">
+    <div class="title">
+      <span>Telefono</span>
+    </div>
+    <input-telf [telfControl]="telfInput!" ></input-telf>
+  </div>
+
+  <div class="field">
+    <div class="title">
+      <span>Pais de origen</span>
+    </div>
+    <select-custom  (onselectDestiny)="onSelectDestiny($event)" ></select-custom>
+  </div>
+
+
+
+</form>

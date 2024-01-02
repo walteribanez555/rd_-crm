@@ -1,0 +1,62 @@
+<div class="container">
+  <h1>
+    <span style="color: gainsboro;">Paso 3: </span>
+    <span class="title">Pasajeros...</span>
+  </h1>
+
+
+  <h2>¿Cúantos Son los Pasajeros?</h2>
+
+  <div class="message">
+    <i class="fa-solid fa-circle-exclamation"></i>
+    <span>Los Mayores de 71 y Menores de 70 se Cotizan por separado.</span>
+  </div>
+
+  <div class="row">
+    <div class="card">
+      <i class="fa-solid fa-circle-user fa-2xl"></i>
+      <span>Entre 0 y 70 años</span>
+      <div class="cant-section">
+        <span class="btn" (click)="onChangeAdultDate(-1)" >
+          -
+        </span>
+        <span>
+          {{adultDate}}
+        </span>
+        <span class="btn" (click)="onChangeAdultDate(+1)" >
+          +
+        </span>
+
+      </div>
+    </div>
+    <div class="card">
+      <i class="fa-regular fa-circle-user fa-2xl"></i>
+      <span>Entre 71 y 85 años</span>
+      <div class="cant-section">
+        <span class="btn" (click)="onChangeSeniorDate(-1)">
+          -
+        </span>
+        <span>
+          {{seniorDate}}
+        </span>
+        <span class="btn" (click)="onChangeSeniorDate(+1)">
+          +
+        </span>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="button-group">
+
+    <button (click)="onBackStepBtn()">
+      <span>Paso Previo</span>
+    </button>
+
+    <button (click)="onChangeStep()">
+      <span>Siguiente</span>
+    </button>
+  </div>
+
+</div>
