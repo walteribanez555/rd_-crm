@@ -5,7 +5,7 @@ import {
   inject,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   Observable,
   Subject,
@@ -18,7 +18,7 @@ import {
   tap,
   throwError,
 } from 'rxjs';
-import { BeneficiarioToPost } from 'src/app/Modules/core/models/Beneficiario.model';
+import { Beneficiario, BeneficiarioToPost } from 'src/app/Modules/core/models/Beneficiario.model';
 import { Beneficio } from 'src/app/Modules/core/models/Beneficio.model';
 import { Catalogo } from 'src/app/Modules/core/models/Catalogo.model';
 import {
@@ -67,7 +67,6 @@ import { ServicioUi } from 'src/app/Modules/shared/models/Servicio.ui';
 import { BeneficiarioUi } from 'src/app/Modules/shared/models/Beneficiario.ui';
 import { MapToServicioUi } from 'src/app/Modules/shared/utils/mappers/servicio.mappers';
 
-
 export interface ServByPlan {
   servicio: Servicio;
   planes: Plan[];
@@ -98,6 +97,7 @@ export class MultiStepComponent implements OnInit {
   private notificacionesModalService = inject(NotificationService);
   private polizasExtrasService = inject(PolizasExtrasService);
   private beneficiariosService = inject(BeneficiariosService);
+  private router = inject(Router);
 
   locationsForm = new FormGroup({
     fromLocation: new FormControl(null, [Validators.required]),
@@ -184,8 +184,6 @@ export class MultiStepComponent implements OnInit {
     this.observerServiciosUi = this.onSelectDataToPlans.asObservable();
     this.observerOnSelectedPlan = this.onSelectedPlan.asObservable();
     this.observerOnShowDetails = this.onShowDetails.asObservable();
-
-
 
     this.beneficiosService
       .getAll()
@@ -375,6 +373,8 @@ export class MultiStepComponent implements OnInit {
             },
             complete: () => {
               console.log('Completado');
+
+
             },
           });
         },
@@ -386,7 +386,7 @@ export class MultiStepComponent implements OnInit {
 
     const nuevaVenta: VentaToPost = {
       username: 'raforios',
-      oficina_id: 1,
+      office_id: 1,
       cliente_id: cliente.id ?? cliente.cliente_id!,
       tipo_venta: 1,
       forma_pago: 1,
@@ -410,13 +410,14 @@ export class MultiStepComponent implements OnInit {
       .pipe(
         mergeMap((respFromVentas: VentaResp) => {
           return this.ventasService
-                  .update(respFromVentas.venta_id ?? respFromVentas.id!, {
-                    status: 1,
-                    order_id: 'CRM',
-                  }).pipe(
-                    catchError((err) => throwError(err)),
-                    map(() => respFromVentas)
-                  );
+            .update(respFromVentas.venta_id ?? respFromVentas.id!, {
+              status: 2,
+              order_id: 'CRM',
+            })
+            .pipe(
+              catchError((err) => throwError(err)),
+              map(() => respFromVentas)
+            );
         }),
         mergeMap((respFromVentas: VentaResp) => {
           return this.createExtras(respFromVentas, this.listForms).pipe(
@@ -473,16 +474,26 @@ export class MultiStepComponent implements OnInit {
         })
       )
       .subscribe({
-        next: (resp) => {
-          console.log(resp);
+        next: (resp : Beneficiario[]) => {
           this.onLoadProcess?.complete();
-          this.onSuccess('Venta Realizada Correctamente');
+
+
+          this.onSuccess('Venta Realizada Correctamente, redirigiendo a listado');
+
+          setTimeout(() => {
+            this.router.navigate(['../dashboard/poliza/list'], { queryParams:{ beneficiarios : resp.map(ben => ben.id).join(','), cl_id : cliente.nro_identificacion } });
+          }, 3000);
+
         },
         error: (err) => {
           this.onLoadProcess?.complete();
           this.onError('Ocurrio un error');
         },
-        complete: () => {},
+        complete: () => {
+
+
+
+        },
       });
   }
 

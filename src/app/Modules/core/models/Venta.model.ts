@@ -4,7 +4,7 @@ export interface Venta {
   venta_id:        number | null;
   id : number |null;
   username:        string;
-  oficina_id:      number;
+  office_id:      number;
   cliente_id:      number;
   tipo_venta:      number;
   forma_pago:      number;

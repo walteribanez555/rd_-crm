@@ -1,11 +1,5 @@
-import { Catalogo } from 'src/app/Modules/core/models/Catalogo.model';
 import { ServicioUi } from '../../models/Servicio.ui';
 import { VentaUi } from '../../models/Venta.ui';
-import { Beneficio } from 'src/app/Modules/core/models/Beneficio.model';
-import { Extra } from 'src/app/Modules/core/models/Extra.model';
-import { Plan } from 'src/app/Modules/core/models/Plan.model';
-import { Precio } from 'src/app/Modules/core/models/Precio.model';
-import { Cupon } from '../../models/data/Cupon';
 
 export class VentaMappers {
   mapVenta(

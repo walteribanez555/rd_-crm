@@ -1,6 +1,7 @@
 
 export interface Beneficiario {
-  beneficiario_id:    number;
+  beneficiario_id:    number | null;
+  id : number |null;
   poliza_id:          number;
   primer_apellido:    string;
   segundo_apellido:   string;
@@ -16,7 +17,7 @@ export interface Beneficiario {
 }
 
 
-export interface BeneficiarioToPost extends Omit<Beneficiario , 'beneficiario_id'| 'edad'>{
+export interface BeneficiarioToPost extends Omit<Beneficiario , 'beneficiario_id'| 'id'| 'edad'>{
 
 }
 
