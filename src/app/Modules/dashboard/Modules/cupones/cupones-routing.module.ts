@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
-import { CuponComponent } from './pages/cupon/cupon.component';
 import { EditCuponComponent } from './pages/edit-cupon/edit-cupon.component';
-import { ListCuponComponent } from './pages/list-cupon/list-cupon.component';
 import { CreateCouponComponent } from './pages/create-coupon/create-coupon.component';
 
 const routes: Routes = [
@@ -12,22 +10,13 @@ const routes: Routes = [
     component : LayoutPageComponent,
     children: [
       {
-        path:'list',
-        component : ListCuponComponent,
-      },
-      {
         path : 'create',
         component : CreateCouponComponent,
       },
       {
-        path : ':id/edit',
+        path : ':id',
         component : EditCuponComponent,
       },
-      {
-        path: ':id',
-        component : CuponComponent
-      },
-
     ]
 
   }

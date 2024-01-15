@@ -1,1 +1,39 @@
-<p>siniestro works!</p>
+<div class="container">
+  <div class="top">
+    <div class="page-title">
+      <h1>Siniestro</h1>
+    </div>
+  </div>
+
+
+
+  <div class="info">
+    <div class="data">
+      <div class="field w-100 wrap">
+        <span *ngIf="!tipoSiniestro; else onLoaded" >Cargando los elementos</span>
+        <ng-template #onLoaded >
+
+          <div class="field w-100 m-h-10">
+            <card-poliza class="w-100" [poliza]="poliza!" [beneficiario]="beneficiario!" [servicio]="servicio!" [isClient]="false" ></card-poliza>
+          </div>
+          <div class="field  m-h-10 wrap">
+            <siniestro-details class="w-100 " [siniestro]="siniestro!" [beneficiario]="beneficiario!" ></siniestro-details>
+            <input-type-siniestro  class="w-100" [tipoSiniestros]="[tipoSiniestro!]"  [size]="'w-100'"  [disable]="true" ></input-type-siniestro>
+          </div>
+          <div class="field  m-h-10 w-55 h-100"  >
+            <chat [siniestro]="siniestro!" [beneficiario]="beneficiario!" ></chat>
+          </div>
+
+        </ng-template>
+
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+
+</div>

@@ -1,0 +1,28 @@
+<div class="container">
+  <form  [formGroup]="rolForm"  (ngSubmit)="submitForm()" >
+    <div class="list">
+      <h2>Editar Rol</h2>
+      <hr>
+
+      <button  (click)="deleteRol()" >
+        Eliminar
+      </button>
+
+      <div class="field">
+        <label>
+          Nombre
+        </label>
+        <input type="text" formControlName="rol_name" name="rol_name" placeholder="Admin">
+      </div>
+      <div class="field">
+        <label>
+          Accesos de seguridad
+        </label>
+
+        <rol-structure  [inputControl]="inputControl" ></rol-structure>
+      </div>
+    </div>
+
+  </form>
+
+</div>

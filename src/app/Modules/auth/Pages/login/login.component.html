@@ -1,1 +1,51 @@
-<h1>Login pagina</h1>
+<div class="container">
+
+
+  <div class="back-btn">
+    <a routerLink="../../cotizar" >
+      <span>Volver</span>
+    </a>
+  </div>
+
+  <form class="login-container" [formGroup]="authForm"  (ngSubmit)="login()" >
+    <div class="left">
+      <img src="assets/images/isologo-blanco.png" alt="">
+
+    </div>
+    <div class="right">
+      <div class="top">
+        <i class="fa-solid fa-shield fa-2xl"></i>
+        <h2>Login</h2>
+      </div>
+      <hr style="border: 2px solid var(--text-color);">
+
+
+      <div class="info">
+        <div class="field">
+          <i class="fa-solid fa-user"></i>
+          <label >Usuario</label>
+          <input formControlName="username" name="password" type="text" placeholder="User">
+        </div>
+        <hr>
+
+        <div class="field">
+          <i class="fa-solid fa-lock"></i>
+          <label >Password</label>
+          <input formControlName="password" name="password" type="password" placeholder="Password">
+        </div>
+        <hr>
+
+
+        <div class="buttons-group"  >
+          <button type="submit" [class.active]="authForm.valid" >
+            <i class="fa-solid fa-door-closed"></i>
+            <span>Ingresar</span>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </form>
+</div>

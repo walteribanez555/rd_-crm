@@ -44,6 +44,14 @@ const routes: Routes = [
       {
         path : '',
         loadChildren : () => import('./Modules/descuentos/descuentos.module').then(m=> m.DescuentosModule),
+      },
+      {
+        path : '',
+        loadChildren : () => import('./Modules/oficinas/oficinas.module').then(m => m.OficinasModule),
+      },
+      {
+        path : '',
+        loadChildren : () => import('./Modules/roles/roles.module').then(m => m.RolesModule),
       }
 
     ]

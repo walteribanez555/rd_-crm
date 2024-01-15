@@ -1,0 +1,215 @@
+<div class="polizaToPdf" [id]="1">
+  <div class="poliza-imprimir">
+    <div class="top">
+
+      <div class="items">
+        <div class="saludo">
+          <img style="width: 30px; height: 40px; object-fit: fill;"
+            src="assets/images/isologo-blanco.png">
+
+          <h1>Póliza de Asistencia</h1>
+        </div>
+        <div class="qr_space">
+          <div class="qr">
+            <qrcode [qrdata]="qrCode" [width]="100" (qrCodeURL)="onLoadedQr($event)" ></qrcode>
+          </div>
+          <div class="message">
+            Verifica los datos de tu Póliza
+          </div>
+        </div>
+      </div>
+
+
+
+
+    </div>
+    <div class="datos-beneficiario">
+      <i style="color: var(--main-color); " class="fa-solid fa-circle-info fa-lg"></i>
+      <span style="color: var(--main-color); font-weight: 600; margin-left: 20px;">Detalles de la Póliza</span>
+      <div class="data">
+        <div class="left">
+          <div class="descriptions">
+            <span>
+              Nombre(s)
+            </span>
+            <span>
+              Apellido(s)
+            </span>
+            <span>
+              Nro. Pasaporte
+            </span>
+            <span>
+              Fec. Nacimiento
+            </span>
+            <span>
+              Teléfono
+            </span>
+            <span>
+              Precio
+            </span>
+
+
+          </div>
+          <div class="info">
+            <div class="nombre-beneficiario">
+              <span>{{beneficiario?.primer_nombre?.toLocaleUpperCase()}}</span>
+            </div>
+            <div class="nombre-beneficiario">
+              <span>{{beneficiario?.primer_apellido?.toLocaleUpperCase()}}</span>
+            </div>
+
+            <div class="nombre-beneficiario">
+              <span>{{beneficiario?.nro_identificacion}}</span>
+            </div>
+            <div class="nombre-beneficiario">
+              <span>{{beneficiario?.fecha_nacimiento!.split('T')[0]}}</span>
+            </div>
+            <div class="nombre-beneficiario">
+              <span>{{beneficiario?.telefono}}</span>
+            </div>
+            <div class="nombre-beneficiario">
+              <span>{{servicioUi?.precioSelected | currency }}</span>
+            </div>
+
+
+          </div>
+
+        </div>
+        <div class="right">
+          <div class="descriptions">
+            <span>
+              Salida
+            </span>
+            <span>
+              Retorno
+            </span>
+            <span>
+              Nro. Póliza
+            </span>
+            <span>
+              Dias
+            </span>
+            <span>
+              Destino
+            </span>
+            <span>
+              Emisor
+            </span>
+
+          </div>
+          <div class="info">
+            <div class="nombre-beneficiario">
+              <span>{{poliza?.fecha_salida!.split('T')[0]}}</span>
+            </div>
+            <div class="nombre-beneficiario">
+              <span>{{poliza?.fecha_retorno!.split('T')[0]}}</span>
+            </div>
+
+            <div class="nombre-beneficiario">
+              <span>{{poliza?.poliza_id}}</span>
+            </div>
+            <div class="nombre-beneficiario">
+              <span>{{poliza?.nro_dias}}</span>
+            </div>
+            <div class="nombre-beneficiario">
+              <span>{{poliza?.destino}}</span>
+            </div>
+            <div class="nombre-beneficiario">
+              <span>{{venta?.username}}</span>
+            </div>
+
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <!-- <hr style="width: 100%; border: 1px solid gainsboro;"> -->
+
+
+
+    <div class="data_plan">
+
+      <div class="catalogo">
+        <div class="description">
+          <span style="color: var(--main-color); margin-top: 20px; font-size: 15px;">PLAN EURORED</span>
+          <hr style="width: calc(100% - 50px); border: 1px solid gainsboro;">
+        </div>
+        <div class="beneficios">
+          <div class="beneficio" *ngFor="let catalogo of servicioUi?.catalogos" >
+            <div class="title">
+              <span>{{catalogo.etiqueta}}</span>
+            </div>
+            <div class="list-cats" *ngFor="let beneficio of catalogo.beneficios">
+              <div class="data" *ngIf="beneficio.plan">
+
+                  <span *ngIf="beneficio.plan[0].cobertura != null; else incluye  " >{{  beneficio.plan[0].cobertura | currency:'USD':'$':'1.2-2' |uppercase}}</span>
+
+                  <ng-template  #incluye >
+                    <span  *ngIf="beneficio.plan[0].complemento =='1'; else noIncluye" >Incluye</span>
+
+                    <ng-template  #noIncluye >
+                      <span  *ngIf="beneficio.plan[0].complemento=='3'" > TKT </span>
+
+                      <span  *ngIf="beneficio.plan[0].complemento=='2'"  >No incluye</span>
+                    </ng-template>
+
+                  </ng-template>
+
+              </div>
+              <div class="cats">
+
+                  <span>{{beneficio.descripcion}}</span>
+
+              </div>
+            </div>
+
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+      <div class="ayuda">
+        <i style="color: var(--main-color); position: absolute; top: -5px; right: 0;"
+          class="fa-solid fa-circle-exclamation fa-xl"></i>
+        <span>En caso de emergencia y de necesitar hacer uso de la asistencia debe comunicarse con
+          al numero de contacto:
+        </span>
+
+        <div class="contacto">
+          <i class="fa-brands fa-whatsapp"></i>
+          <span>+1-305-280-8950</span>
+        </div>
+        <span>Al contactarse con este numero acepta nuestras politicas que se especifican en el enlace QR que esta
+          en la parte superior de este documento</span>
+      </div>
+
+      <div class="footer">
+        <div class="info">
+          <div class="line">
+            <hr>
+
+            <div class="img">
+              <img src="assets/images/isologo-rojo.png" alt="">
+            </div>
+
+          </div>
+          <div class="date">
+            <span>{{actualDate}}</span>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+
+
+</div>
+

@@ -1,0 +1,18 @@
+<div class="type-siniestro">
+  <div class="catalogo {{size}} "  *ngFor="let tipoSiniestro of tipoSiniestros; let i = index " [class.selected]="tipoSiniestro.isSelected" >
+    <div class="top">
+      <input  [disabled]="disable" type="checkbox" [id]="'customCheckbox' + i" class="custom-checkbox" [(ngModel)]="tipoSiniestro.isSelected"
+        (change)="onChangeActionChild(i)">
+      <label [for]="'customCheckbox' + i" (click)="onChangeActionChild(i)">{{tipoSiniestro.catalogo.etiqueta | uppercase}}</label>
+    </div>
+    <ul class="items">
+      <li class="item" *ngFor="let item of tipoSiniestro.planes">
+        <span>{{item.beneficio}}</span>
+
+
+      </li>
+
+    </ul>
+
+  </div>
+</div>

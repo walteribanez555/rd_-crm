@@ -1,0 +1,26 @@
+<div class="card-beneficiario" (click)="openModal(modalTemplate)">
+  <div class="left">
+
+    <div class="circle-avatar">
+      <i class="fa-solid fa-person fa-2xl"></i>
+      <span>ver detalles</span>
+    </div>
+
+  </div>
+  <div class="right">
+
+    <div class="field">
+      <div class="title">
+        <span>Beneficiario</span>
+      </div>
+      <span>{{beneficiario?.primer_nombre +' ' + beneficiario?.primer_apellido}}</span>
+
+    </div>
+
+  </div>
+</div>
+
+
+<ng-template #modalTemplate >
+
+</ng-template>

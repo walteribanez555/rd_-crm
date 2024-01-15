@@ -1,0 +1,14 @@
+<div class="modal">
+  <div class="modal-header">
+    Selecciona tu Oficina
+    <span class="modal-close"  (click)="close()" >x</span>
+  </div>
+  <div class="modal-content">
+    <select-office  (onselectDestiny)="onSelect($event)"    [defaultOficces]="offices" ></select-office>
+  </div>
+  <div class="modal-footer">
+    <button (click)="submit()" >Submit</button>
+  </div>
+</div>
+
+<div class="modal-backdrop" (click)="close()" ></div>

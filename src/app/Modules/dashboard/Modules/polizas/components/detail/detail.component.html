@@ -23,7 +23,7 @@
             <span>Origen</span>
           </div>
           <div class="info">
-            <span class="tag">{{forms[0].get('fromLocation')?.value}}</span>
+            <span class="tag">{{origen?.country}}</span>
           </div>
 
         </div>
@@ -32,7 +32,7 @@
             <span>Destino</span>
           </div>
           <div class="info">
-            <span class="tag" *ngFor="let destiny of destinyList">{{destiny}}</span>
+            <span class="tag" *ngFor="let destiny of destinyList">{{destiny.country}}</span>
           </div>
         </div>
         <div class="field">

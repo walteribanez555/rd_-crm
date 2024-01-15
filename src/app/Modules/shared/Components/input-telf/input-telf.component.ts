@@ -1,5 +1,4 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CountriesISO, codigos } from './countries-iso.data';
 import { FormControl } from '@angular/forms';
 
@@ -11,6 +10,30 @@ import { FormControl } from '@angular/forms';
 export class InputTelfComponent {
   ngOnInit(): void {
     this.filteredCountries = this.countries;
+    this.filterByCode();
+    this.telfControl?.registerOnChange(() => {
+      this.filterByCode();
+    });
+  }
+
+  filterByCode() {
+    if ((this.telfControl?.value as string).startsWith('N')) {
+      return;
+    }
+
+
+    const numberComposed = (this.telfControl!.value as string).split('-');
+    this.inputTelf = numberComposed[1];
+
+    console.log(numberComposed[1]);
+
+    const country = this.countries.filter((country) =>
+      country.phone_code
+        .startsWith(numberComposed[0].toLowerCase())
+    )[0];
+
+    this.updateActualName(country);
+
   }
 
   isToggle: boolean = false;
@@ -21,7 +44,7 @@ export class InputTelfComponent {
 
   inputTelf: string | null = null;
 
-  @Input() telfControl!: FormControl;
+  @Input() telfControl?: FormControl<any>;
 
   updateToggle() {
     this.isToggle = !this.isToggle;
@@ -47,7 +70,9 @@ export class InputTelfComponent {
   onWriteInput(event: any) {
     // this.inputTelf = event;
     if (this.inputTelf && this.selectedCountry) {
-      this.telfControl.setValue(this.selectedCountry.phone_code + '-' + this.inputTelf);
+      this.telfControl?.setValue(
+        this.selectedCountry.phone_code + '-' + this.inputTelf
+      );
     }
   }
 

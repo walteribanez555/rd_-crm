@@ -8,7 +8,7 @@ export function mapToBeneficio(
 ): BeneficioUi {
   return {
     plan: planes.filter(
-      (plan) => plan.tipo_beneficio === beneficio.tipo_beneficio
+      (plan) => plan.beneficio_id === beneficio.beneficio_id
     ),
     ...beneficio,
   };

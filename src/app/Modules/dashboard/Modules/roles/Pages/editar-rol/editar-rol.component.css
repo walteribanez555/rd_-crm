@@ -1,0 +1,178 @@
+.container{
+  display: flex;
+  width: 100%;
+  height: calc(100vh - var(--main-header-height));
+  flex-direction: column;
+  padding: 10px 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.container::-webkit-scrollbar{
+  width: 7px;
+}
+.container::-webkit-scrollbar-track{
+  background: #f1f1f1;
+  border-radius: 25px;
+}
+.container::-webkit-scrollbar-thumb{
+  background: gray;
+
+  border-radius: 25px;
+}
+.container::-webkit-scrollbar-thumb:hover{
+  background:gray;
+}
+
+
+.top{
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.top .title{
+  font-size: 16px;
+  font-weight: bold;
+}
+
+
+.title span{
+  padding-left: 20px;
+}
+
+hr{
+  margin: 10px;
+  width: 100%;
+  border:  1px solid gainsboro;
+}
+
+.buttons button{
+  margin: 10px;
+  padding: 10px 20px;
+  border:  none;
+  border-radius: 10px;
+  border: 1px solid var(--main-color);
+  background-color: #f04b46;
+  color: white;
+  cursor: pointer;
+}
+
+.buttons button:hover{
+  background-color: var(--main-color);
+}
+
+button span{
+  padding-left: 20px;
+}
+
+
+.info{
+  padding: 0px;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 1fr;
+}
+
+
+.field{
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+
+.field label{
+  font-size: 14px;
+  font-weight: bold;
+}
+
+
+.field input,
+.field select
+{
+  margin-top: 10px;
+  width: 90%;
+  font-size: 14px;
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: 1px solid gray;
+  outline: none;
+}
+
+
+.field input:focus,
+.field select{
+  border:  1px solid gray;
+}
+
+
+
+.bottom{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.bottom button{
+  border: none;
+  font-size: 16px;
+  border-radius: 8px;
+  background-color: #f04b46;
+  padding: 10px 20px;
+  color: white;
+  cursor: pointer;
+}
+
+
+.bottom button:hover{
+  background-color: var(--main-color);
+}
+
+
+
+
+
+@media (max-width : 1024px) {
+  .container{
+    width: 100%;
+    height: 80vh;
+    position: sticky;
+    bottom: 10vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-top: 30px;
+    padding-bottom: 70px;
+  }
+
+
+
+  .top{
+    flex-direction: column;
+  }
+
+  .buttons button {
+    font-size: 12px;
+  }
+
+
+  .field{
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .info{
+    grid-template-columns: 1fr;
+  }
+
+
+}
+
+

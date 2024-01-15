@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Servicio } from '../models/Servicio.model';
@@ -16,7 +16,17 @@ export class ServiciosService implements CRUDService<Servicio> {
     return this.http.get<Servicio[]>(this.apiUrl);
   }
   getOne(id: string | number): Observable<Servicio[]> {
-    throw new Error('Method not implemented.');
+    let params = new HttpParams();
+    params = params.append('id', id);
+    return this.http.get<Servicio[]>(this.apiUrl, { params }).pipe(
+      map((resp: Servicio[]) => {
+        if (resp.length === 0) {
+          throw new Error("User Not Found");
+        }
+        return [resp[0]];
+      })
+    );
+
   }
   create(item: Servicio): Observable<Servicio> {
     throw new Error('Method not implemented.');

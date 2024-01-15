@@ -1,0 +1,154 @@
+.card-poliza{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.card-poliza.client{
+
+  grid-template-columns: 3fr 1fr;
+}
+
+.card{
+  /* padding: 20px 10px; */
+  /* border: 1px solid gainsboro; */
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  cursor:  pointer;
+  width: 100%;
+}
+
+.action{
+  margin-left: 10px;
+  height: 100%;
+  /* border: 1px solid gainsboro; */
+  border-radius: 5px;
+  padding: 10px 20px;
+  border:  none;
+  background: #f04b46;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.action:hover{
+  background: var(--main-color);
+}
+
+.action span{
+  padding-left: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.action:hover span{
+  padding-left: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+.left{
+  background-color: #f04b46;
+  padding: 20px 10px;
+  color: white;
+  border-radius: 5px 0px 0px 5px;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: bold;
+  border: 2px solid var(--main-color);
+  text-align: center;
+}
+
+.right{
+  padding: 10px 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  border: 1px solid gainsboro;
+  border-radius: 0px 5px 5px 0px;
+}
+
+.card:hover .left{
+  background-color: var(--main-color);
+}
+
+.card:hover .right{
+  background-color: gainsboro;
+}
+
+
+.field{
+  display: flex;
+  flex-direction: column;
+}
+
+.field .title{
+  font-weight: bold;
+}
+
+.status{
+  border: 1px solid gainsboro;
+  color: var(--text-color);
+  padding: 5px 10px;
+  border-radius: 8px;
+}
+.success{
+  border: 1px solid green;
+  color: green;
+}
+.denied{
+  border: 1px solid orangered;
+  color: orangered;
+}
+
+.cold{
+  border: 1px solid cornflowerblue;
+  color:  cornflowerblue;
+}
+
+a{
+  text-decoration: none;
+  color: white;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+@media (max-width:1024px) {
+  .card-poliza,
+  .card-poliza.client{
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 10px 0px;
+  }
+
+
+  .card{
+    grid-template-columns: 1fr;
+
+  }
+
+  span{
+    font-size: 12px;
+  }
+
+  .right{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .action{
+    margin-left: 0;
+  }
+
+
+
+}

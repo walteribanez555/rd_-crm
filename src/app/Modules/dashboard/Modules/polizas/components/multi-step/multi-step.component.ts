@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   OnInit,
   inject,
@@ -18,7 +19,10 @@ import {
   tap,
   throwError,
 } from 'rxjs';
-import { Beneficiario, BeneficiarioToPost } from 'src/app/Modules/core/models/Beneficiario.model';
+import {
+  Beneficiario,
+  BeneficiarioToPost,
+} from 'src/app/Modules/core/models/Beneficiario.model';
 import { Beneficio } from 'src/app/Modules/core/models/Beneficio.model';
 import { Catalogo } from 'src/app/Modules/core/models/Catalogo.model';
 import {
@@ -64,8 +68,14 @@ import {
 import { NotificationService } from 'src/app/Modules/shared/Components/notification/notification.service';
 import { DatesAction } from 'src/app/Modules/shared/utils/dates/dates-action';
 import { ServicioUi } from 'src/app/Modules/shared/models/Servicio.ui';
-import { BeneficiarioUi } from 'src/app/Modules/shared/models/Beneficiario.ui';
 import { MapToServicioUi } from 'src/app/Modules/shared/utils/mappers/servicio.mappers';
+import { SessionService } from 'src/app/Modules/auth/Services/session.service';
+import { ModalService } from '../modal-plan-details/services/modal-service';
+import { OfficeSelectorModalService } from '../../../my-office/utils/office-selector-modal/services/office-selector-modal.service';
+import { Oficina } from 'src/app/Modules/core/models/Oficina';
+import { BeneficiarioUi } from '../../../../../shared/models/Beneficiario.ui';
+import { hasValidDestinies } from 'src/app/Modules/shared/utils/data/countries-region.ts/filter-countries.region';
+import { CountryRegion, countriesRegion } from 'src/app/Modules/shared/utils/data/countries-region.ts/countries-region';
 
 export interface ServByPlan {
   servicio: Servicio;
@@ -80,7 +90,6 @@ export interface ServByPlan {
 })
 export class MultiStepComponent implements OnInit {
   private serviciosService = inject(ServiciosService);
-  private catalogosService = inject(CatalogosService);
   private beneficiosService = inject(BeneficiosService);
   private planesService = inject(PlanesService);
   private notificationService = inject(NotificationService);
@@ -94,10 +103,15 @@ export class MultiStepComponent implements OnInit {
   private clientesService = inject(ClientesService);
   private polizasService = inject(PolizasService);
   private ventasService = inject(VentasService);
+  private catalogosService = inject(CatalogosService);
   private notificacionesModalService = inject(NotificationService);
   private polizasExtrasService = inject(PolizasExtrasService);
   private beneficiariosService = inject(BeneficiariosService);
+  private sessionService = inject(SessionService);
+  private officeSelectorModalService = inject(OfficeSelectorModalService);
   private router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
+
 
   locationsForm = new FormGroup({
     fromLocation: new FormControl(null, [Validators.required]),
@@ -126,10 +140,18 @@ export class MultiStepComponent implements OnInit {
   });
 
   beneficiariosForm = new FormGroup({
-    beneficiariosData: new FormControl<BeneficiarioUi[] | null>(null, [
-      Validators.required,
-    ]),
-  });
+    beneficiariosData : new FormControl<BeneficiarioUi[] | null>(null,[Validators.required]),
+  })
+
+
+  ventaRespForm = new FormGroup({
+    ventRespData : new FormControl< VentaResp| null>(null, [Validators.required]),
+  })
+
+
+  beneficiariosRespForm = new FormGroup({
+    polizaRespForm : new FormControl<Poliza | null>(null, [Validators.required]),
+  })
 
   extrasForm = new FormGroup({});
 
@@ -144,6 +166,9 @@ export class MultiStepComponent implements OnInit {
   cupones: Cupon[] = [];
 
   serviciosToUi: ServicioUi[] | null = null;
+
+  destinyList: string = "";
+  origen? : CountryRegion
 
   onSelectDataToPlans?: Subject<ServicioUi[]>;
   onSelectedPlan?: Subject<ServicioUi>;
@@ -167,6 +192,7 @@ export class MultiStepComponent implements OnInit {
       this.userWeb = params.get('id');
     });
 
+
     this.listForms.push(
       this.locationsForm,
       this.datesForm,
@@ -174,7 +200,9 @@ export class MultiStepComponent implements OnInit {
       this.planForm,
       this.extrasForm,
       this.ventaForm,
-      this.beneficiariosForm
+      this.beneficiariosForm,
+      this.ventaRespForm,
+      this.beneficiariosRespForm,
     );
 
     this.onSelectDataToPlans = new Subject();
@@ -241,6 +269,8 @@ export class MultiStepComponent implements OnInit {
               this.cupones
             )
           );
+
+
         },
         error: (err) => {
           this.notificationService.show(
@@ -260,6 +290,7 @@ export class MultiStepComponent implements OnInit {
 
   isClicked: boolean = false;
   isHideInfo: boolean = false;
+
 
   onStepClicked(postStep: number) {
     this.onChangeClick();
@@ -282,11 +313,22 @@ export class MultiStepComponent implements OnInit {
       return;
     }
 
+    console.log({formsFiltered});
+
+    if(this.locationsForm.get('fromLocation')?.value) {
+      this.origen = (this.locationsForm.get('fromLocation')!.value as unknown as CountryRegion);
+    }
+
+    if(this.locationsForm.get('toLocation')?.value){
+
+      this.destinyList = ((this.locationsForm.get('toLocation')!.value as unknown) as CountryRegion[]).map(dest => dest.country).join(',');
+    }
+
+
     if (this.datesForm.get('quantityDays')!.value) {
       this.serviciosToUi?.forEach((servicio) => {
-        servicio.precioSelected = this.preciosFilter.filterByDays(
-          servicio.servicio_id,
-          servicio.precios,
+        servicio.precioSelected = this.preciosFilter.filterByDay(
+          servicio,
           this.datesForm.get('quantityDays')!.value!
         );
       });
@@ -302,19 +344,19 @@ export class MultiStepComponent implements OnInit {
       this.onSelectDataToPlans?.next(filteredServiciosUi);
     }
 
-    if (posStep == 8) {
-      this.createIntentPayment();
-    }
 
-    if (posStep == 0 || posStep >= 8) {
+
+    if (posStep == 0 || posStep >= 9) {
       return;
     }
 
-    this.actualStep = posStep;
-
-    this.onShowDetails?.next(this.actualStep);
+    if (posStep == 8) {
+      this.createIntentPayment();
+    }else{
+      this.actualStep = posStep;
+      this.onShowDetails?.next(this.actualStep);
+    }
   }
-
   onPlanSelected(servicioUi: ServicioUi) {
     this.onSelectedPlan?.next(servicioUi);
   }
@@ -327,25 +369,32 @@ export class MultiStepComponent implements OnInit {
     this.isHideInfo = !this.isHideInfo;
   }
 
+
   createIntentPayment() {
     const beneficiariosData: BeneficiarioUi[] =
       this.listForms[6].value.beneficiariosData;
 
     const titularBeneficiario = beneficiariosData[0];
 
-    // console.log({titularBeneficiario});
 
-    this.onLoadProcess = new Subject();
 
-    this.observerProcess = this.onLoadProcess.asObservable();
 
-    this.onLoading(this.observerProcess);
 
-    this.clientesService
+    this.getOficceFromUser().subscribe({
+      next: (oficce) => {
+
+
+        this.onLoadProcess = new Subject();
+
+        this.observerProcess = this.onLoadProcess.asObservable();
+
+        this.onLoading(this.observerProcess);
+
+        this.clientesService
       .getOne(titularBeneficiario.nro_identificacion)
       .subscribe({
         next: (cliente) => {
-          this.createVenta(cliente[0], this.listForms);
+          this.createVenta(cliente[0], this.listForms, oficce);
         },
         error: (_) => {
           console.log(_);
@@ -355,15 +404,16 @@ export class MultiStepComponent implements OnInit {
             apellido: titularBeneficiario.primer_apellido,
             tipo_cliente: 1,
             nro_identificacion: titularBeneficiario.nro_identificacion,
-            origen: titularBeneficiario.origen,
+            origen: titularBeneficiario.origen.country,
             email: titularBeneficiario.email,
             nro_contacto: titularBeneficiario.telefono,
             status: 1,
+            office_id : oficce.office_id ?? 2,
           };
 
           this.clientesService.create(nuevoCliente).subscribe({
             next: (cliente: Cliente) => {
-              this.createVenta(cliente, this.listForms);
+              this.createVenta(cliente, this.listForms, oficce);
             },
             error: (err) => {
               this.onLoadProcess?.complete();
@@ -373,22 +423,31 @@ export class MultiStepComponent implements OnInit {
             },
             complete: () => {
               console.log('Completado');
-
-
             },
           });
         },
       });
+
+      },
+      error: (error) => {
+        this.onError(error);
+
+
+      },
+      complete: () => {},
+    });
+
+
   }
 
-  createVenta(cliente: Cliente, forms: FormGroup[]) {
-    console.log(this.listForms);
+  createVenta(cliente: Cliente, forms: FormGroup[], oficina : Oficina) {
+    const username = this.sessionService.getUser();
 
     const nuevaVenta: VentaToPost = {
-      username: 'raforios',
-      office_id: 1,
+      username: username!,
+      office_id: oficina.office_id ?? 2,
       cliente_id: cliente.id ?? cliente.cliente_id!,
-      tipo_venta: 1,
+      tipo_venta: 2,
       forma_pago: 1,
       cantidad: `${this.listForms[6].value.beneficiariosData.length}`,
       servicio_id: `${this.listForms[3].value.planSelected.servicio_id}`,
@@ -426,38 +485,50 @@ export class MultiStepComponent implements OnInit {
           );
         }),
         mergeMap((respFromVentas: VentaResp) => {
-          const nuevaPoliza: PolizaToPost = {
-            venta_id: respFromVentas.id ?? respFromVentas.venta_id!,
-            servicio_id: (this.listForms[3].value.planSelected as ServicioUi)
-              .servicio_id,
-            destino: this.listForms[0].value.toLocation.toUpperCase(),
-            fecha_salida: this.listForms[1].value.initialDate,
-            fecha_retorno: this.listForms[1].value.finalDate,
-            extra: 1,
-            status: 4,
-          };
-          return this.polizasService.create(nuevaPoliza);
-        }),
-        switchMap((poliza: Poliza) => {
           const beneficiarios: BeneficiarioUi[] = this.listForms[6].value
             .beneficiariosData as BeneficiarioUi[];
 
-          const beneficiariosToIt: BeneficiarioToPost[] = beneficiarios.map(
-            (beneficiario) => {
+          const requests : any[] = beneficiarios.map( beneficiario => {
+            const nuevaPoliza: PolizaToPost = {
+              venta_id: respFromVentas.id ?? respFromVentas.venta_id!,
+              servicio_id: (this.listForms[3].value.planSelected as ServicioUi)
+                .servicio_id,
+              destino: (this.listForms[0].value.toLocation as  CountryRegion[]).map(dest => dest.country).join(','),
+              fecha_salida: this.listForms[1].value.initialDate,
+              fecha_retorno: this.listForms[1].value.finalDate,
+              extra: (forms[5].value.ventaData.selectedExtras as Extra[]).length,
+              status: 4,
+            };
+
+            return this.polizasService.create(nuevaPoliza);
+          })
+
+
+          return forkJoin(requests);
+        }),
+        switchMap((polizas: any[]) => {
+          console.log(polizas);
+          this.listForms[8].get('polizaRespForm')?.setValue(polizas);
+
+          const beneficiarios: BeneficiarioUi[] = this.listForms[6].value
+            .beneficiariosData as BeneficiarioUi[];
+
+          const beneficiariosToIt: BeneficiarioToPost[] = polizas.map(
+            (poliza , index) => {
               return {
                 poliza_id: poliza.poliza_id ?? poliza.id!,
-                primer_apellido: beneficiario.primer_apellido,
-                primer_nombre: beneficiario.primer_nombre,
-                segundo_apellido: beneficiario.segundo_apellido,
-                segundo_nombre: beneficiario.segundo_nombre,
+                primer_apellido: beneficiarios[index].primer_apellido,
+                primer_nombre: beneficiarios[index].primer_nombre,
+                segundo_apellido: beneficiarios[index].segundo_apellido,
+                segundo_nombre: beneficiarios[index].segundo_nombre,
                 fecha_nacimiento: DatesAction.invert_date(
-                  beneficiario.fecha_nacimiento
+                  beneficiarios[index].fecha_nacimiento
                 ),
-                sexo: parseInt(beneficiario.sexo),
-                origen: beneficiario.origen,
-                email: beneficiario.email,
-                telefono: beneficiario.telefono,
-                nro_identificacion: beneficiario.nro_identificacion,
+                sexo: parseInt(beneficiarios[index].sexo),
+                origen: beneficiarios[index].origen.country,
+                email: beneficiarios[index].email,
+                telefono: beneficiarios[index].telefono,
+                nro_identificacion: beneficiarios[index].nro_identificacion,
               };
             }
           );
@@ -474,27 +545,53 @@ export class MultiStepComponent implements OnInit {
         })
       )
       .subscribe({
-        next: (resp : Beneficiario[]) => {
+        next: (resp: Beneficiario[]) => {
           this.onLoadProcess?.complete();
 
-
-          this.onSuccess('Venta Realizada Correctamente, redirigiendo a listado');
+          this.onSuccess(
+            'Venta Realizada Correctamente, redirigiendo a listado'
+          );
 
           setTimeout(() => {
-            this.router.navigate(['../dashboard/poliza/list'], { queryParams:{ beneficiarios : resp.map(ben => ben.id).join(','), cl_id : cliente.nro_identificacion } });
+            this.router.navigate(['../dashboard/poliza/list'], {
+              queryParams: {
+                beneficiarios: resp.map((ben) => ben.id).join(','),
+                cl_id: cliente.nro_identificacion,
+              },
+            });
           }, 3000);
-
         },
         error: (err) => {
           this.onLoadProcess?.complete();
           this.onError('Ocurrio un error');
         },
-        complete: () => {
-
-
-
-        },
+        complete: () => {},
       });
+
+
+
+  }
+
+  getOficceFromUser(): Observable<Oficina> {
+
+    return this.sessionService.getOfficesFromUser().pipe(
+      switchMap((officesFromUser) => {
+        if (officesFromUser.length > 1) {
+          return this.officeSelectorModalService
+            .open({ listOficces: officesFromUser })
+            .pipe(
+              map((resp) => {
+                if (!resp) {
+                  throwError('No se seleccionno ninguna oficina');
+                }
+                return resp as Oficina;
+              })
+            );
+        }
+
+        return of(officesFromUser[0]);
+      })
+    );
   }
 
   createExtras = (venta: VentaResp, forms: FormGroup[]): Observable<any> => {

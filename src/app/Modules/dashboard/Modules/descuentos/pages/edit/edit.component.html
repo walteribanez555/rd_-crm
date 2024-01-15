@@ -1,14 +1,25 @@
-<div class="container"  >
-  <form class="list"  *ngIf="isReadyForm"  [formGroup]="editDescForm!" >
-    <h2>Editar Descuento</h2>
+<div class="container">
+  <form class="list" *ngIf="isReadyForm" [formGroup]="editDescForm!">
+    <div class="top">
+      <h2>Editar Descuento</h2>
+
+      <div class="buttons">
+        <button class="emiir" *ngIf="descuentos"  (click)="onUpdateState( descuentos[0].status == 1 ? 2 : 1 )" >
+          {{descuentos[0].status == 1 ? "Inactivar" : "Activar"}}
+        </button>
+
+        <button class="emitir" (click)="onUpdateDescuento()">
+          Editar Descuento
+        </button>
+      </div>
+
+    </div>
     <hr>
     <div class="field">
       <div class="title">
         <span>Tipo de Descuento</span>
       </div>
-
-
-      <switch-descuento [typeDesc]="tipo_valor!"  style="margin-top: 10px;"  ></switch-descuento>
+      <switch-descuento [typeDesc]="tipo_valor!" style="margin-top: 10px;"></switch-descuento>
     </div>
 
 
@@ -16,7 +27,7 @@
       <div class="title">
         <span>Cantidad</span>
       </div>
-      <input type="text"  name="cantidad"  [formControl]="cantidad!" >
+      <input type="text" name="cantidad" [formControl]="cantidad!">
 
     </div>
 
@@ -24,7 +35,7 @@
       <div class="title">
         <span>Valor</span>
       </div>
-      <input type="text" name="valor"  formControlName="valor">
+      <input type="text" name="valor" formControlName="valor">
     </div>
 
     <div class="row">
@@ -32,34 +43,21 @@
         <div class="title">
           <span>Fecha inicial</span>
         </div>
-        <input-date [dateControl]="fecha_desde!" ></input-date>
+        <input-date [dateControl]="fecha_desde!"></input-date>
       </div>
 
       <div class="field">
         <div class="title">
           <span>Fecha final</span>
         </div>
-        <input-date [dateControl]="fecha_hasta!" ></input-date>
+        <input-date [dateControl]="fecha_hasta!"></input-date>
       </div>
     </div>
 
 
 
   </form>
-  <div class="actions">
-    <h2>Acciones</h2>
-    <hr>
 
-    <div class="buttons">
-
-
-      <button class="emitir"  (click)="onUpdateDescuento()"  >
-        Editar Descuento
-      </button>
-    </div>
-
-
-  </div>
 
 
 </div>

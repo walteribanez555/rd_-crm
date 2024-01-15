@@ -1,1 +1,50 @@
-<router-outlet></router-outlet>
+<div class="content" [class.onDisplay]="isClicked" [class.collapsed]="isHideInfo">
+  <div class="steps" [class.expanded]="isHideInfo">
+    <router-outlet></router-outlet>
+  </div>
+  <div class="info" [class.active]="isClicked" [class.hidden]="isHideInfo">
+    <div class="top" (click)="onChangeClick()">
+      <div class="container-text">
+        <span class="title">Lista de Usuarios</span>
+        <div class="expand">
+          <i class="fa-solid fa-caret-up fa-2xl" style="color: white;"></i>
+        </div>
+      </div>
+    </div>
+    <div class="process">
+      <div class="title">
+        <span>Lista de Usuarios</span>
+        <a routerLink="./post">
+          <span>Agregar</span>
+        </a>
+      </div>
+
+      <div class="list" >
+
+        <div class="input-search">
+          <input type="text" (input)="search($event)" placeholder="Buscar Usuario">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+
+        <hr>
+        <button (click)="fetchData()" >
+          Actualizar
+        </button>
+
+        <item-user *ngFor="let result of listUsersFiltered " [user]="result"></item-user>
+
+        <span  *ngIf="listUsersFiltered.length === 0" >No se Encontro ningun Usuario con el nombre exacto</span>
+      </div>
+
+
+
+
+
+
+    </div>
+    <button class="expand-info" (click)="onClickInfo()">
+      <span>></span>
+    </button>
+  </div>
+
+</div>

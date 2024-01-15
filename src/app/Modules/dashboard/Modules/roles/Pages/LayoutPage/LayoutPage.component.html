@@ -1,0 +1,37 @@
+<div class="content" [class.onDisplay]="isClicked" [class.collapsed]="isHideInfo">
+  <div class="steps" [class.expanded]="isHideInfo">
+    <router-outlet></router-outlet>
+
+
+
+  </div>
+  <div class="info" [class.active]="isClicked" [class.hidden]="isHideInfo">
+    <div class="top" (click)="onChangeClick()">
+      <div class="container-text">
+        <span class="title">Roles</span>
+        <div class="expand">
+          <i class="fa-solid fa-caret-up fa-2xl" style="color: white;"></i>
+        </div>
+      </div>
+    </div>
+    <div class="process">
+      <div class="list-title">
+        <span class="title">Listado de Roles</span>
+
+        <a routerLink="./create" >
+          <span>Agregar Rol</span>
+        </a>
+      </div>
+      <hr>
+      <div class="list">
+          <button  (click)="loadItems()" >Actualizar</button>
+          <rol-item-view *ngFor="let rol of rols"  [rol]="rol" ></rol-item-view>
+      </div>
+
+    </div>
+    <button class="expand-info" (click)="onClickInfo()">
+      <span>></span>
+    </button>
+  </div>
+
+</div>

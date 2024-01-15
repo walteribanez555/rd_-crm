@@ -1,0 +1,99 @@
+
+<div class="modal" >
+  <div class="modal-header">
+    <img src="assets/images/isologo-blanco.png" >
+    <span>{{beneficiario?.primer_nombre + ' ' + beneficiario?.primer_apellido}}</span>
+    <span class="modal-close" (click)="close()">x</span>
+  </div>
+  <div class="modal-content">
+    <div class="info">
+      <span class="title">Detalles del Beneficiario</span>
+      <hr>
+
+      <div class="field">
+        <span class="title">
+          Nro Identificacion
+        </span>
+        <span>
+          {{beneficiario?.nro_identificacion}}
+        </span>
+      </div>
+
+      <div class="field">
+        <span class="title">
+          Nombre(s)
+        </span>
+        <span>
+          {{beneficiario?.primer_nombre}}
+        </span>
+      </div>
+      <div class="field">
+        <span class="title">
+          Apellido(s)
+        </span>
+        <span>
+          {{beneficiario?.primer_apellido}}
+        </span>
+      </div>
+
+
+
+      <div class="field">
+        <span class="title">
+          Fecha de Nacimiento
+        </span>
+        <span>
+          {{beneficiario?.fecha_nacimiento!.split('T')[0]}}
+        </span>
+      </div>
+
+      <div class="field">
+        <span class="title">
+          Edad
+        </span>
+        <span>
+          {{beneficiario?.edad}}
+        </span>
+      </div>
+      <div class="field">
+        <span class="title">
+          Email
+        </span>
+        <span>
+          {{beneficiario?.email}}
+        </span>
+      </div>
+      <div class="field">
+        <span class="title">
+          Nro Telefono
+        </span>
+        <span>
+          {{beneficiario?.telefono}}
+        </span>
+      </div>
+      <div class="field">
+        <span class="title">
+          Origen
+        </span>
+        <span>
+          {{beneficiario?.origen}}
+        </span>
+      </div>
+
+    </div>
+    <div class="actions">
+      <span class="title">Acciones</span>
+      <hr>
+
+      <button  (click)="downloadAllCanvas()" >Descargar Poliza</button>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+
+  </div>
+</div>
+
+<div class="modal-backdrop" (click)="close()" ></div>
+
+<poliza-pdf  (isLoaded)="getCanva($event)" [beneficiario]="beneficiario" [servicioUi]="servicioUi" [poliza]="poliza" [venta]="venta" ></poliza-pdf>

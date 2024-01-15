@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CuponesRoutingModule } from './cupones-routing.module';
-import { CuponComponent } from './pages/cupon/cupon.component';
 import { EditCuponComponent } from './pages/edit-cupon/edit-cupon.component';
-import { ListCuponComponent } from './pages/list-cupon/list-cupon.component';
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { CreateCouponComponent } from './pages/create-coupon/create-coupon.component';
 import { SharedModule } from 'src/app/Modules/shared/shared.module';
@@ -12,16 +10,17 @@ import { PipesModule } from "../../../shared/pipes/pipes.module";
 import { RouterModule } from '@angular/router';
 import { SwitchCuponComponent } from './components/switch-cupones/switch-cupon.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CoreModule } from 'src/app/Modules/core/core.module';
+import { CuponItemViewComponent } from './components/cupon-item-view/cupon-item-view.component';
 
 
 @NgModule({
     declarations: [
-        CuponComponent,
         EditCuponComponent,
-        ListCuponComponent,
         LayoutPageComponent,
         CreateCouponComponent,
         SwitchCuponComponent,
+        CuponItemViewComponent,
     ],
     imports: [
         RouterModule,
@@ -30,7 +29,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         PipesModule,
         CuponesRoutingModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        CoreModule,
     ]
 })
 export class CuponesModule { }

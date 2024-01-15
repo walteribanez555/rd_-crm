@@ -9,7 +9,7 @@ export function mapBeneficiosToCatalogo(
   return {
     ...catalogo,
     beneficios: beneficios.filter(
-      (beneficio) => beneficio.tipo_beneficio === catalogo.catalogo_id
+      (beneficio) => beneficio.tipo_beneficio === catalogo.valor
     ),
   };
 }

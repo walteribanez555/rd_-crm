@@ -1,0 +1,90 @@
+<div class="container">
+  <div class="top">
+
+    <div class="title">
+      <i class="fa-solid fa-building"></i>
+      <span>Agencia</span>
+    </div>
+    <div class="buttons">
+      <button (click)="ondelete()">
+        <i class="fa-solid fa-trash fa-xl"></i>
+        <span>Eliminar</span>
+      </button>
+
+      <button (click)="changeStatus()">
+        <i class="fa-solid fa-pencil fa-xl"></i>
+        <span >{{ oficina?.status == 1 ? "Desactivar" : "Activar" }}</span>
+      </button>
+      <a [routerLink]="'../1/edit'">
+
+      </a>
+    </div>
+  </div>
+  <hr>
+  <form class="form" [formGroup]="formOffice" (ngSubmit)="updateOffice()">
+    <div class="field">
+      <span>Oficina Padre</span>
+      <select-office [onLoadForm]="observerProcess" [formControl]="office_dep"></select-office>
+
+    </div>
+    <div class="info">
+
+      <div class="left">
+
+        <div class="field">
+          <label for="office_name">Oficina</label>
+          <input type="text" id="office_name" formControlName="office_name" placeholder="Oficina01">
+        </div>
+
+        <div class="field">
+          <label for="country">Pais</label>
+          <input type="text" name="country" formControlName="country" placeholder="Bolivia">
+        </div>
+        <div class="field">
+          <label for="city">Ciudad</label>
+          <input type="text" name="city" formControlName="city" placeholder="Santa Cruz">
+        </div>
+
+
+
+
+      </div>
+      <div class="right">
+        <div class="field">
+          <label for="phone">Telefono</label>
+          <input type="text" name="phone" formControlName="phone" placeholder="78140498">
+        </div>
+        <div class="field">
+          <label for="email">Correo Electronico</label>
+          <input type="text" name="email" formControlName="email" placeholder="user@redcardassist.com">
+        </div>
+        <div class="field">
+          <label for="address">Direccion</label>
+          <input type="text" name="address" formControlName="address" placeholder="Av. San Martin">
+        </div>
+
+
+
+
+
+
+
+      </div>
+
+    </div>
+    <div class="bottom">
+      <button type="submit">
+        <i class="fa-solid fa-pencil fa-xl"></i>
+        <span>Editar</span>
+      </button>
+
+
+
+
+    </div>
+
+
+  </form>
+
+
+</div>

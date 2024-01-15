@@ -16,7 +16,6 @@ import { Token } from '../../shared/utils/tokens';
 export class ErrorInterceptor implements HttpInterceptor {
   constructor(private router: Router) {}
 
-  private tokenUtils = new Token();
 
   intercept(
     request: HttpRequest<unknown>,
@@ -40,7 +39,10 @@ export class ErrorInterceptor implements HttpInterceptor {
 
               case 498:
                 console.log('Expiro la Sesion');
-                this.tokenUtils.deleteToken();
+                Token.deleteToken();
+                localStorage.removeItem('rol_id');
+                localStorage.removeItem('client_id');
+                localStorage.removeItem('office_id');
                 this.router.navigateByUrl('/auth/login');
                 break;
             }

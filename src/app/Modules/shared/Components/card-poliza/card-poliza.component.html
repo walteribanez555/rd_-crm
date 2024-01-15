@@ -1,0 +1,40 @@
+<div class="card-poliza" [class.client]="isClient">
+
+  <div class="card">
+    <div class="left">
+      <span>Plan</span>
+      <span>{{servicio.servicio}}</span>
+
+    </div>
+    <div class="right">
+      <div class="field">
+        <span class="title">Fecha Salida</span>
+        <span>{{poliza.fecha_salida.split('T')[0]}}</span>
+      </div>
+      <div class="field">
+        <span class="title">Fecha Retorno</span>
+        <span>{{poliza.fecha_retorno.split('T')[0]}}</span>
+      </div>
+      <div class="field">
+        <span class="title">Dias</span>
+        <span>{{poliza.nro_dias}}</span>
+      </div>
+      <div class="field">
+        <span class="title">Destino</span>
+        <span>{{poliza.destino}}</span>
+      </div>
+      <div class="field">
+        <span class="title">Status</span>
+        <span class="status success">Espera</span>
+      </div>
+    </div>
+
+  </div>
+  <a [routerLink]="'../../siniestros/create'"  [queryParams]="{ poliza_id : poliza.poliza_id, beneficiario : beneficiario.beneficiario_id}" class="action" *ngIf="isClient">
+
+      <i class="fa-solid fa-person-falling-burst"></i>
+      <span>Reportar Siniestro</span>
+
+  </a>
+
+</div>

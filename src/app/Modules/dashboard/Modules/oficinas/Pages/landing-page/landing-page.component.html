@@ -1,0 +1,24 @@
+
+<div class="content" [class.onDisplay]="isClicked" [class.collapsed]="isHideInfo">
+  <div class="steps" [class.expanded]="isHideInfo">
+    <router-outlet ></router-outlet>
+
+  </div>
+  <div class="info" [class.active]="isClicked" [class.hidden]="isHideInfo">
+    <div class="top" (click)="onChangeClick()">
+      <div class="container-text">
+        <span class="title" >Lista de Oficinas</span>
+        <div class="expand">
+          <i class="fa-solid fa-caret-up fa-2xl" style="color: white;"></i>
+        </div>
+      </div>
+    </div>
+    <div class="process">
+      <list-oficces style="width: 100%;"></list-oficces>
+    </div>
+    <button class="expand-info" (click)="onClickInfo()">
+      <span>></span>
+    </button>
+  </div>
+
+</div>

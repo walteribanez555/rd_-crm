@@ -33,9 +33,9 @@ export class DescuentosService implements CRUDService<Descuento> {
   }
 
 
-  update(id: string | number, item: DescuentoToPost): Observable<Descuento> {
+  update(id: string | number, item: any): Observable<any> {
 
-    return this.http.put<Descuento>(this.apiUrl +`?id=${id}`,item);
+    return this.http.put<any>(this.apiUrl +`?id=${id}`,{item});
 
   }
   delete(id: string | number): Observable<any> {

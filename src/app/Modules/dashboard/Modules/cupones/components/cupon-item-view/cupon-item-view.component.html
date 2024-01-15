@@ -1,0 +1,10 @@
+<a routerLink="./{{cupon.cupon_id}}" routerLinkActive="active">
+  <span>{{cupon.nombre.toLocaleUpperCase()+'-'+servicio?.servicio}}</span>
+
+
+  <span class="status">
+    {{  cupon.status === 1 ? "Activo" : "Inactivo" }}
+  </span>
+
+
+</a>

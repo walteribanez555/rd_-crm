@@ -224,7 +224,7 @@ button:hover{
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    align-items: start;
+    align-items: flex-start;
     justify-content: center;
 
   }

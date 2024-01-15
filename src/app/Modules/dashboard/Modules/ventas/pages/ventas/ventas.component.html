@@ -1,1 +1,39 @@
-<p>ventas works!</p>
+<div class="content" [class.onDisplay]="isClicked" [class.collapsed]="isHideInfo">
+  <div class="steps" [class.expanded]="isHideInfo">
+    <router-outlet></router-outlet>
+
+
+
+  </div>
+  <div class="info" [class.active]="isClicked" [class.hidden]="isHideInfo">
+    <div class="top" (click)="onChangeClick()">
+      <div class="container-text">
+        <span class="title">Ventas</span>
+        <div class="expand">
+          <i class="fa-solid fa-caret-up fa-2xl" style="color: white;"></i>
+        </div>
+      </div>
+    </div>
+    <div class="process">
+      <div class="list-title">
+        <span class="title">Orden de ventas</span>
+
+
+      </div>
+      <div class="list">
+          <!-- <button  (click)="loadItems()" >Actualizar</button> -->
+          <a routerLink="./data"  >Filtro Dinamico</a>
+
+          <hr>
+          <!-- <a *ngFor="let month of getMonthsBetweenDates();let i  = index"   [routerLink]="'./data'+getParamsRoute(i)" >{{month}}</a> -->
+          <month-item *ngFor="let month of getMonthsBetweenDates(); let i = index" [month]="month" [position]="i" ></month-item>
+          <!-- <oficina-item  *ngFor="let ofi of oficces"  [oficina]="ofi"></oficina-item> -->
+      </div>
+
+    </div>
+    <button class="expand-info" (click)="onClickInfo()">
+      <span>></span>
+    </button>
+  </div>
+
+</div>

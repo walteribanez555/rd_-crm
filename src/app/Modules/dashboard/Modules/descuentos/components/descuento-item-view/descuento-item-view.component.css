@@ -1,0 +1,39 @@
+a {
+  text-decoration: none;
+  border: 1px solid gainsboro;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  color: var(--text-color);
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+a:hover {
+  background-color: gainsboro;
+  color: var(--text-color);
+}
+
+.active {
+  background-color: var(--main-color);
+  color: white;
+}
+
+.status {
+  padding: 5px 10px;
+  background: gainsboro;
+  color: var(--text-color);
+  border-radius: 8px;
+}
+
+@media (max-width: 1024px) {
+
+
+  .status {
+    position: initial;
+  }
+}

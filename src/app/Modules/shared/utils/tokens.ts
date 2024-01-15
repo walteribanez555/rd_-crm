@@ -1,9 +1,15 @@
 export class Token {
-  getToken(): string | null {
+  static getToken(): string | null {
     return localStorage.getItem('Authorization');
   }
 
-  deleteToken() {
+  static deleteToken() {
     localStorage.removeItem('Authorization');
   }
+
+  static setToken( token : string ){
+    this.deleteToken();
+    localStorage.setItem('Authorization', token);
+  }
+
 }

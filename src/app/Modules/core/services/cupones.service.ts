@@ -31,8 +31,11 @@ export class CuponesService implements CRUDService<Cupon> {
     return this.http.post<Cupon>(this.apiUrl, item );
 
   }
-  update(id: string | number, item: Cupon): Observable<Cupon> {
-    throw new Error('Method not implemented.');
+  update(id: string | number, item: any): Observable<any> {
+    let params = new HttpParams;
+    params.append('id',id);
+    return this.http.put(this.apiUrl+`?id=${id}`, item,);
+
   }
   delete(id: string | number): Observable<any> {
     throw new Error('Method not implemented.');

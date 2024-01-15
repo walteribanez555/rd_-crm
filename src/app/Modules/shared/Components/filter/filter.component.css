@@ -1,0 +1,84 @@
+
+form.filters {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 10px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 30%;
+}
+
+.field.row {
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.filters .field input {
+  width: 100%;
+  padding: 10px 20px;
+  font-size: 12px;
+  outline: none;
+  border-radius: 8px;
+  border: 1px solid gainsboro;
+  color: var(--text-color);
+  height: 100%;
+}
+
+.filters button {
+  padding: 10px 20px;
+  font-size: 12px;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.filters button.export {
+  background-color: var(--body-bg);
+  color: green;
+  border: 1px solid green;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+}
+
+.filters button.export:hover {
+  background-color: green;
+  color: white;
+  transition: all 0.3s ease-in-out;
+}
+
+button.export span {
+  padding-left: 20px;
+}
+
+.filters button.valid {
+  transition: 0.3s ease-in-out;
+  background-color: #f04b46;
+}
+
+@media (max-width:768px) {
+  .field {
+    flex-direction: column;
+    width: 100%;
+  }
+  .field input {
+    width: 100%;
+  }
+  .field button {
+    width: 100%;
+  }
+
+}

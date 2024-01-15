@@ -19,6 +19,7 @@ export class PlanesComponent  implements OnInit {
 
     this.observerSelection?.subscribe({
       next: ( serviciosFiltered ) => {
+        console.log({serviciosFiltered});
         this.serviciosUiFiltered = serviciosFiltered;
       },
       error : (err) => {

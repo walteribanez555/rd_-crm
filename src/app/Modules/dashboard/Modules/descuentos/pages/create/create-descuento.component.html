@@ -1,7 +1,12 @@
 <div class="container">
 
-  <form class="list"  [formGroup]="formGroup!" >
-    <h2>Crear Descuento</h2>
+  <form class="list" [formGroup]="formGroup!">
+    <div class="top">
+      <h2>Crear Descuento</h2>
+      <button class="emitir" (click)="onLoadForm()">
+        Crear Descuento
+      </button>
+    </div>
     <hr>
     <div class="field">
       <div class="title">
@@ -9,15 +14,17 @@
       </div>
 
 
-      <switch-descuento [typeDesc]="tipo"  style="margin-top: 10px;"  ></switch-descuento>
     </div>
+
+
+    <switch-descuento [typeDesc]="tipo" style="margin-top: 10px;"></switch-descuento>
 
 
     <div class="field">
       <div class="title">
         <span>Cantidad</span>
       </div>
-      <input type="text"  name="cantidad"  formControlName="cantidad" >
+      <input type="text" name="cantidad" formControlName="cantidad" placeholder="0">
 
     </div>
 
@@ -25,7 +32,7 @@
       <div class="title">
         <span>Valor</span>
       </div>
-      <input type="text" name="valor"  formControlName="valor">
+      <input type="text" name="valor" formControlName="valor" placeholder="0">
     </div>
 
     <div class="row">
@@ -33,38 +40,20 @@
         <div class="title">
           <span>Fecha inicial</span>
         </div>
-        <input-date [dateControl]="fecha_desde" ></input-date>
+        <input-date [dateControl]="fecha_desde"></input-date>
       </div>
 
       <div class="field">
         <div class="title">
           <span>Fecha final</span>
         </div>
-        <input-date [dateControl]="fecha_hasta" ></input-date>
+        <input-date [dateControl]="fecha_hasta"></input-date>
       </div>
     </div>
 
 
 
   </form>
-  <div class="actions">
-    <h2>Acciones</h2>
-    <hr>
 
-    <div class="buttons">
-
-
-      <button class="emitir"   (click)="onLoadForm()" >
-        Crear Descuento
-      </button>
-    </div>
-
-    <hr>
-
-
-
-
-
-  </div>
 
 </div>

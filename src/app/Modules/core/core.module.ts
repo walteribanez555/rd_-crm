@@ -20,6 +20,10 @@ import {
   VentasService,
 } from './services';
 import { PolizasExtrasService } from './services/polizas-extras.service';
+import { OficinasService } from './services/oficinas.service';
+import { RolesService } from './services/roles.service';
+import { UserService } from './services/user.service';
+import { ReportesService } from './services/reportes.service';
 
 @NgModule({
   declarations: [],
@@ -40,7 +44,12 @@ import { PolizasExtrasService } from './services/polizas-extras.service';
     SiniestrosService,
     VentasService,
     DescuentosService,
-    PolizasExtrasService
+    PolizasExtrasService,
+    OficinasService,
+    RolesService,
+    UserService,
+    ReportesService,
+
   ],
   exports: [],
   bootstrap: [],

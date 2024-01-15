@@ -37,10 +37,7 @@ export class SwitchCuponComponent {
   onSelect(type : number){
     type === 1 ? this.absoluto = false : this.porcentaje = false;
     this.typeDesc.setValue(type);
-
   }
-
-
 
 
 

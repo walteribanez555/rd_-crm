@@ -1,5 +1,7 @@
+import { CountryRegion } from "src/app/Modules/shared/utils/data/countries-region.ts/countries-region";
+
 export interface locationTravel{
-  location : string;
+  location : CountryRegion;
   isSelected : boolean;
 
 }

@@ -1,0 +1,185 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 40px;
+  width: 100%;
+  height: calc(100vh - 80px);
+  overflow-y: auto;
+}
+
+.top {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+}
+
+.title span {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: start;
+  padding-left: 20px;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
+  width: 100%;
+}
+
+
+
+.info {
+  padding: 0px;
+}
+
+
+.data{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-start;
+  justify-content: space-evenly;
+}
+
+.field{
+  width: 40%;
+}
+
+.field.w-55{
+  width: 55%;
+}
+
+.field.h-100{
+  height: 100%;
+}
+
+.wrap{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 10px;
+
+}
+
+
+
+textarea{
+  width: 100%;
+  height: 300px;
+  resize: none;
+  outline: 0  ;
+  border: 1px solid gainsboro;
+  padding: 5px;
+  color: var(--text-color);
+}
+
+
+.data button{
+  width: fit-content;
+  height: fit-content;
+  padding: 10px 20px;
+  background-color: #f04b40;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+form button:hover{
+  background-color: var(--main-color);
+}
+
+
+
+
+
+.w-100{
+  width: 100%;
+}
+
+.w-50{
+  width: 50%;
+}
+
+form .w-100{
+  width: 100%;
+}
+
+
+.m-h-10{
+  margin: 10px 0px;
+}
+
+
+
+@media (max-width: 1024px) {
+
+  .info{
+    width: 100%;
+    overflow-x: hidden;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+  }
+
+
+  .page{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: 85vh;
+    padding-bottom: 15vh;
+  }
+
+  .list{
+    width: 100%;
+    border: 5px;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 10px;
+    /* margin-bottom: 100px; */
+  }
+
+  /* .table-list {
+    width: 100%;
+    border: 1px solid gainsboro;
+    overflow-y: auto;
+    position: relative;
+    z-index: 2;
+    overflow-x: hidden;
+    border-radius: 5px;
+  } */
+
+
+  .page-title h1{
+    font-size: 15px;
+  }
+
+
+  .field{
+    width: 100%;
+    padding: 0px 20px;
+  }
+
+  .field.w-55{
+    width: 100%;
+  }
+}

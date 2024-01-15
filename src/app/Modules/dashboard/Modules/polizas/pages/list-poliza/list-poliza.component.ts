@@ -1,16 +1,23 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { forkJoin, of, switchMap } from 'rxjs';
+import { Observable, Subject, forkJoin, of, switchMap } from 'rxjs';
+import { SessionService } from 'src/app/Modules/auth/Services/session.service';
 import { Beneficiario } from 'src/app/Modules/core/models/Beneficiario.model';
 import { Cliente } from 'src/app/Modules/core/models/Cliente.model';
+import { Oficina } from 'src/app/Modules/core/models/Oficina';
 import { Poliza } from 'src/app/Modules/core/models/Poliza.model';
+import { Reporte } from 'src/app/Modules/core/models/Reporte.model';
+import { Servicio } from 'src/app/Modules/core/models/Servicio.model';
 import { Venta } from 'src/app/Modules/core/models/Venta.model';
+import { OficinasService } from 'src/app/Modules/core/services/oficinas.service';
+import { ReportesService } from 'src/app/Modules/core/services/reportes.service';
+import { ServiciosService } from 'src/app/Modules/core/services/servicios.service';
 import {
-  BeneficiariosService,
-  ClientesService,
-  PolizasService,
-  VentasService,
-} from 'src/app/Modules/core/services';
+  Size,
+  PositionMessage,
+} from 'src/app/Modules/shared/Components/notification/enums';
+import { NotificationService } from 'src/app/Modules/shared/Components/notification/notification.service';
 import { loadingAnimation } from 'src/app/Modules/shared/animations/loading.animation';
 
 @Component({
@@ -20,40 +27,138 @@ import { loadingAnimation } from 'src/app/Modules/shared/animations/loading.anim
 })
 export class ListPolizaComponent implements OnInit {
   ngOnInit(): void {
-    const { beneficiarios, cl_id } = this.route.snapshot.queryParams;
 
+    const process= new Subject();
 
-    const requests: any[] = (beneficiarios as string)
-      .split(',')
-      .map((beneficiario_id) =>
-        this.beneficiarioService.getOne(beneficiario_id)
-      );
-    forkJoin(requests)
-      .pipe(
-        switchMap((beneficiarios : any[]) => {
-          return this.polizaService.getOne((beneficiarios.flat() as Beneficiario[])[0].poliza_id);
-        }),
-        switchMap((polizas : Poliza[]) => {
-          return this.ventaService.getOne(polizas[0].venta_id);
+    const observer = process.asObservable();
 
-        }),
+    this.onLoading(observer);
 
-      )
-      .subscribe((cliente) => {
-        console.log({cliente});
+    this.officeService.getAll().pipe(
+      switchMap( resp =>{
+        this.oficina = resp;
+        return this.serviciosService.getAll();
 
-      });
+      })
 
+    ).subscribe({
+      next : (resp) => {
+        this.servicios = resp;
+        process.complete();
+
+      },
+      error : (err) => {
+        process.complete();
+        this.onError(err);
+
+      },
+      complete : ( ) => {
+
+      }
+    })
 
   }
 
-  private ventaService = inject(VentasService);
-  private clienteService = inject(ClientesService);
-  private polizaService = inject(PolizasService);
-  private beneficiarioService = inject(BeneficiariosService);
-  private route = inject(ActivatedRoute);
 
-  ventasList: Venta[] = [];
-  clienteList: Cliente[] = [];
-  polizaList: Poliza[] = [];
+  oficina : Oficina[] = [];
+  ventas: Reporte[] = [];
+  servicios : Servicio[] = [];
+  private notificacionModalService = inject(NotificationService);
+  private sessionService = inject(SessionService);
+  private reportesService = inject(ReportesService);
+  private officeService = inject(OficinasService);
+  private serviciosService = inject(ServiciosService);
+
+
+  onFilter(dates : string[]) {
+
+
+
+
+    this.filter(dates[0], dates[1]);
+
+  }
+
+
+  filter(initialDate : string, finalDate : string) {
+    const process = new Subject();
+    const observerProcess  = process.asObservable();
+    this.onLoading(observerProcess);
+
+
+    this.reportesService.getByUsername(this.sessionService.getUser()!, initialDate, finalDate).subscribe({
+      next: ( resp ) => {
+        process.complete();
+        this.ventas = resp.reverse();
+      },
+      error : (err) => {
+        process.complete();
+        this.onError(err);
+      },
+      complete : () => {
+
+      }
+    })
+
+  }
+
+
+
+
+  getPriceByItem( item : number | string , quantity : string ){
+
+    if(typeof item === 'string'){
+      return parseInt(item) / parseInt(quantity);
+    }
+
+    return item /  parseInt(quantity);
+  }
+
+
+  getOficces( office_id : number){
+    return this.oficina.filter(ofi => ofi.office_id === office_id  ).map(ofi => ofi.office_name);
+
+  }
+
+  getService( service_id : number) {
+    return this.servicios.filter(servicio => servicio.servicio_id === service_id).map(servicio => servicio.servicio);
+  }
+
+  getStatusClass(status: number) {
+    return {
+      success: status === 2,
+      deleted: status === 3,
+    };
+  }
+
+
+  onSuccess(message: string) {
+    this.notificacionModalService.show(message, {
+      size: Size.normal,
+      duration: 3000,
+      positions: [PositionMessage.center],
+      imageUrl: 'assets/icons/check.svg',
+      closeOnTouch: true,
+    });
+  }
+
+  onError(message: string) {
+    this.notificacionModalService.show(message, {
+      size: Size.normal,
+      duration: 3000,
+      positions: [PositionMessage.center],
+      imageUrl: 'assets/icons/warning.svg',
+      closeOnTouch: true,
+    });
+  }
+
+  onLoading(observerProcess: Observable<any>) {
+    this.notificacionModalService.show('Cargando', {
+      size: Size.normal,
+      positions: [PositionMessage.center],
+      imageUrl: 'assets/icons/loading.svg',
+      closeOnTouch: false,
+      notifier: observerProcess,
+    });
+  }
 }

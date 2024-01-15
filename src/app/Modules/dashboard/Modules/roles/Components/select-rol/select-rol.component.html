@@ -1,0 +1,21 @@
+<div class="wrapper" [class.active]="isToggle">
+  <div class="select-btn" (click)="updateToggle()">
+    <span>{{searchInput}}</span>
+    <!-- <i class="uil uil-angle-down"></i> -->
+    <i class="fa-solid fa-chevron-down fa-2xs"></i>
+  </div>
+
+  <ng-container *ngIf="isToggle">
+    <div class="content">
+      <div class="search">
+        <i class="uil uil-search"></i>
+        <input (keyup)="filterBySearch()" spellcheck="false" type="text" placeholder="Search" [(ngModel)]="searchText">
+      </div>
+      <ul class="options">
+        <li *ngFor="let rol of  filteredRoles" (click)="updateActualName(rol)">{{rol.rol_name.toLocaleUpperCase()}}</li>
+      </ul>
+    </div>
+
+  </ng-container>
+
+</div>

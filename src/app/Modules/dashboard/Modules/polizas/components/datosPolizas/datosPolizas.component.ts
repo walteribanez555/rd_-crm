@@ -2,7 +2,9 @@ import {  Component, EventEmitter, Input, OnInit, Output, inject } from '@angula
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { NotificationService } from 'src/app/Modules/shared/Components/notification/notification.service';
-import { BeneficiarioUi } from 'src/app/Modules/shared/models/Beneficiario.ui';
+import { BeneficiarioUi } from '../../../../../shared/models/Beneficiario.ui';
+import { CountryRegion } from 'src/app/Modules/shared/utils/data/countries-region.ts/countries-region';
+
 
 @Component({
   selector: 'datos-polizas',
@@ -134,7 +136,7 @@ export class DatosPolizasComponent implements OnInit {
         sexo : sexo,
         edad : edad,
         isTitular : titular,
-        origen : origen,
+        origen : origen ,
       }
 
       this.listBeneficiarios.push(nuevaBeneficiario);

@@ -7,6 +7,7 @@ import { AdminComponent } from './Pages/admin/admin.component';
 import { SidebarComponent } from './Components/sidebar/sidebar.component';
 import { NavbarComponent } from './Components/navbar/navbar.component';
 import { CoreModule } from '../core/core.module';
+import { AuthModule } from '../auth/auth.module';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { CoreModule } from '../core/core.module';
     CommonModule,
     DashboardRoutingModule,
     CoreModule,
+    AuthModule,
   ]
 })
 export class DashboardModule { }

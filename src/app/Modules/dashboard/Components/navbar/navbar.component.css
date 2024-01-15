@@ -34,6 +34,7 @@ font-family: var(--lato);
 position: sticky;
 top: 0;
 left: 0;
+flex-direction: row;
 
 }
 nav::before {
@@ -191,9 +192,26 @@ button.btn-outline:hover{
   background-color: var(--body-bg);
 }
 
-.dir{
-  font-size: 20px;
+.user{
+  padding: 10px 20px;
+  background-color: var(--main-color);
+  border-radius: 8px;
+  border: none;
+  color: white;
+  display: flex;
+  flex-direction: row;
   font-weight: bold;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.user span{
+  font-size: 12px;
+  font-weight: bold;
+  padding-left: 10px;
+  color: white;
+
 
 }
 
@@ -272,8 +290,7 @@ button.btn-outline:hover{
       scrollbar-color : #777 #555;
   }
 
-  nav{
-    padding: 0px;
+ .user span{
     display: none;
   }
 

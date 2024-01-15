@@ -1,1 +1,37 @@
-<router-outlet></router-outlet>
+<div class="content" [class.onDisplay]="isClicked" [class.collapsed]="isHideInfo">
+  <div class="steps" [class.expanded]="isHideInfo">
+    <router-outlet></router-outlet>
+
+
+
+  </div>
+  <div class="info" [class.active]="isClicked" [class.hidden]="isHideInfo">
+    <div class="top" (click)="onChangeClick()">
+      <div class="container-text">
+        <span class="title">Mis Oficinas</span>
+        <div class="expand">
+          <i class="fa-solid fa-caret-up fa-2xl" style="color: white;"></i>
+        </div>
+      </div>
+    </div>
+    <div class="process">
+      <div class="list-title">
+        <span class="title">Listado de mis Oficinas</span>
+
+
+      </div>
+      <hr>
+      <div class="list">
+          <!-- <button  (click)="loadItems()" >Actualizar</button> -->
+
+          <oficina-item  *ngFor="let ofi of oficces"  [oficina]="ofi"></oficina-item>
+          <!-- <rol-item-view *ngFor="let rol of rols"  [rol]="rol" ></rol-item-view> -->
+      </div>
+
+    </div>
+    <button class="expand-info" (click)="onClickInfo()">
+      <span>></span>
+    </button>
+  </div>
+
+</div>

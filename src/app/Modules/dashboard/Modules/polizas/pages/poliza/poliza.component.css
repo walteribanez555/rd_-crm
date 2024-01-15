@@ -1,140 +1,115 @@
-
-.container{
-  display: flex;
-  width: 100%;
-  height: calc(100vh - 80px);
-  overflow: hidden;
-}
-
-
-
-.container-polizas{
-  width: 100%;
-  height: calc(100vh - 80px);
-  overflow: hidden;
-  position: relative;
-  overflow-y: auto;
-}
-
-
-.list-polizas{
-  top:-150%;
-  left: 100%;
+.container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  position: absolute;
-  width: fit-content;
-  height: fit-content;
-  z-index: 20;
-}
-
-
-poliza-pdf{
-  width: fit-content;
-}
-
-/* Diseño de las polizas a imprimir */
-
-
-.info{
-  display: flex;
+  padding: 40px;
   width: 100%;
-  flex-direction: column;
-
+  height: calc(100vh - 80px);
+  overflow-y: auto;
 }
 
-
-.top{
-  padding:  20px;
+.top {
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }
 
-hr{
-  width: calc(100% - 50px);
+.title {
+  display: flex;
+  align-items: center;
+}
+
+.title span {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: start;
+  padding-left: 20px;
+}
+
+.top button {
+  cursor: pointer;
+  background: none;
+  border: 3px solid var(--main-color);
+  border-radius: 10px;
+  padding: 10px 20px;
+  color: var(--main-color);
+  font-size: 15px;
+  transition: 0.3s all ease-in-out;
+}
+
+.top button:hover {
+  background-color: var(--main-color);
+  color: white;
+}
+
+.top button span {
+  transition: 0.3s all ease-in-out;
+  padding-left: 5px;
+}
+
+.top button:hover span {
+  transition: 0.3s all ease-in-out;
+  padding-left: 20px;
+}
+
+hr {
+  margin: 20px 0px;
+  width: 100%;
   border: 1px solid gainsboro;
 }
 
-
-.title{
-  font-size: 30px;
-}
-
-.title span{
-  text-transform: uppercase;
-}
-
-.actions{
-  padding: 5px 20px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: end;
-  padding-top: 10px;
-
-}
-
-
-.actions button{
-  border: 1px solid var(--main-color);
-  background: transparent;
-  color: var(--main-color);
-  padding: 10px 20px;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-.content {
-  padding: 0px 20px 20px 20px;
-}
-
-.content-top{
-  width: 100%;
-  padding: 10px 20px;
-  border: 1px solid var(--main-color);
-  border-radius: 10px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-}
-
-.item{
-  margin-right: 10px;
-  /* border-right: 1px solid gainsboro; */
+.info {
   display: flex;
   flex-direction: column;
-  font-weight: bold;
-  align-items: center;
-  justify-content: cen;
-}
-
-
-.content-info{
-  display: grid;
-  grid-template-columns: 1fr 2fr;
+  align-items: flex-start;
+  justify-content: flex-start;
   padding: 20px;
+  width: 100%;
 }
 
 
-@media (max-width:768px) {
 
-  .content-top{
+.info {
+  padding: 0px;
+}
+
+
+
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 30%;
+}
+
+
+.list{
+  width: 100%;
+  display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+
+card-beneficiario,
+card-poliza{
+  width: 100%;
+}
+
+
+@media (max-width: 1024px) {
+
+
+
+  .container {
+    height: calc(100vh -  80px);
   }
 
-  .info{
-    height: calc(100vh - 80px);
-    overflow: auto;
-  }
-
-  .content-info{
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
 
 }

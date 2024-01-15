@@ -1,0 +1,30 @@
+<div class="container">
+  <form [formGroup]="rolForm" (ngSubmit)="submitForm()">
+    <div class="list">
+      <h2>Agregar Rol</h2>
+      <hr>
+
+      <div class="field">
+        <label>
+          Nombre
+        </label>
+        <input type="text" formControlName="rol_name" name="rol_name" placeholder="Admin">
+      </div>
+      <div class="field">
+        <label>
+          Accesos de seguridad
+        </label>
+
+        <rol-structure [inputControl]="inputControl"></rol-structure>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button type="submit">Agregar</button>
+
+    </div>
+
+
+  </form>
+
+</div>

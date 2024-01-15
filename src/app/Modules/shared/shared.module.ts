@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe, DatePipe, SlicePipe } from '@angular/common';
 import { PopupComponent } from './Components/popup/popup.component';
 import { FileDropComponent } from './Components/file-drop/file-drop.component';
 import { LoadingDivComponent } from './Components/loading-div/loading-div.component';
@@ -16,8 +16,19 @@ import { SwitchBtnComponent } from './Components/switch_btn/switch_btn.component
 import { TagComponent } from './Components/tag/tag.component';
 import { NotificationModalComponent } from './Components/notification/notification-modal.component';
 import { NotificationService } from './Components/notification/notification.service';
-
-
+import { LocationComponent } from './Components/location/location.component';
+import { LocationRolComponent } from './Components/location-rol/location-rol.component';
+import { LocationOficceComponent } from './Components/location-office/location-oficce.component';
+import { RouterModule } from '@angular/router';
+import { CoreModule } from '../core/core.module';
+import { FilterComponent } from './Components/filter/filter.component';
+import { CardPolizaComponent } from './Components/card-poliza/card-poliza.component';
+import { ModalBeneficiarioComponent } from './Components/modals/modal-beneficiario/modal-beneficiario.component';
+import { ModalBenService } from './Components/modals/modal-beneficiario/service/modal.service';
+import { GeneratePdfService } from './Components/pdf/poliza-pdf/services/generate-pdf.service';
+import { QRCodeModule } from 'angularx-qrcode';
+import { PolizaPdfComponent } from './Components/pdf/poliza-pdf/poliza-pdf.component';
+import { CardBeneficiarioComponent } from './Components/card-beneficiario/card-beneficiario.component';
 
 @NgModule({
   declarations: [
@@ -34,13 +45,26 @@ import { NotificationService } from './Components/notification/notification.serv
     SelectCustomComponent,
     SwitchBtnComponent,
     TagComponent,
-    NotificationModalComponent
-
+    NotificationModalComponent,
+    LocationComponent,
+    LocationRolComponent,
+    LocationOficceComponent,
+    FilterComponent,
+    CardPolizaComponent,
+    CardBeneficiarioComponent,
+    ModalBeneficiarioComponent,
+    PolizaPdfComponent
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
     FormsModule,
+    ReactiveFormsModule,
+    DatePipe,
+    SlicePipe,
+    RouterModule,
+    CurrencyPipe,
+    QRCodeModule,
+    CoreModule,
   ],
   exports: [
     PopupComponent,
@@ -56,10 +80,16 @@ import { NotificationService } from './Components/notification/notification.serv
     SelectCustomComponent,
     SwitchBtnComponent,
     TagComponent,
-    NotificationModalComponent
+    NotificationModalComponent,
+    LocationComponent,
+    LocationRolComponent,
+    LocationOficceComponent,
+    FilterComponent,
+    CardPolizaComponent,
+    CardBeneficiarioComponent,
+    PolizaPdfComponent,
+    ModalBeneficiarioComponent,
   ],
-  providers : [
-    NotificationService,
-  ]
+  providers: [NotificationService, ModalBenService, GeneratePdfService],
 })
-export class SharedModule { }
+export class SharedModule {}

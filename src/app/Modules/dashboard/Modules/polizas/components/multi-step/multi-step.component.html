@@ -18,8 +18,6 @@
     <datos-polizas [class.hidden]="actualStep!==7" [onPageChanged]="observerOnShowDetails" [forms]="listForms"
       (onBackStep)="onChangeStep(6)" (onChangePage)="onChangeStep(8)" [class.appears]="actualStep == 7"></datos-polizas>
 
-
-
   </div>
   <div class="info" [class.active]="isClicked" [class.hidden]="isHideInfo">
     <div class="top" (click)="onChangeClick()">
@@ -49,8 +47,8 @@
             <div class="data-step">
               <span>Paso 1:</span>
               <p>Destino y Origen...</p>
-              <span *ngIf="locationsForm.valid" class="response">{{locationsForm.get('fromLocation')?.value}} -
-                {{locationsForm.get('toLocation')?.value}}</span>
+              <span *ngIf="locationsForm.valid" class="response">{{origen?.country}} -
+                {{destinyList}}</span>
             </div>
           </li>
           <li class="step" (click)="onStepClicked(2)" [class.active]="actualStep >= 2">

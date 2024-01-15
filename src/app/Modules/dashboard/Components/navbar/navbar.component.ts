@@ -1,5 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { Observable } from 'rxjs';
+import { SessionService } from 'src/app/Modules/auth/Services/session.service';
+import { Size, PositionMessage } from 'src/app/Modules/shared/Components/notification/enums';
+import { NotificationService } from 'src/app/Modules/shared/Components/notification/notification.service';
 
 @Component({
   selector: 'navbar',
@@ -13,6 +17,9 @@ export class NavbarComponent {
   email : string = "";
 
   @Output() displayNav = new EventEmitter();
+
+
+  private sessionService = inject(SessionService);
 
 
 
@@ -29,14 +36,13 @@ export class NavbarComponent {
 
   ngOnInit() {
     // this.email = this.authService.getEmail();
-
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.actualDir = event.url.split('/dashboard/')[1];
-
-        // Perform any additional actions based on the route change
-      }
-    });
+    this.actualDir = localStorage.getItem('client_id') ?? "Usuario-default";
+    // this.router.events.subscribe((event) => {
+    //   if (event instanceof NavigationEnd) {
+    //     this.actualDir =
+    //     // Perform any additional actions based on the route change
+    //   }
+    // });
   }
 
 
@@ -47,8 +53,9 @@ export class NavbarComponent {
   }
 
   logout(){
-    // this.authService.logout();
-    this.router.navigate(['../../../auth/login']);
+    this.sessionService.logout();
+    this.router.navigateByUrl('/auth/login');
+
   }
 
 
@@ -59,4 +66,7 @@ export class NavbarComponent {
     this.darkActive = !this.darkActive;
 
   }
+
+
+
 }

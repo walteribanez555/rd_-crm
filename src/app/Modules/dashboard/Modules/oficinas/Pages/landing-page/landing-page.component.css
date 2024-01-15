@@ -1,0 +1,441 @@
+.content{
+  /* display: grid;
+  grid-template-columns: 5fr 2fr; */
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100vw;
+  height: calc(100vh - var(--main-header-height));
+  overflow-x: hidden;
+  overflow-y: hidden;
+  position: relative;
+}
+
+
+.steps{
+  position: relative;
+  height: 100vh;
+  /* border: 1px solid gainsboro; */
+  width: 70vw;
+  /* transition: .3s all ease-in-out; */
+  animation: moveToLeft 1s forwards;
+
+}
+
+
+
+
+@keyframes mostrarInfo {
+  0% {
+    right: -35%; /* Posición inicial fuera del contenedor */
+  }
+  70% {
+    right: 0%; /* Posición final en el contenedor */
+  }
+
+  100%{
+    right: 0;
+  }
+}
+
+@keyframes ocultarInfo {
+  100% {
+
+    right: -30%; /* Posición inicial fuera del contenedor */
+    /* position: absolute; */
+  }
+  30% {
+    /* width: 50vw; */
+
+    right: -10%; /* Posición final en el contenedor */
+  }
+
+  0%{
+    right: 0;
+    /* width: 50vw; */
+  }
+}
+
+
+.info {
+  /* width: 110%; */
+  height: calc(100vh - var(--main-header-height));
+  width: 30vw;
+  position: absolute;
+  right: -100%; /* Inicialmente oculto fuera del contenedor */
+  animation: mostrarInfo 1s forwards; /* Aplicar la animación */
+  background: white;
+}
+
+
+
+
+.top{
+  height: 20%;
+  background-color: var(--main-color);
+  padding: 10px;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.process{
+  border: 2px solid gainsboro;
+  height: 100%;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.process::-webkit-scrollbar{
+  width: 7px;
+}
+.process::-webkit-scrollbar-track{
+  background: #f1f1f1;
+  border-radius: 25px;
+}
+.process::-webkit-scrollbar-thumb{
+  background: gray;
+
+  border-radius: 25px;
+}
+.process::-webkit-scrollbar-thumb:hover{
+  background:gray;
+}
+
+.container-text{
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+}
+
+
+.text,
+.second-text{
+  font-weight: bold;
+  height: fit-content;
+  font-size: 1.4em;
+  letter-spacing: 10px;
+  /* border-right: 5px solid; */
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  /* animation: typing 2s steps(10),
+              cursor .4s step-end infinite alternate; */
+}
+
+.data-step{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+
+.top img{
+  width: 12%;
+  height:45%;
+}
+
+
+
+@keyframes cursor  {
+  50% {
+    border-color: transparent;
+  }
+}
+
+@keyframes typing{
+  from{
+    width: 0;
+  }
+}
+
+
+.expand{
+  visibility: hidden;
+}
+
+.expand-info {
+  position: absolute;
+  top: 50%;
+  background-color: var(--main-color);
+  border: none;
+  border-radius: 100px;
+  z-index: 6;
+  color: white;
+  font-size: 20px;
+  padding: 20px 20px;
+  left: -25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s all ease-in-out;
+}
+
+/* dates-to-travel,
+destiny,
+ages-traveler,
+planes,
+datos-polizas,
+payment,
+extra-poliza,
+detail {
+  width: 100%;
+  height: 100%;
+} */
+
+
+@keyframes fadeIn {
+  0%{
+    opacity: 0;
+    --webkit-transform: translateY(0);
+    transform: translateY(10%);
+  }
+
+  100% {
+    opacity: 1;
+    --webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+}
+
+/*
+dates-to-travel.appears,
+destiny.appears,
+ages-traveler.appears,
+planes.appears,
+datos-polizas.appears,
+payment.appears,
+extra-poliza.appears,
+detail.appears{
+  -webkit-animation: fadeIn .6s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+   animation: fadeIn .6s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+
+} */
+
+
+
+  .steps .hidden{
+    visibility: hidden;
+    display: none;
+  }
+
+
+  .process .title{
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+@media (min-width:1024px) {
+
+  .info {
+    border: 1px solid gainsboro;
+    overflow-y: auto;
+    padding: 20px;
+  }
+
+  .info .top{
+    display: none;
+  }
+
+  .progress{
+    flex: 1 0 35%;
+    min-width: 300px;
+    padding: 10px 30px;
+  }
+
+
+  .progress ul.progress-steps{
+  }
+
+
+
+
+
+
+
+  @keyframes moveToLeft {
+    0%{
+      width: 100vw;
+    }
+
+    100%{
+      width: 70vw;
+    }
+  }
+
+  @keyframes moveToRight {
+    0%{
+      width: 70vw;
+    }
+    30%{
+      width: 50vw;
+    }
+    100%{
+      width: 100vw;
+    }
+
+  }
+
+
+
+
+  .info.hidden {
+     right: -35%;
+     animation:  ocultarInfo 2s forwards;
+  }
+
+  .info.hidden .expand-info{
+    left: -100px;
+    rotate: 180deg;
+    transition: 0.3s all ease-in-out;
+  }
+
+  .content.collapsed{
+    grid-template-columns: 4fr 1fr;
+    transition: all .3s ease-in-out;
+  }
+
+
+  .steps.expanded{
+
+    width: 100vw;
+    /* transition: .3s all ease-in-out; */
+    animation: moveToRight 1.2s forwards;
+  }
+
+
+}
+
+
+
+
+@media (max-width:1024px) {
+
+
+  .content{
+    display: flex;
+    flex-direction: column;
+    transition: 0.4s all ease-in-out;
+
+
+  }
+
+
+
+
+  .content.onDisplay{
+    display: flex;
+    position: fixed;
+    z-index: 5;
+    height: 90vh;
+    width: 100vw;
+    max-height: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow-x: hidden;
+    transition: 0.4s all ease-in-out;
+
+
+  }
+
+
+  @keyframes moveToTop {
+    0%{
+      bottom: 0%;
+    }
+
+    50%{
+      bottom: 50%;
+
+
+    }
+
+    100%{
+      top: 100%;
+
+    }
+
+  }
+
+  .info{
+    z-index: 3;
+    position: fixed;
+    top: 90%;
+    height: 10vh;
+    width: 100%;
+    overflow: hidden;
+    transition: 0.4s all ease-in-out;
+
+  }
+
+  .steps{
+    width: 100vw;
+    height: calc(90vh - var(--main-header-height));
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .steps.expanded{
+    width: 100vw;
+  }
+
+  .info .top{
+    height: 10vh;
+  }
+
+  .info.active{
+    height: 100vh;
+    transition: 0.4s all ease-in-out;
+    top: 0%;
+    transition: 0.4s all ease-in-out;
+    /* animation: moveToTop 0.3s  forwards; */
+
+  }
+
+  .top img{
+    width: 35px;
+    height: 50px;
+  }
+
+
+  .second-text,
+  .text{
+    font-size: 15px;
+  }
+
+  .info.active .expand i{
+    rotate: 180deg;
+    transition: 0.3s all ease-in-out;
+  }
+
+
+  .info .expand i{
+    transition: 0.3s all ease-in-out;
+  }
+
+
+  .expand{
+    visibility: visible;
+    position: absolute;
+    right: 20px;
+
+  }
+
+  .process{
+    border: 2px solid gainsboro;
+    height: 90vh;
+    background: white;
+  }
+  .expand-info{
+    visibility: hidden;
+  }
+
+}

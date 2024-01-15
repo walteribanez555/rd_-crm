@@ -1,0 +1,19 @@
+<form [formGroup]="filterForm" class="filters" (ngSubmit)="onFormSubmitFilter()"  >
+
+  <div class="field">
+    <label for="initialDate">Fecha inicial</label>
+    <input type="date" name="initialDate" formControlName="initialDate">
+
+  </div>
+  <div class="field">
+    <label for="finalDate">Fecha Final</label>
+    <input type="date" name="finalDate" formControlName="finalDate">
+  </div>
+  <div class="field row">
+
+    <button type="submit" [class.valid]="this.filterForm.valid" >
+      Filtrar
+    </button>
+  </div>
+
+</form>

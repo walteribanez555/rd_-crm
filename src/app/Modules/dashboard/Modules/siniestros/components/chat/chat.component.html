@@ -1,0 +1,32 @@
+<div class="chat">
+  <!-- <div class="top">
+    <span>Hola</span>
+  </div> -->
+  <div   appScrollToBottom class="content-chat" id="scrollContainer">
+    <button class="update-btn" (click)="fetchdata()" >Actualizar</button>
+
+    <message class="w-100" *ngFor="let message of comunicacionSiniestros"  [message]="message"  [typeUser]="1" ></message>
+
+
+
+  </div>
+  <form class="text-box" [formGroup]="chatForm"  (ngSubmit)="submitForm()" >
+    <div class="extra-file" *ngIf="chatForm.get('url_archivo')?.value != null" >
+      <i class="fa-solid fa-file"></i>
+      <span>{{fileName}}</span>
+    </div>
+    <div class="input-box">
+      <input type="text"  name="message" formControlName="message" placeholder="Escribe tu mensaje..." >
+      <div class="actions">
+        <label for="fileInput" class="custom-file-upload">
+          <i class="fa-solid fa-file"></i>
+          <input type="file" id="fileInput" name="fileInput"    (change)="onFileSelected($event)" >
+        </label>
+        <button type="submit" class="message-button">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+
+      </div>
+    </div>
+  </form>
+</div>

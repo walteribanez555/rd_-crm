@@ -1,0 +1,17 @@
+<div class="siniestro-details">
+  <div class="field f-start m-color">
+    <span class="t-sm" > {{siniestro.ciudad_ocurrencia}} - {{siniestro.pais_ocurrencia}}</span>
+    <span class="t-sm">{{siniestro.fecha_siniestro.split('T')[0]}}</span>
+  </div>
+  <div class="field">
+    <span class="f-start m-color" >Descripcion</span>
+    <p class="t-sm" >{{siniestro.descripcion}}</p>
+  </div>
+  <div class="field" *ngIf="siniestro.url_archivo.length>2">
+    <span class="f-start m-color">Archivo Incluido</span>
+    <a href="{{siniestro.url_archivo}}" class="file">
+      <i class="fa-solid fa-file"></i>
+      <span>Descargar</span>
+    </a>
+  </div>
+</div>

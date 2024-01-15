@@ -18,7 +18,7 @@ hr{
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .top span{
@@ -29,7 +29,7 @@ hr{
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .field{
@@ -44,8 +44,8 @@ hr{
   padding: 10px ;
   display: flex;
   flex-direction: column;
-  align-items: start;
-  justify-content: start;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .field .tail{

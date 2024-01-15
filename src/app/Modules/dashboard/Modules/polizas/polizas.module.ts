@@ -6,7 +6,6 @@ import { EditPolizaComponent } from './pages/edit-poliza/edit-poliza.component';
 import { PolizaComponent } from './pages/poliza/poliza.component';
 import { ListPolizaComponent } from './pages/list-poliza/list-poliza.component';
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
-import { SharedModule } from 'src/app/Modules/shared/shared.module';
 import { CreateComponent } from './pages/create/create.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { ListBeneficiariosComponent } from './components/list-beneficiarios/list-beneficiarios.component';
@@ -23,7 +22,6 @@ import { DetailComponent } from './components/detail/detail.component';
 import { ExtraComponent } from './components/extra/extra.component';
 import { ExtraPolizaComponent } from './components/extraPoliza/extra-poliza.component';
 import { ListCoberturaComponent } from './components/list-cobertura/list-cobertura.component';
-import { LocationComponent } from './components/location/location.component';
 import { ModalPlanDetailsComponent } from './components/modal-plan-details/modal-plan-details.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { PlanComponent } from './components/plan/plan.component';
@@ -33,6 +31,9 @@ import { PolizaItemComponent } from './components/poliza/poliza.component';
 import { PolizaPdfComponent } from './components/poliza-pdf/poliza-pdf.component';
 import { RouterModule } from '@angular/router';
 import { ModalService } from './components/modal-plan-details/services/modal-service';
+import { CoreModule } from 'src/app/Modules/core/core.module';
+import { OficinasModule } from '../oficinas/oficinas.module';
+import { SharedModule } from 'src/app/Modules/shared/shared.module';
 
 
 @NgModule({
@@ -49,29 +50,30 @@ import { ModalService } from './components/modal-plan-details/services/modal-ser
     MultiStepComponent,
     AgesTravelerComponent,
     CoberturaComponent,
-    DatesToTravelComponent,
     DatosPolizasComponent,
     DestinyComponent,
     DetailComponent,
     ExtraComponent,
     ExtraPolizaComponent,
     ListCoberturaComponent,
-    LocationComponent,
     ModalPlanDetailsComponent,
     PaymentComponent,
     PlanComponent,
     PlanesComponent,
     PolizaItemComponent,
     PolizaComponent,
+    DatesToTravelComponent
   ],
   imports: [
     CommonModule,
     PolizasRoutingModule,
     SharedModule,
+    CoreModule,
     QRCodeModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    OficinasModule,
   ],
   providers: [
     ModalService

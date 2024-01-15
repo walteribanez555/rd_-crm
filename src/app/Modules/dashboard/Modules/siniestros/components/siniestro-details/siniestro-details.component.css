@@ -1,0 +1,50 @@
+.siniestro-details{
+  width: 100%;
+  border: 1px solid gainsboro;
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+}
+
+.field{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+hr{
+  width: 100%;
+  border: 1px solid var(--main-color);
+}
+
+.t-sm{
+  font-size: 12px;
+}
+.f-start{
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+
+.m-color{
+  color: var(--main-color);
+}
+
+
+.file{
+  text-decoration: none;
+  padding: 10px 20px;
+  border: 1px solid gainsboro;
+  color:  white;
+  background-color: var(--main-color);
+  border-radius: 8px;
+}
+
+.file span{
+  padding-left: 20px;
+}

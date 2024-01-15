@@ -350,7 +350,7 @@ nav .btn-outline{
 }
 
 .sidebar-menu > li > a.active span{
-  font-weight: 100;
+  font-weight: bold;
 }
 
 
