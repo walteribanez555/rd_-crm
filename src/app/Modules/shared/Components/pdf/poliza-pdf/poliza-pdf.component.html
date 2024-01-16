@@ -7,14 +7,14 @@
           <img style="width: 30px; height: 40px; object-fit: fill;"
             src="assets/images/isologo-blanco.png">
 
-          <h1>Póliza de Asistencia</h1>
+          <h1>Voucher de Asistencia</h1>
         </div>
         <div class="qr_space">
           <div class="qr">
             <qrcode [qrdata]="qrCode" [width]="100" (qrCodeURL)="onLoadedQr($event)" ></qrcode>
           </div>
           <div class="message">
-            Verifica los datos de tu Póliza
+            Verifica los datos de tu Voucher
           </div>
         </div>
       </div>
@@ -25,7 +25,7 @@
     </div>
     <div class="datos-beneficiario">
       <i style="color: var(--main-color); " class="fa-solid fa-circle-info fa-lg"></i>
-      <span style="color: var(--main-color); font-weight: 600; margin-left: 20px;">Detalles de la Póliza</span>
+      <span style="color: var(--main-color); font-weight: 600; margin-left: 20px; font-size: 10px">Detalles de la Póliza</span>
       <div class="data">
         <div class="left">
           <div class="descriptions">
@@ -84,7 +84,7 @@
               Retorno
             </span>
             <span>
-              Nro. Póliza
+              Nro. Voucher
             </span>
             <span>
               Dias
@@ -133,16 +133,23 @@
 
       <div class="catalogo">
         <div class="description">
-          <span style="color: var(--main-color); margin-top: 20px; font-size: 15px;">PLAN EURORED</span>
+          <span style="color: var(--main-color); margin-top: 10px; font-size: 12px;">PLAN {{servicioUi?.servicio}}</span>
           <hr style="width: calc(100% - 50px); border: 1px solid gainsboro;">
         </div>
         <div class="beneficios">
           <div class="beneficio" *ngFor="let catalogo of servicioUi?.catalogos" >
-            <div class="title">
+            <div class="title" *ngIf="catalogo.valor!=4">
               <span>{{catalogo.etiqueta}}</span>
             </div>
             <div class="list-cats" *ngFor="let beneficio of catalogo.beneficios">
-              <div class="data" *ngIf="beneficio.plan">
+              <div class="cats" style="border-right:1px solid var(--main-color);" *ngIf="beneficio.plan">
+                  <span>{{beneficio.descripcion}}</span>
+
+
+
+
+              </div>
+              <div class="cats" >
 
                   <span *ngIf="beneficio.plan[0].cobertura != null; else incluye  " >{{  beneficio.plan[0].cobertura | currency:'USD':'$':'1.2-2' |uppercase}}</span>
 
@@ -156,11 +163,6 @@
                     </ng-template>
 
                   </ng-template>
-
-              </div>
-              <div class="cats">
-
-                  <span>{{beneficio.descripcion}}</span>
 
               </div>
             </div>
@@ -184,7 +186,7 @@
           <i class="fa-brands fa-whatsapp"></i>
           <span>+1-305-280-8950</span>
         </div>
-        <span>Al contactarse con este numero acepta nuestras politicas que se especifican en el enlace QR que esta
+        <span>Al descargar este Voucher acepta nuestras politicas que se especifican en el enlace QR que esta
           en la parte superior de este documento</span>
       </div>
 

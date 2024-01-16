@@ -52,7 +52,6 @@ export function hasValidDestinies(
         return true;
       }
 
-      countriesService.shift();
 
       if(negativeCountriesService.length === 0 && negativeListRegion.length === 0 ){
         return true;
@@ -65,6 +64,8 @@ export function hasValidDestinies(
       if(negativeListRegion.includes(dest.continent)){
         return false;
       }
+
+      return true;
 
     };
 

@@ -1,6 +1,6 @@
 .container {
   width: 250px;
-  height: 460px;
+  height: 360px;
   border: 1px solid gainsboro;
   box-shadow: 0 0 10px #e4e4e4;
   border-radius: 10px;
@@ -9,7 +9,7 @@
   flex-direction: column;
   /* transition: all 0.3s ease-in-out; */
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding-bottom: 10px;
 }
 
@@ -22,7 +22,7 @@
 
 .top {
   background: #e12822;
-  height: calc(400px / 3);
+  height: calc(400px / 4);
   /* border-radius: 10px 10px 10px 10px; */
   color: white;
   font-size: 12px;

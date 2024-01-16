@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "start:server": "ng serve --host 192.168.0.10 --port 4200 --configuration production",
+    "start:server": "ng serve --host 192.168.0.13 --port 4200 --configuration production",
     "test": "ng test"
   },
   "private": true,
@@ -26,6 +26,7 @@
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
     "moment": "^2.29.4",
+    "ngx-csv": "^0.3.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"

@@ -116,12 +116,10 @@ export class PolizaComponent implements OnInit {
         return this.cuponesService.getAll();
       }),
       switchMap((resp: Cupon[]) => {
-        console.log({resp});
         this.cupones = resp;
         return this.catalogosService.getAll();
       }),
       switchMap((resp: Catalogo[]) => {
-        console.log({resp});
         this.catalogos = resp;
         return this.extrasService.getAll();
       }),

@@ -10,7 +10,7 @@
   <filter style="width: 100%;" (onFilter)="onFilter($event)" ></filter>
   <hr style="width: 100%;">
 
-  <button class="export" *ngIf="ventas.length>0" >
+  <button class="export" *ngIf="ventas.length>0"   (click)="makeCsvVen()" >
     <i class="fa-solid fa-file-csv"></i>
     <span>Exportar</span>
 

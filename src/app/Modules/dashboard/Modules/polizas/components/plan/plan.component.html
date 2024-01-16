@@ -7,21 +7,25 @@
   </div>
   <div class="info">
     <div class="field">
-      <span>Cobertura de:</span>
+      <span>Cobertura Global:</span>
       <span class="price">{{servicioUi.cobertura_global | currency}}</span>
     </div>
-
     <div class="field">
+      <span>Cobertura Medica:</span>
+      <span class="price" >{{servicioUi.descripcion | currency}}</span>
+    </div>
+
+    <!-- <div class="field">
       <span>Regiones que Abarca</span>
       <div class="regions">
         <tag  *ngFor="let tag of tags"  [tag]="tag"></tag>
 
       </div>
 
-    </div>
+    </div> -->
     <div class="field">
       <span>Rango de Edad</span>
-      <div class="age-limit">
+      <div class="price">
         <span>{{servicioUi.edad_base}}</span>
         <span>-</span>
         <span>{{servicioUi.edad_limite -1}}</span>

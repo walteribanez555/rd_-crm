@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subject, Observable } from 'rxjs';
 import { SessionService } from 'src/app/Modules/auth/Services/session.service';
 import { Oficina } from 'src/app/Modules/core/models/Oficina';
+import { Reporte } from 'src/app/Modules/core/models/Reporte.model';
 import { Size, PositionMessage } from 'src/app/Modules/shared/Components/notification/enums';
 import { NotificationService } from 'src/app/Modules/shared/Components/notification/notification.service';
 
@@ -123,6 +124,9 @@ export class VentasComponent {
       notifier: observerProcess,
     });
   }
+
+
+
 
 
 }

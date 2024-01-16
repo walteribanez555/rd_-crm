@@ -85,7 +85,7 @@
 .process{
   border: 2px solid gainsboro;
   height: 100%;
-  padding: 20px;
+  padding: 20px 30px;
   overflow-y: auto;
 }
 
@@ -233,8 +233,6 @@ detail.appears{
 
   .info {
     border: 1px solid gainsboro;
-    overflow-y: auto;
-    padding: 20px;
   }
 
   .info .top{
@@ -313,6 +311,73 @@ detail.appears{
 
 
 
+.title{
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.title a,
+button{
+  padding: 10px 20px;
+  border-radius: 8px;
+  background-color: #f04b46;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+}
+
+.title a:hover,
+button:hover{
+  background-color: var(--main-color);
+}
+
+hr{
+  width: 100%;
+  margin: 10px 0px;
+  border: 1px solid gainsboro;
+}
+
+.list{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 10px;
+
+}
+
+.input-search{
+  display: flex;
+  position: relative;
+
+}
+
+.list input{
+  border: 1px solid gainsboro;
+  outline: none;
+  padding: 10px 40px;
+  border-radius: 9px;
+  width: 100%;
+  color: var(--text-color);
+}
+
+.list i{
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: gainsboro;
+}
+
+
+
 @media (max-width:1024px) {
 
 
@@ -321,11 +386,7 @@ detail.appears{
     flex-direction: column;
     transition: 0.4s all ease-in-out;
 
-
   }
-
-
-
 
   .content.onDisplay{
     display: flex;
@@ -371,16 +432,12 @@ detail.appears{
     width: 100%;
     overflow: hidden;
     transition: 0.4s all ease-in-out;
-
   }
 
   .steps{
     width: 100vw;
     height: calc(90vh - var(--main-header-height));
     position: relative;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
   }
 
   .steps.expanded{
@@ -436,6 +493,10 @@ detail.appears{
   }
   .expand-info{
     visibility: hidden;
+  }
+
+  .list{
+    padding-bottom: 40px;
   }
 
 }

@@ -5,12 +5,11 @@ import { CatalogoUi } from 'src/app/Modules/shared/models/Catalogo.ui';
   selector: 'cobertura',
   template: `
     <div class="item">
-      <div class="title">
+      <div class="title" *ngIf="catalogoUi?.valor != 4">
         <i class="fa-solid fa-circle-info fa-xs"></i>
-        <span>{{ catalogoUi.etiqueta }}</span>
+        <span>{{ catalogoUi!.etiqueta }}</span>
       </div>
-      <hr />
-
+      <hr *ngIf="catalogoUi?.valor != 4" />
       <div class="sub-item" *ngFor="let beneficio of catalogoUi!.beneficios">
         <div class="data" *ngIf="beneficio.plan">
           <span *ngIf="beneficio.plan[0].cobertura != null; else incluye">{{
