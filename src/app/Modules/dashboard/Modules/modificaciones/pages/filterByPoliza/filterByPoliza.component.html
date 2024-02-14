@@ -1,0 +1,103 @@
+<div class="container">
+  <div class="top">
+    <div class="title">
+      <!-- <i class="fa-solid fa-earth-americas  fa-xl" style="color: var(--main-color);"></i> -->
+
+      <span>Listado de Polizas</span>
+    </div>
+  </div>
+
+  <div class="filter">
+    <label>Nro Identificacion</label>
+    <input id="filter" #filter type="text" placeholder="Nro Identificacion"
+    (keyup)="onWriteInput($event)">
+  </div>
+
+  <hr style="width: 100%;">
+
+  <button class="export" *ngIf="ventas.length>0"   (click)="makeCsvVen()" >
+    <i class="fa-solid fa-file-csv"></i>
+    <span>Exportar</span>
+
+  </button>
+
+
+
+  <div class="info">
+    <div class="table-data info"  >
+
+      <table  >
+        <thead>
+          <tr>
+            <th>Status</th>
+            <th>fecha venta</th>
+            <th>fecha salida</th>
+            <th>fecha retorno</th>
+            <th>Oficina</th>
+            <th>Usuario</th>
+            <th>Poliza</th>
+            <th>Plan</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Precio</th>
+            <th>Plus</th>
+            <th>Descuento</th>
+            <th>Total</th>
+            <th>Edad</th>
+            <th>Origen</th>
+            <th>Destino</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let venta of ventas " [routerLink]="'../'+venta.venta_id"  [queryParams]="{ poliza_id : venta.poliza_id}" >
+            <td>
+              <span class="status"  [ngClass]="getStatusPoliza(venta.poliza_st)"
+              >{{getStatusPoliza(venta.poliza_st)}}</span>
+            </td>
+            <td>{{venta.fecha_venta.split('T')[0].split('-').join('/')}}</td>
+            <td>{{venta.fecha_salida.split('T')[0].split('-').join('/')}}</td>
+            <td>{{venta.fecha_retorno.split('T')[0].split('-').join('/')}}</td>
+            <td>{{getOficces(venta.office_id)[0]}}</td>
+            <td>
+              {{venta.username}}
+            </td>
+            <td>
+              {{venta.poliza_id}}
+            </td>
+            <td>
+              {{getService(venta.servicio_id)}}
+            </td>
+            <td>
+              {{venta.primer_nombre}}
+            </td>
+            <td>
+              {{venta.primer_apellido}}
+            </td>
+            <td>
+              {{venta.precio | currency}}
+            </td>
+            <!-- <td>{{ getClientName(venta.cliente_id) | async}}</td> -->
+            <td>{{  getPriceByItem(venta.plus, venta.cantidad) | currency}}</td>
+            <td>{{  getPriceByItem(venta.descuento, venta.cantidad) | currency }}</td>
+            <td>{{ getPriceByItem(venta.total_pago, venta.cantidad) | currency}}</td>
+            <td>{{venta.edad}}</td>
+            <td>{{venta.origen}}</td>
+            <td>{{venta.destino}}</td>
+            <td>{{venta.email}}</td>
+          </tr>
+
+
+
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+
+
+
+
+
+</div>

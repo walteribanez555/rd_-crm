@@ -60,6 +60,35 @@
 }
 
 
+.details-input{
+  display: flex;
+  flex-direction: column;
+
+}
+
+.input-date{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.details-input.error{
+  color: red;
+  font-weight: bold;
+}
+
+
+.age-detail{
+  border: 1px solid gainsboro;
+  flex-direction: column;
+  display: flex;
+  width: fit-content;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 9px;
+}
+
+
 @media (max-width: 1024px) {
   .field{
     width: 100%;

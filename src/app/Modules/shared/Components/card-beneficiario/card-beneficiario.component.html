@@ -3,7 +3,7 @@
 
     <div class="circle-avatar">
       <i class="fa-solid fa-person fa-2xl"></i>
-      <span>ver detalles</span>
+      <span style="font-size: 14px;">ver detalles</span>
     </div>
 
   </div>
@@ -14,13 +14,23 @@
         <span>Beneficiario</span>
       </div>
       <span>{{beneficiario?.primer_nombre +' ' + beneficiario?.primer_apellido}}</span>
-
+    </div>
+    <div class="field">
+      <div class="title">
+        <span>Nro de Poliza</span>
+      </div>
+      <span>{{poliza?.poliza_id}}</span>
     </div>
 
+    <div class="field">
+      <span>Selecciona Para descargar Voucher</span>
+      <!-- <span>{{beneficiario?.primer_nombre +' ' + beneficiario?.primer_apellido}}</span> -->
+
+    </div>
   </div>
 </div>
 
 
-<ng-template #modalTemplate >
+<ng-template #modalTemplate>
 
 </ng-template>

@@ -1,0 +1,51 @@
+<div class="card">
+  <div class="top">
+    <i class="fa-solid fa-file"></i>
+    <span>Detalles del Voucher</span>
+
+  </div>
+  <hr>
+
+  <div class="detail">
+    <div class="field">
+      <span class="f-title">
+        Status
+      </span>
+      <span  [classList]="'status ' + getStatusPoliza(poliza.status)" >{{getStatusPoliza(poliza.status)}}</span>
+    </div>
+    <div class="field">
+      <span class="f-title">Fecha Salida</span>
+      <span>{{poliza.fecha_salida}}</span>
+    </div>
+    <div class="field">
+      <span class="f-title">Fecha de Retorno</span>
+      <span>{{poliza.fecha_retorno}}</span>
+    </div>
+    <div class="field">
+      <span class="f-title">Nro Dias</span>
+      <span>{{poliza.nro_dias}}</span>
+    </div>
+    <div class="field">
+      <span class="f-title">Destino</span>
+      <span>
+        {{poliza.destino}}
+      </span>
+    </div>
+    <div class="field">
+      <span class="f-title">
+        Multiviajes
+      </span>
+      <span>
+        {{poliza.multiviaje == 1 ? "no" : "Incluido"}}
+      </span>
+    </div>
+    <div class="field">
+      <span class="f-title">
+        Caducidad
+      </span>
+      <span>
+        {{poliza.fecha_caducidad.split('T')[0]}}
+      </span>
+    </div>
+  </div>
+</div>

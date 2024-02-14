@@ -27,6 +27,30 @@ export interface CountryRegion {
 
 
 export const countriesRegion : CountryRegion[] =[
+  {
+    "country" : "MUNDIAL",
+    "continent" : "mundial"
+  },
+  {
+    "country" : "ASIA",
+    "continent" : "Asia",
+  },
+  {
+    "country" :"AMERICA",
+    "continent" : "America",
+  },
+  {
+    "country"  : "OCEANIA",
+    "continent" : "Oceania",
+  },
+  {
+    "country" : "AFRICA",
+    "continent" : "Africa"
+  },
+  {
+    "country" : "EUROPE",
+    "continent" : "Europe"
+  },
 
   {
       "country": "Afghanistan",

@@ -1,0 +1,22 @@
+<div class="modal">
+  <div class="modal-header">
+    <img src="assets/images/isologo-blanco.png">
+    <span>Plus {{title}}</span>
+    <span class="modal-close" (click)="onClose()">x</span>
+  </div>
+  <div class="modal-content">
+    <div class="info">
+      <span class="title">{{title}}</span>
+      <hr>
+
+      <i [className]="icono" ></i>
+
+      <p>{{description}}</p>
+
+
+    </div>
+  </div>
+
+</div>
+
+<div class="modal-backdrop" (click)="onClose()"></div>

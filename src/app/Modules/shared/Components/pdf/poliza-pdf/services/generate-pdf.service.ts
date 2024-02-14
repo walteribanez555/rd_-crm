@@ -35,6 +35,7 @@ export class GeneratePdfService {
   }
 
   generatePdfAsync(...canvases: HTMLCanvasElement[]): Observable<void> {
+    console.log(...canvases);
     return new Observable<void>(observer => {
       try {
         this.generatePdfFromCanvas(...canvases);

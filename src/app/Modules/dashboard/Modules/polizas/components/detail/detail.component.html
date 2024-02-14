@@ -1,10 +1,10 @@
 <div class="container" *ngIf="ventaUi">
   <h1>
     <span style="color: gainsboro;">Paso 6: </span>
-    <span class="title">Detalles</span>
+    <span class="title">DETALLES</span>
   </h1>
 
-  <h2>Confirma los Detalles de tu Cotizacion...</h2>
+  <h2>Completa tus datos</h2>
 
   <hr>
 
@@ -121,12 +121,32 @@
                 {{ventaUi.total_descuento | currency}}
               </div>
             </div>
+
+            <div class="item discount" *ngIf="ventaUi!.codigoDescuento">
+              <div class="left">
+                <span>Codigo Descuento</span>
+              </div>
+              <div class="right">
+                {{(ventaUi!.codigoDescuento ) | currency}}
+              </div>
+            </div>
             <div class="item discount"  *ngIf="ventaUi.total_cupones > 0">
               <div class="left">
                 <span>Cupones</span>
               </div>
               <div class="right">
                 {{ ventaUi.total_cupones | currency }}
+              </div>
+            </div>
+            <div class="field">
+              <span>Aplicar Cupon </span>
+              <div class="item">
+                <div class="left">
+                  <input type="text" [(ngModel)]="discountCode" >
+                </div>
+                <div class="right" >
+                  <button (click)="findDiscount()" >Aplicar</button>
+                </div>
               </div>
             </div>
 
@@ -144,7 +164,7 @@
 
       </div>
       <button (click)="onChangeStep()">
-        <span>Rellenar Polizas</span>
+        <span>Rellenar Vouchers</span>
       </button>
 
     </div>

@@ -37,8 +37,10 @@ export class BeneficiariosService implements CRUDService<Beneficiario> {
   create(item: BeneficiarioToPost): Observable<Beneficiario> {
     return this.http.post<Beneficiario>(this.apiUrl, item);
   }
-  update(id: string | number, item: Beneficiario): Observable<Beneficiario> {
-    throw new Error('Method not implemented.');
+  update(id: string | number, item: any): Observable<any> {
+
+    return this.http.put(this.apiUrl+`?id=${id}`, item);
+
   }
   delete(id: string | number): Observable<any> {
     throw new Error('Method not implemented.');

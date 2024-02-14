@@ -1,0 +1,120 @@
+.card{
+  padding: 20px;
+  border: 1px solid gainsboro;
+  border-radius: 8px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.top  {
+  padding: 10px 0px;
+  font-size: 15px;
+  font-weight: bold;
+  color: var(--main-color);
+
+}
+.top span{
+  padding-left: 20px;
+}
+
+
+
+hr{
+  width: 100%;
+  border: 1px solid gainsboro;
+}
+
+.detail{
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  padding: 10px 20px;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+
+.field{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 20px;
+  border: 1px solid gainsboro;
+}
+
+.field > * {
+  width: 100%;
+}
+
+span.f-title{
+  font-weight: bold;
+  font-size: 12px;
+}
+
+
+.status{
+  padding: 5px 10px;
+  border: 1px solid gainsboro;
+  border-radius: 8px;
+  color:white;
+
+}
+
+/* Proceso"
+      case 2:
+        return "Espera"
+      case 3:
+        return "Activa"
+      case 4:
+        return "Congelada"
+      case 5:
+        return "Reembolso"
+      case 6:
+        return "Anulada"
+      default :
+        return "Indefinida" */
+.status.proceso{
+  background-color: var(--main-color);
+  border: 1px solid var(--main-color);
+}
+.status.espera{
+  background-color: green;
+  border: 1px solid green;
+
+}
+.status.activa{
+  background-color: green;
+  border: 1px solid green;
+}
+.status.congelada{
+  background-color: blue;
+  border: 1px solid blue;
+
+}
+.status.reembolso{
+  background-color: var(--main-color);
+  border: 1px solid var(--main-color);
+
+}
+.status.anulada{
+  background-color: var(--main-color);
+  border: 1px solid var(--main-color);
+
+}
+.status.vencida{
+
+  background-color: var(--main-color);
+  border: 1px solid var(--main-color);
+}
+
+
+@media (max-width: 1024px) {
+
+  .detail{
+    padding: 0px;
+  }
+}

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { dashboardGuard } from './Modules/auth/Guards/Dashboard.guard';
+import { ConfirmPolizaComponent } from './Modules/shared/Pages/confirm-poliza/confirm-poliza.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path : 'auth',
     loadChildren : () => import('./Modules/auth/auth.module').then(m => m.AuthModule)
+  },
+  {
+    path: 'confirm',
+    component : ConfirmPolizaComponent,
   }
 ];
 

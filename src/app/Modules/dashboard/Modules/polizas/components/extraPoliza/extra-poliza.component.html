@@ -1,23 +1,29 @@
 <div class="container">
   <h1>
     <span style="color: gainsboro;">Paso 5: </span>
-    <span class="title">Extras de las polizas...</span>
+    <span class="title">PLUS/UPGRADE</span>
   </h1>
 
 
-  <h2>Seleccione los extras de la polizas...</h2>
+  <h2>Selecciona los Plus/Upgrade para tu plan</h2>
 
   <hr>
 
 
   <div class="field">
-    <span>Seleccione el extra</span>
+    <span>Seleccione los Plus/Upgrade</span>
 
   </div>
 
   <div class="row">
-    <div class="list" *ngIf="selectedService && selectedService.extras.length > 0; else noExtra">
-      <extra *ngFor="let extra; let i = index  of selectedService?.extras" [plan]="extra" [indexPos]="i"  (onSelectedService)="onSelectedExtra($event)" ></extra>
+    <div class="list" *ngIf="selectedService && (selectedService.extras.length > 0 || selectedService.multiviajes.length > 0); else noExtra">
+      <ng-container *ngFor="let multiviaje; let i = index  of selectedService?.multiviajes">
+
+        <multiviaje *ngIf="(parseToInt(multiviaje.catalogo.etiqueta)) == daysQuantity" [Catalogo]="multiviaje.catalogo"
+          [indexPos]="i" (onSelectedService)="onSelectedMultiviaje($event)"></multiviaje>
+      </ng-container>
+      <extra *ngFor="let extra; let i = index  of selectedService?.extras" [plan]="extra" [indexPos]="i"
+        (onSelectedService)="onSelectedExtra($event)"></extra>
     </div>
 
     <ng-template #noExtra>

@@ -18,6 +18,7 @@ import { MapToServicioUi } from 'src/app/Modules/shared/utils/mappers/servicio.m
 import { ServByPlan } from '../../components/multi-step/multi-step.component';
 import { Location } from '@angular/common';
 import { ServicioUi } from 'src/app/Modules/shared/models/Servicio.ui';
+import { Catalog } from 'aws-sdk/clients/sagemaker';
 
 @Component({
   templateUrl: './poliza.component.html',
@@ -56,6 +57,7 @@ export class PolizaComponent implements OnInit {
   servicio: Servicio | null = null;
   planes: ServByPlan | null = null;
   cupones: Cupon[] = [];
+  multiviajes: Catalogo[] = [];
   catalogos: Catalogo[] = [];
   precios: Precio[] = [];
   descuentos: Descuento[] = [];
@@ -119,8 +121,12 @@ export class PolizaComponent implements OnInit {
         this.cupones = resp;
         return this.catalogosService.getAll();
       }),
-      switchMap((resp: Catalogo[]) => {
+      switchMap((resp : Catalogo[]) => {
         this.catalogos = resp;
+        return this.catalogosService.getAllExtras();
+      }),
+      switchMap((resp: Catalogo[]) => {
+        this.multiviajes = resp;
         return this.extrasService.getAll();
       }),
       switchMap((resp: Extra[]) => {
@@ -141,7 +147,8 @@ export class PolizaComponent implements OnInit {
           this.extras,
           this.planes!,
           this.precios,
-          this.cupones
+          this.cupones,
+          this.multiviajes,
         );
 
         this.servicioUi.precioSelected =

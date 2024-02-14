@@ -17,6 +17,8 @@ export interface Cliente {
 
 export interface ClienteToPost extends Omit<Cliente,'fecha_registro' | 'cliente_id' | 'id' > {
   office_id : number;
+  contacto: number;
+  persona_contacto : string | number;
 }
 
 

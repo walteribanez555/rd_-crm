@@ -72,6 +72,13 @@ export class ReportesService {
     return this.http.get<ReporteSiniestro[]>(apiToReport, {params});
   }
 
+  getByNroIdentificacion( nro_identificaion : string) : Observable<Reporte[]> {
+    const apiToReport = this.apiUrl+'/reporteVentas'+`?nro_identificacion=${nro_identificaion}`;
+
+    return this.http.get<Reporte[]>(apiToReport);
+
+  }
+
 
   constructor() { }
 

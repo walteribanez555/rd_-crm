@@ -49,6 +49,7 @@ export class CreateCouponComponent implements OnInit {
           fecha_desde: this.fecha_desde,
           fecha_hasta: this.fecha_hasta,
           status: new FormControl(1, Validators.required),
+          isCode: this.isCode,
         });
 
         onProcces.complete();
@@ -86,7 +87,7 @@ export class CreateCouponComponent implements OnInit {
   fecha_desde = new FormControl(null, Validators.required);
   fecha_hasta = new FormControl(null, Validators.required);
   status = new FormControl(null, Validators.required);
-
+  isCode = new FormControl(false, Validators.required);
   onSuccess(message: string) {
     this.notificacionesModalService.show(message, {
       size: Size.normal,
@@ -163,7 +164,7 @@ export class CreateCouponComponent implements OnInit {
       servicio_id: serv.servicio_id,
       oficina_id: infoCuponForm.oficina_id,
       tipo_valor: infoCuponForm.tipo_valor,
-      nombre: infoCuponForm.nombre,
+      nombre: (infoCuponForm.isCode as boolean) ? `CODE_${infoCuponForm.nombre}` :  infoCuponForm.nombre,
       valor: infoCuponForm.valor,
       fecha_hasta: DatesAction.invert_date(this.fecha_hasta.value!),
       fecha_desde: DatesAction.invert_date(this.fecha_desde.value!),

@@ -21,7 +21,7 @@ export class PolizaPdfComponent  implements OnInit {
 
 
 
-    this.qrCode = `http://192.168.0.13:4200/landing-page/confirm-poliza/${this.poliza?.poliza_id}`
+    this.qrCode = `https://redcardassist.com.bo/confirm?polizas=${this.poliza?.poliza_id?? this.poliza?.id!}`
   }
   qrCode = "Holamundo";
 

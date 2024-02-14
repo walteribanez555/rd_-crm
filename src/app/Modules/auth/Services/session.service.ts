@@ -77,15 +77,14 @@ export class SessionService {
     if(this.oficces.length == 0 ) {
       const oficces_id = localStorage.getItem('office_id')?.split(',');
       const requests : any[] = oficces_id!.map( ofi => this.officeService.getById(ofi) );
-      return forkJoin(requests).pipe(
-        map( resp => {
-          return resp.flat();
+      return this.officeService.getAll().pipe(
+        map((resp) => {
+          return resp.filter( ofi => oficces_id!.includes(ofi.office_id.toString()));
         })
-      )
+      );
     }
 
     return of(this.oficces);
-
   }
 
 

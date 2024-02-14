@@ -1,22 +1,22 @@
 <div class="container">
   <h1>
     <span style="color: gainsboro;">Paso 1: </span>
-    <span class="title">Destino y Origen...</span>
+    <span class="title">ORIGEN Y DESTINO</span>
   </h1>
 
 
-  <h2>¿De donde vienes y a donde vas?</h2>
+  <h2>¿A donde viajas?</h2>
 
   <hr>
 
   <div class="field">
     <i class="fa-solid fa-house"></i>
-    <label for="">Dinos tu Origen</label>
+    <label for="">Pais de Origen</label>
     <select-custom (onselectDestiny)="onSelectedOrigen($event)" ></select-custom>
     <hr>
     <div class="field">
       <i class="fa-solid fa-plane-arrival"></i>
-      <span>Selecciona tu Destino</span>
+      <span>Pais de Destino</span>
       <select-custom (onselectDestiny)="onSelectedDestiny($event)" ></select-custom>
       <div class="list-location">
         <location *ngFor="let locat of locations ; let i = index" [location]="locat" [position]="i"

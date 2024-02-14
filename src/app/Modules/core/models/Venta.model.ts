@@ -20,18 +20,20 @@ export interface Venta {
   tipo_valor:      number;
   descuento_extra: number;
   servicio_id : string;
+  client_secret : string;
   // extras_total:    string;
 }
 
-export interface VentaToPost extends Omit<Venta , 'venta_id' | 'id' | 'fecha_venta' | 'total' | 'total_pago'  | 'tipo_valor' | 'descuento_extra' | 'precio' >{
+export interface VentaToPost extends Omit<Venta , 'venta_id' | 'id' | 'fecha_venta' | 'total' | 'total_pago'  | 'tipo_valor' | 'descuento_extra' | 'precio' | 'client_secret' >{
   extras_id : string;
   fecha_salida : string;
   fecha_retorno : string;
+  multiviajes: string;
 
 }
 
 
-export interface VentaResp extends Venta{
+export interface VentaResp extends Omit<Venta , 'client_secret'>{
   extras_total : string;
 }
 

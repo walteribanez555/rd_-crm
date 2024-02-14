@@ -1,0 +1,74 @@
+<div class="modal">
+  <div class="modal-header">
+    <span>Editar detalles del Beneficiario</span>
+    <span class="close-btn" (click)="close()">X</span>
+  </div>
+
+  <form class="modal-content" [formGroup]="beneficiarioForm!" (submit)="submit()">
+
+    <div class="field">
+      <span>Nombre(s)</span>
+      <input type="text"  name="primer_nombre" formControlName="primer_nombre" >
+      <!-- <input class="title">
+        {{beneficiario.primer_nombre}} -->
+    </div>
+    <div class="field">
+      <span>Apellido(s)</span>
+      <input type="text"  name="primer_apellido" formControlName="primer_apellido">
+      <!-- <span class="title">
+        {{beneficiario.primer_apellido}}
+      </span> -->
+    </div>
+    <div class="field">
+      <span>Nro Identificacion</span>
+      <input type="text" formControlName="nro_identificacion" name="nro_identificacion" >
+      <!-- <div class="title">
+        <span>{{beneficiario.nro_identificacion}}</span>
+      </div> -->
+    </div>
+    <div class="field">
+      <span>Fecha Nacimiento</span>
+      <input-date [ageControl]="ageFormControl!"  [dateControl]="ageFormControl" [travelDate]="travelDate" [servicio]="servicio"  ></input-date>
+      <!-- <span class="title">{{beneficiario.fecha_nacimiento}}</span> -->
+    </div>
+    <div class="field">
+      <span>Sexo</span>
+      <gender-input [genderControl]="this.sexoFormControl!  " ></gender-input>
+      <!-- <span class="title">{{beneficiario.sexo}}</span> -->
+    </div>
+    <div class="field">
+      <span>Origen</span>
+      <select  formControlName="origen" name="origen" >
+        <!-- <option selected [value]="this.beneficiarioForm?.get('origen')?.value" >{{this.beneficiarioForm?.get('origen')?.value}}</option> -->
+        <option  *ngFor="let country of destinies" [value]="country">{{country}}</option>
+
+      </select>
+      <!-- <span class="title">{{beneficiario.origen}}</span> -->
+    </div>
+    <div class="field">
+      <span>Email</span>
+      <input type="text"  formControlName="email" name="email" >
+      <!-- <span class="title">
+        {{beneficiario.email}}
+      </span> -->
+    </div>
+    <div class="field">
+      <span>telefono</span>
+      <input type="text" formControlName="telefono" name="telefono">
+      <!-- <input-telf [telfControl]="telfInput!"></input-telf> -->
+      <!-- <span class="title">{{beneficiario.telefono}}</span> -->
+    </div>
+    <div class="actions">
+      <button type="submit">
+        Modificar
+      </button>
+    </div>
+  </form>
+
+
+
+</div>
+
+<div class="modal-backdrop" (click)="close()">
+
+</div>

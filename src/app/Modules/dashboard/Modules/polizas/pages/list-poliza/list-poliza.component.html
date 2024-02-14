@@ -3,7 +3,7 @@
     <div class="title">
       <!-- <i class="fa-solid fa-earth-americas  fa-xl" style="color: var(--main-color);"></i> -->
 
-      <span>Mis Polizas</span>
+      <span>Mis Vouchers</span>
     </div>
   </div>
 
@@ -15,6 +15,16 @@
     <span>Exportar</span>
 
   </button>
+
+  <div  class="field" style="width: 100%; padding: 20px 10px; flex-wrap: nowrap; flex-direction: column;align-items: flex-start;">
+    <label for="nro_identificacion">Filtar por Nro de Identificacion</label>
+    <input  (input)="search($event)"   type="text" name="nro_identificacion" placeholder="Nro de Identificacion">
+  </div>
+
+  <div  class="field" style="width: 100%; padding: 20px 10px; flex-wrap: nowrap; flex-direction: column;align-items: flex-start;">
+    <label for="nro_voucher">Filtar por Nro de Vocuher</label>
+    <input  (input)="searchByPoliza($event)"  type="text" name="nro_vocuher" placeholder="Nro de Voucher">
+  </div>
 
   <div class="info">
     <div class="table-data info"  >
@@ -43,10 +53,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr  *ngFor="let venta of ventas "   [routerLink]="'../'+venta.venta_id"  [queryParams]="{ poliza_id : venta.poliza_id , beneficiario_id : venta.beneficiario_id}" >
+          <tr  *ngFor="let venta of ventasFiltered "   [routerLink]="'../'+venta.venta_id"  [queryParams]="{ poliza_id : venta.poliza_id , beneficiario_id : venta.beneficiario_id}" >
             <td>
-              <span class="status"  [ngClass]="getStatusClass(venta.status)"
-              >{{venta.status == 1 ? "Proceso" : venta.status == 2 ? "Realizada" : "Cancelada"}}</span>
+              <span class="status"  [ngClass]="getStatusPoliza(venta.poliza_st)"
+              >{{getStatusPoliza(venta.poliza_st)}}</span>
             </td>
             <td>{{venta.fecha_venta.split('T')[0].split('-').join('/')}}</td>
             <td>{{venta.fecha_salida.split('T')[0].split('-').join('/')}}</td>

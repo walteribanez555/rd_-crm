@@ -7,12 +7,8 @@
   </div>
   <div class="info">
     <div class="field">
-      <span>Cobertura Global:</span>
+      <span>Cobertura de:</span>
       <span class="price">{{servicioUi.cobertura_global | currency}}</span>
-    </div>
-    <div class="field">
-      <span>Cobertura Medica:</span>
-      <span class="price" >{{servicioUi.descripcion | currency}}</span>
     </div>
 
     <!-- <div class="field">
@@ -28,7 +24,7 @@
       <div class="price">
         <span>{{servicioUi.edad_base}}</span>
         <span>-</span>
-        <span>{{servicioUi.edad_limite -1}}</span>
+        <span>{{servicioUi.edad_limite}}</span>
       </div>
     </div>
 
@@ -36,6 +32,10 @@
     <div class="field">
       <span  class="see-more" (click)="openModal(modalTemplate)"   >
         Ver Mas Detalles
+
+      </span>
+      <span  class="see-more" (click)="downloadPdf()"   >
+        Descargar
 
       </span>
       <span class="see-more"  *ngIf="!servicioUi.isSelected; else selected" (click)="changeState()" >

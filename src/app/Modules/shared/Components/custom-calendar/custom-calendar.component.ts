@@ -1,5 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
 import * as moment from 'moment';
+import { NotificationService } from '../notification/notification.service';
+import { PositionMessage, Size, TypeMessage } from '../notification/enums';
+import { error } from 'console';
 @Component({
   selector: 'custom-calendar',
   templateUrl: './custom-calendar.component.html',
@@ -21,6 +24,8 @@ export class CustomCalendarComponent implements OnInit {
   dateValue: any;
 
   @Output() onSelectDate = new EventEmitter<string>();
+
+  private cdr = inject(ChangeDetectorRef);
 
   constructor() {}
 
@@ -62,12 +67,29 @@ export class CustomCalendarComponent implements OnInit {
     }
   }
 
-  clickDay(day: any, pos: any) {
-    const monthYear = this.dateSelect.format('YYYY-MM');
-    const parse = `${monthYear}-${day.value}`;
+  clickDay(day: any) {
+
+    // console.log(this.dateSelect,"Fechassas");
+    // this.onError(this.dateSelect._i);
+    const monthYear = this.dateSelect._i.split('/');
+
+    // this.onError(this.dateSelect._i);
+    // console.log({day, monthYear});
+
+
+    day.value = day.value.toString().length === 1 ? `0${day.value}` : day.value;
+
+
+
+    const parse = `${monthYear[0]}-${monthYear[1].length == 1 ? "0" +monthYear[1] : monthYear[1] }-${day.value.length == 1 ? "0" +day.value : day.value}`;
+    const newDate = new Date(parse);
+
+
+    // this.onError(newDate.toISOString());
+
+    this.onSelectDate.emit(newDate.toISOString().split('T')[0]);
     const objectDate = moment(parse);
     this.dateValue = objectDate;
-    this.onSelectDate.emit(objectDate.format().split('T')[0]);
   }
 
   isTheDate(day: any) {
@@ -84,5 +106,17 @@ export class CustomCalendarComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  private notificationService = inject(NotificationService);
+
+  onError(message: string) {
+    this.notificationService.show(message, {
+      size: Size.normal,
+      duration: 3000,
+      imageUrl: TypeMessage.error,
+      positions: [PositionMessage.center],
+      closeOnTouch: true,
+    });
   }
 }

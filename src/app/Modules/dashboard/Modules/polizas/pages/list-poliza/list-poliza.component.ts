@@ -2,7 +2,15 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ngxCsv } from 'ngx-csv';
-import { Observable, Subject, forkJoin, of, switchMap } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  debounceTime,
+  distinctUntilChanged,
+  forkJoin,
+  of,
+  switchMap,
+} from 'rxjs';
 import { SessionService } from 'src/app/Modules/auth/Services/session.service';
 import { Beneficiario } from 'src/app/Modules/core/models/Beneficiario.model';
 import { Cliente } from 'src/app/Modules/core/models/Cliente.model';
@@ -28,101 +36,147 @@ import { loadingAnimation } from 'src/app/Modules/shared/animations/loading.anim
 })
 export class ListPolizaComponent implements OnInit {
   ngOnInit(): void {
-
-    const process= new Subject();
+    const process = new Subject();
 
     const observer = process.asObservable();
 
     this.onLoading(observer);
 
-    this.officeService.getAll().pipe(
-      switchMap( resp =>{
-        this.oficina = resp;
-        return this.serviciosService.getAll();
+    this.searchTerm$
+      .pipe(
+        debounceTime(500), // Adjust the delay time here (in milliseconds)
+        distinctUntilChanged(),
+        switchMap((term) => {
+          if (!term) {
+            console.log('No hay info');
+          }
 
-      })
+          term.length <= 1
+            ? (this.ventasFiltered = this.ventas)
+            : (this.ventasFiltered = this.ventas.filter((venta) =>
+                venta.nro_identificacion.startsWith(term)
+              ));
 
-    ).subscribe({
-      next : (resp) => {
-        this.servicios = resp;
-        process.complete();
+          return of();
+        })
+      )
+      .subscribe((resp) => {});
 
-      },
-      error : (err) => {
-        process.complete();
-        this.onError(err);
+    this.searchTermByPoliza$
+      .pipe(
+        debounceTime(500), // Adjust the delay time here (in milliseconds)
+        distinctUntilChanged(),
+        switchMap((term) => {
+          console.log({ term });
 
-      },
-      complete : ( ) => {
+          if (!term) {
+            console.log('No hay info');
+          }
 
-      }
-    })
+          term.length <= 1
+            ? (this.ventasFiltered = this.ventas)
+            : (this.ventasFiltered = this.ventas.filter((venta) =>
+                venta.poliza_id.toString().startsWith(term)
+              ));
 
+          return of();
+        })
+      )
+      .subscribe((resp) => {});
+
+    this.officeService
+      .getAll()
+      .pipe(
+        switchMap((resp) => {
+          this.oficina = resp;
+          return this.serviciosService.getAll();
+        })
+      )
+      .subscribe({
+        next: (resp) => {
+          this.servicios = resp;
+          process.complete();
+        },
+        error: (err) => {
+          process.complete();
+          this.onError(err);
+        },
+        complete: () => {},
+      });
   }
 
-
-  oficina : Oficina[] = [];
+  oficina: Oficina[] = [];
   ventas: Reporte[] = [];
-  servicios : Servicio[] = [];
+  ventasFiltered: Reporte[] = [];
+
+  servicios: Servicio[] = [];
   private notificacionModalService = inject(NotificationService);
   private sessionService = inject(SessionService);
   private reportesService = inject(ReportesService);
   private officeService = inject(OficinasService);
   private serviciosService = inject(ServiciosService);
 
-
-  onFilter(dates : string[]) {
-
-
-
-
+  onFilter(dates: string[]) {
     this.filter(dates[0], dates[1]);
+  }
+  searchTerm$ = new Subject<string>();
+  searchTermByPoliza$ = new Subject<string>();
 
+  search(event: any): void {
+    if (event.target.value) {
+      this.searchTerm$.next(event.target.value);
+    }
   }
 
+  showEvent(event: any) {
+    console.log(event);
+  }
 
-  filter(initialDate : string, finalDate : string) {
+  searchByPoliza(event: any): void {
+    if (event.target.value) {
+      this.searchTermByPoliza$.next(event.target.value);
+    }
+  }
+
+  filter(initialDate: string, finalDate: string) {
     const process = new Subject();
-    const observerProcess  = process.asObservable();
+    const observerProcess = process.asObservable();
     this.onLoading(observerProcess);
 
-
-    this.reportesService.getByUsername(this.sessionService.getUser()!, initialDate, finalDate).subscribe({
-      next: ( resp ) => {
-        process.complete();
-        this.ventas = resp.reverse();
-      },
-      error : (err) => {
-        process.complete();
-        this.onError(err);
-      },
-      complete : () => {
-
-      }
-    })
-
+    this.reportesService
+      .getByUsername(this.sessionService.getUser()!, initialDate, finalDate)
+      .subscribe({
+        next: (resp) => {
+          process.complete();
+          this.ventas = resp.reverse();
+          this.ventasFiltered = this.ventas;
+        },
+        error: (err) => {
+          process.complete();
+          this.onError(err);
+        },
+        complete: () => {},
+      });
   }
 
-
-
-
-  getPriceByItem( item : number | string , quantity : string ){
-
-    if(typeof item === 'string'){
+  getPriceByItem(item: number | string, quantity: string) {
+    if (typeof item === 'string') {
       return parseInt(item) / parseInt(quantity);
     }
 
-    return item /  parseInt(quantity);
+    return item / parseInt(quantity);
   }
 
-
-  getOficces( office_id : number){
-    return this.oficina.filter(ofi => ofi.office_id === office_id  ).map(ofi => ofi.office_name);
-
+  getOficces(office_id: number) {
+    return this.oficina
+      .filter((ofi) => ofi.office_id === office_id)
+      .map((ofi) => ofi.office_name);
   }
 
-  getService( service_id : number) {
-    return this.servicios.filter(servicio => servicio.servicio_id === service_id).map(servicio => servicio.servicio);
+  getService(service_id: number) {
+    return this.servicios
+      .filter((servicio) => servicio.servicio_id === service_id)
+      .map((servicio) => servicio.servicio);
   }
 
   getStatusClass(status: number) {
@@ -132,20 +186,31 @@ export class ListPolizaComponent implements OnInit {
     };
   }
 
-  getStatusString(status : number){
-    return status ==1 ? "realizado" : "proceso";
-
+  getStatusString(status: number) {
+    return status == 1 ? 'realizado' : 'proceso';
   }
 
-  getStatusPoliza( status : number) {
-    return "Activa";
+  getStatusPoliza(state: number) {
+    switch (state) {
+      case 1:
+        return "Proceso"
+      case 2:
+        return "Espera"
+      case 3:
+        return "Activa"
+      case 4:
+        return "Congelada"
+      case 5:
+        return "Reembolso"
+      case 6:
+        return "Anulada"
+      default :
+        return "Vencida"
+    }
   }
 
-
-
-  makeCsvVen(){
-
-    const nameFile = "reporte ventas-"+new Date().toISOString().split('T')[0];
+  makeCsvVen() {
+    const nameFile = 'reporte ventas-' + new Date().toISOString().split('T')[0];
 
     var options = {
       fieldSeparator: ';',
@@ -155,50 +220,72 @@ export class ListPolizaComponent implements OnInit {
       showTitle: true,
       title: 'Report data',
       useBom: true,
-      headers: ["venta","status","Oficina","username","fecha venta","forma pago","cantidad","precio","total","plus","descuento","descuento extra","total_pago","poliza","destino","fecha salida","fecha retorno","beneficiario","nombres","apellidos","identificacion","fecha nacimiento","edad", "origen","email","telefono"]
+      headers: [
+        'venta',
+        'status',
+        'Oficina',
+        'username',
+        'fecha venta',
+        'forma pago',
+        'cantidad',
+        'precio',
+        'total',
+        'plus',
+        'descuento',
+        'descuento extra',
+        'total_pago',
+        'poliza',
+        'status poliza',
+        'destino',
+        'dias',
+        'fecha salida',
+        'fecha retorno',
+        'beneficiario',
+        'nombres',
+        'apellidos',
+        'identificacion',
+        'fecha nacimiento',
+        'edad',
+        'origen',
+        'email',
+        'telefono',
+      ],
     };
 
-    const data = this.ventas.map(venta => {
+    const data = this.ventas.map((venta) => {
       return {
-        venta : venta.venta_id,
-        status:  this.getStatusString(venta.status),
-        oficina : this.oficina[0].office_name,
-        username : venta.username,
-        'fecha venta' : venta.fecha_venta.split('T')[0],
-        'forma pago' : 'efectivo',
-        cantidad : venta.cantidad,
-        precio : parseFloat(venta.precio),
-        total : parseFloat(venta.total),
-        plus : venta.plus,
-        descuento : parseFloat(venta.descuento),
-        'descuento extra' : venta.descuento_extra,
-        'total pagado' : venta.total_pago,
-        'poliza' : venta.poliza_id,
-        'status poliza' : this.getStatusPoliza( venta.poliza_st),
-        destino : venta.destino,
-        dias : venta.nro_dias,
-        'fecha salida' : venta.fecha_salida.split('T')[0],
-        'fecha retorno' : venta.fecha_retorno.split('T')[0],
-        beneficiario : venta.beneficiario_id,
-        nombres : venta.primer_nombre,
-        apellidos : venta.primer_apellido,
-        identificacion : venta.nro_identificacion,
-        'fecha nacimiento' : venta.fecha_nacimiento.split('T')[0],
-        edad : venta.edad,
-        origen : venta.origen,
-        email : venta.email,
-        telefono : venta.telefono
-
-
-
-      }
-
-
-    })
+        venta: venta.venta_id,
+        status: this.getStatusString(venta.status),
+        oficina: this.oficina[0].office_name,
+        username: venta.username,
+        'fecha venta': venta.fecha_venta.split('T')[0],
+        'forma pago': 'efectivo',
+        cantidad: venta.cantidad,
+        precio: parseFloat(venta.precio),
+        total: parseFloat(venta.total),
+        plus: venta.plus,
+        descuento: parseFloat(venta.descuento),
+        'descuento extra': venta.descuento_extra,
+        'total pagado': venta.total_pago,
+        poliza: venta.poliza_id,
+        statuspol: this.getStatusPoliza(venta.poliza_st),
+        destino: venta.destino,
+        dias: venta.nro_dias,
+        'fecha salida': venta.fecha_salida.split('T')[0],
+        'fecha retorno': venta.fecha_retorno.split('T')[0],
+        beneficiario: venta.beneficiario_id,
+        nombres: venta.primer_nombre,
+        apellidos: venta.primer_apellido,
+        identificacion: venta.nro_identificacion,
+        'fecha nacimiento': venta.fecha_nacimiento.split('T')[0],
+        edad: venta.edad,
+        origen: venta.origen,
+        email: venta.email,
+        telefono: venta.telefono,
+      };
+    });
 
     new ngxCsv(data, nameFile, options);
-
-
   }
 
   onSuccess(message: string) {

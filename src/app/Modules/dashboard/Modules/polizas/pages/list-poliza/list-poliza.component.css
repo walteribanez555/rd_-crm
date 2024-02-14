@@ -178,19 +178,43 @@ button.export span {
   background-color: #f04b46;
 }
 
-.status {
+.status{
+  border: 1px solid gainsboro;
+  color: var(--text-color);
   padding: 5px 10px;
-  border: 1px solid var(--main-color);
-  color: var(--main-color);
-  font-weight: bold;
   border-radius: 8px;
 }
-
-.status.success {
-  border: 1px solid green;
-  color: green;
+.status.Proceso{
+  border: 1px solid var(--main-color);
 }
+.status.Espera{
+  color: green;
+  border: 1px solid green;
 
+}
+.status.Activa{
+  color: green;
+  border: 1px solid green;
+}
+.status.Congelada{
+  color: blue;
+  border: 1px solid blue;
+
+}
+.status.Reembolso{
+  color: var(--main-color);
+  border: 1px solid var(--main-color);
+
+}
+.status.anulada{
+  color: var(--main-color);
+  border: 1px solid var(--main-color);
+
+}
+.status.vencida{
+  color: var(--main-color);
+  border: 1px solid var(--main-color);
+}
 thead {
   position: sticky;
   top: 0;

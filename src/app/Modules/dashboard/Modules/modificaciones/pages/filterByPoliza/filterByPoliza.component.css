@@ -1,0 +1,317 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 40px;
+  width: 100%;
+  height: calc(100vh - 80px);
+  overflow-y: auto;
+}
+
+.top {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+}
+
+.title span {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: start;
+  padding-left: 20px;
+}
+
+.top button {
+  cursor: pointer;
+  background: none;
+  border: 3px solid var(--main-color);
+  border-radius: 10px;
+  padding: 10px 20px;
+  color: var(--main-color);
+  font-size: 15px;
+  transition: 0.3s all ease-in-out;
+}
+
+.top button:hover {
+  background-color: var(--main-color);
+  color: white;
+}
+
+.top button span {
+  transition: 0.3s all ease-in-out;
+  padding-left: 5px;
+}
+
+.top button:hover span {
+  transition: 0.3s all ease-in-out;
+  padding-left: 20px;
+}
+
+hr {
+  margin: 20px 0px;
+  width: 100%;
+  border: 1px solid gainsboro;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 20px;
+  width: 100%;
+}
+
+.table-container {
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+}
+
+.table-data {
+  width: 100%;
+  height: 500px;
+  overflow: auto;
+  border-radius: 2px;
+  border: 1px solid #ccc;
+}
+
+.table-data .loading {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.info {
+  padding: 0px;
+}
+
+/* Tabla de datos */
+table td {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+table th {
+  padding: 20px 0;
+  border-bottom: 1px solid black;
+}
+
+table {
+  width: 120%;
+}
+
+
+
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 30%;
+}
+
+.row {
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.filter{
+  width: 100%;
+  padding: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+  display: flex;
+}
+
+
+input {
+  width: 100%;
+  padding: 10px 20px;
+  font-size: 12px;
+  outline: none;
+  border-radius: 8px;
+  border: 1px solid gainsboro;
+  color: var(--text-color);
+}
+
+ button {
+  padding: 10px 20px;
+  font-size: 12px;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+button.export {
+  background-color: var(--body-bg);
+  color: green;
+  border: 1px solid green;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+  margin: 10px;
+}
+
+button.export:hover {
+  background-color: green;
+  color: white;
+  transition: all 0.3s ease-in-out;
+}
+
+button.export span {
+  padding-left: 20px;
+}
+
+.filters button.valid {
+  transition: 0.3s ease-in-out;
+  background-color: #f04b46;
+}
+
+
+.status{
+  border: 1px solid gainsboro;
+  color: var(--text-color);
+  padding: 5px 10px;
+  border-radius: 8px;
+}
+.status.Proceso{
+  border: 1px solid var(--main-color);
+}
+.status.Espera{
+  color: green;
+  border: 1px solid green;
+
+}
+.status.Activa{
+  color: green;
+  border: 1px solid green;
+}
+.status.Congelada{
+  color: blue;
+  border: 1px solid blue;
+
+}
+.status.Reembolso{
+  color: var(--main-color);
+  border: 1px solid var(--main-color);
+
+}
+.status.anulada{
+  color: var(--main-color);
+  border: 1px solid var(--main-color);
+
+}
+.status.vencida{
+  color: var(--main-color);
+  border: 1px solid var(--main-color);
+}
+thead {
+  position: sticky;
+  top: 0;
+  background-color: var(--body-bg);
+}
+table thead tr {
+  text-align: left;
+}
+table th {
+  font-size: small;
+  text-align: center;
+
+  border-bottom: 1px solid var(--border-color);
+}
+
+table td {
+  text-align: center;
+  font-size: small;
+}
+
+table td span.vigente {
+  color: green;
+  border: 1px solid green;
+  padding: 2px 5px;
+}
+
+table td span.congelada {
+  color: gray;
+  border: 1px solid gray;
+  padding: 2px 5px;
+}
+table td span.uso {
+  color: var(--main-color);
+  border: 1px solid var(--main-color);
+  padding: 2px 5px;
+}
+table td span.anulada {
+  color: orangered;
+  border: 1px solid orangered;
+  padding: 2px 5px;
+}
+
+table td a {
+  text-decoration: none;
+  color: var(--main-color);
+  font-weight: bold;
+}
+
+
+.table-data.info::-webkit-scrollbar {
+  height: 12px;
+}
+
+.table-data.info::-webkit-scrollbar-thumb {
+  background-color: var(--main-color);
+  border-radius: 6px;
+}
+
+.table-data.info::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+@media (max-width: 1024px) {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  table{
+    width: 100%;
+  }
+
+  table tr {
+    width: fit-content;
+  }
+
+  table th,
+  table td {
+    padding: 20px 10px;
+  }
+
+  .container {
+    height: calc(100vh - (80px + 10vh));
+  }
+
+  button.export {
+    width: 100%;
+    margin: 10px 0px;
+  }
+
+}

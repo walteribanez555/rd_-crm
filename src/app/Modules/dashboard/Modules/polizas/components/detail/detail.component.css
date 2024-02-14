@@ -63,8 +63,9 @@ h1 span.title {
 
 .field select,
 .field input {
-  width: 50vh;
-  padding: 10px 20px;
+  /* width: 50vh; */
+  width: 100%;
+  padding: 15px 20px;
   outline: none;
   border: 1px solid gainsboro;
   border-radius: 10px;
@@ -301,4 +302,15 @@ button:hover {
   .title{
     font-size: 10px;
   }
+
+  .field .item{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .right{
+    width: 100%;
+  }
+
+
 }

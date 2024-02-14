@@ -81,12 +81,17 @@
       </div>
 
     </div>
-    <div class="actions">
+    <div class="actions" *ngIf="(poliza?.status! >= 2 && poliza?.status! <=3) || poliza?.status == 7; else NoActions " >
       <span class="title">Acciones</span>
       <hr>
 
-      <button  (click)="downloadAllCanvas()" >Descargar Poliza</button>
+      <button  (click)="downloadAllCanvas()" >Descargar Voucher</button>
     </div>
+
+    <ng-template #NoActions>
+      <span>No tiene permisos de descargar Voucher</span>
+
+    </ng-template>
 
   </div>
   <div class="modal-footer">

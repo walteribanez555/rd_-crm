@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="top">
+    <h1>Editar Poliza</h1>
+
+    <div class="actions">
+      <button class="anular"  *ngIf="poliza?.status!=6 && poliza?.status!=1"  (click)="onChangeStatus(6, 'Anulada')" >Anular</button>
+      <button class="active" *ngIf="poliza?.status == 4"  (click)="onChangeStatus(2, 'Activada')"  >Descongelar</button>
+      <button class="congelar" *ngIf="poliza?.status == 2 || poliza?.status==3 " (click)="onChangeStatus(4, 'Congelada')" >Congelar</button>
+      <button class="refund"  *ngIf="poliza?.status!=6 && poliza?.status!=1 && poliza?.status!=5" (click)="onChangeStatus(5, 'Reembolso')"  >Reembolso</button>
+    </div>
+
+  </div>
+  <hr>
+
+  <div class="info">
+
+
+    <mod-card-venta  *ngIf="venta" (click)="editVent()" [venta]="venta!"   ></mod-card-venta>
+    <mod-card-poliza  *ngIf="poliza" (click)="editPoliza()" [poliza]="poliza!" ></mod-card-poliza>
+    <mod-card-beneficiario *ngIf="beneficiario" (click)="editBen()" [beneficiario]="beneficiario!"   ></mod-card-beneficiario>
+
+
+  </div>
+
+</div>

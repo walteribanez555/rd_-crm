@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -19,10 +19,19 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./gender-input.component.css'],
 })
 export class GenderInputComponent implements OnInit {
+  private cdr = inject(ChangeDetectorRef);
+
   ngOnInit(): void {
-    this.genderControl.setValue(1);
+    if(!this.genderControl.value){
+      this.masculino =true;
+      this.onSelect(1);
+      return;
+    }
+    this.genderControl.value === 1 ? this.masculino = true : this.femenino =true;
+    this.onSelect(this.genderControl.value);
+    this.cdr.detectChanges();
   }
-  masculino: boolean = true;
+  masculino: boolean = false;
   femenino: boolean = false;
 
 
@@ -32,6 +41,7 @@ export class GenderInputComponent implements OnInit {
   onSelect(type : number){
     type === 1 ? this.femenino = false : this.masculino = false;
     this.genderControl.setValue(type);
+    this.cdr.detectChanges();
 
 
 

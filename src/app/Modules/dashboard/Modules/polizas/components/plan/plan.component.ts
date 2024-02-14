@@ -1,7 +1,8 @@
-import { Component, EventEmitter,  Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { Component, EventEmitter,  Input, OnInit, Output, TemplateRef, inject } from '@angular/core';
 import { ModalService } from '../modal-plan-details/services/modal-service';
 import { Observable } from 'rxjs';
 import { ServicioUi } from 'src/app/Modules/shared/models/Servicio.ui';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'plan',
@@ -17,6 +18,8 @@ export class PlanComponent implements OnInit {
 
 
   @Input() onSelectedItem? : Observable<ServicioUi>;
+
+  private http  = inject(HttpClient);
 
 
 
@@ -60,6 +63,26 @@ export class PlanComponent implements OnInit {
     this.servicioUi.isSelected= !this.servicioUi.isSelected;
 
     this.onItemSelected.emit(this.servicioUi);
+  }
+
+  downloadPdf() {
+    const pdfUrl = `/assets/pdf/${this.servicioUi.img}.pdf`;
+
+    // Use HttpClient to fetch the PDF file as a Blob
+    this.http.get(pdfUrl, { responseType: 'blob' }).subscribe((blob: Blob) => {
+      const url = window.URL.createObjectURL(blob);
+
+      // Create a link element and trigger the download
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${this.servicioUi.img}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+
+      // Clean up resources
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    });
   }
 
 

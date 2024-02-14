@@ -57,6 +57,24 @@ export class SidebarComponent {
       ],
     },
     {
+      label : 'Modificaciones',
+      isDropdownOpen : false,
+      dropdownHeight : '0',
+      icon : 'fa-solid fa-file-pen',
+      submenuItems: [
+        {
+          label : 'buscar',
+          icon : 'fa-solid fa-magnifying-glass',
+          route : 'modificaciones/filter',
+        },
+        {
+          label : 'Lista',
+          icon : 'fa-solid fa-magnifying-glass',
+          route : 'modificaciones/list'
+        }
+      ]
+    },
+    {
       label: 'Usuarios',
       isDropdownOpen: false,
       dropdownHeight: '0',
@@ -79,6 +97,11 @@ export class SidebarComponent {
           label: 'Administrar',
           route: 'myoficina',
           icon: 'fa-solid fa-money-bill',
+        },
+        {
+          label: 'Cotizar Voucher',
+          route: 'poliza/create',
+          icon: 'fa-solid fa-square-plus',
         },
       ],
     },
@@ -106,22 +129,23 @@ export class SidebarComponent {
           route: 'cupones/create',
           icon: 'fa-solid fa-magnifying-glass-dollar',
         },
+
       ],
     },
 
     {
-      label: 'Polizas',
+      label: 'Vouchers',
       isDropdownOpen: false,
       dropdownHeight: '0',
       icon: 'fa-solid fa-file',
       submenuItems: [
         {
-          label: 'Pólizas',
+          label: 'Vouchers',
           route: 'poliza/list',
           icon: 'fa-solid fa-magnifying-glass',
         },
         {
-          label: 'Emitir póliza',
+          label: 'Emitir Voucher',
           route: 'poliza/create',
           icon: 'fa-solid fa-square-plus',
         },
@@ -185,6 +209,7 @@ export class SidebarComponent {
         },
       ],
     },
+
   ];
 
   private cdr = inject(ChangeDetectorRef);

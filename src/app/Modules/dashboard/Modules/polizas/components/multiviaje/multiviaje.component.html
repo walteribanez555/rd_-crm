@@ -1,0 +1,26 @@
+<div class="extra-container" [class.selected]="isSelected">
+
+  <div class="icon">
+    <i class="fa-solid fa-globe"></i>
+  </div>
+  <div class="info">
+    <div class="details">
+      <div class="top">
+        <span>Anual Multiviajes por : {{Catalogo.etiqueta}} días</span>
+      </div>
+      <span class="price">
+        {{Catalogo.codigo | currency}} - por persona
+      </span>
+      <div class="content">
+      </div>
+
+    </div>
+
+    <switch  [isSelected]="isSelected" [isItemExtra]="true" [indexPos]="indexPos"  (changeState)="changeState($event)"></switch>
+
+
+  </div>
+
+
+
+</div>

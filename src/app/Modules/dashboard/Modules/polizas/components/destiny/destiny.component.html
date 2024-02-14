@@ -44,7 +44,7 @@
       </div>
       <div class="field">
         <i class="fa-regular fa-calendar"></i>
-        <label for="">Fecha de Salida</label>
+        <label for="">Fecha de Retorno</label>
         <span  *ngIf="!finalDate?.valid; else isFinalSet" >yyyy-mm-dd</span>
         <ng-template #isFinalSet >
           <span>{{finalDate?.value}}</span>

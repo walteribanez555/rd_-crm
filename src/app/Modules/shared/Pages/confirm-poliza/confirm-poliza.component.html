@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="page-title">
+    <h1>Descarga los Vouchers</h1>
+
+  </div>
+
+
+
+  <div class="info">
+    <!-- <span *ngIf="!isReady; else ready">Cargando la informacion</span> -->
+
+    <div class="list">
+      <button  (click)="downloadPdf()" style="padding: 10px 20px; border: none; cursor: pointer ; background-color: var(--main-color); color: white;font-size: 15px; border-radius: 8px;"  >Descargar Condicionado</button>
+
+
+      <card-poliza [poliza]="polizas[0]" [servicio]="servicio!" [isClient]="false"  [beneficiario]="beneficiarios[0]"  ></card-poliza>
+
+      <card-beneficiario *ngFor="let beneficiario of beneficiarios; let i = index" [beneficiario]="beneficiario!"
+        style="margin: 10px 0px;" [servicioUi]="servicioUi!" [poliza]="polizas[i]"
+        [venta]="ventas[i]"></card-beneficiario>
+    </div>
+
+  </div>
+
+
+</div>

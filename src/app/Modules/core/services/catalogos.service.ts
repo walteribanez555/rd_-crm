@@ -17,6 +17,12 @@ export class CatalogosService implements CRUDService<Catalogo> {
   getAll(): Observable<Catalogo[]> {
     return this.http.get<Catalogo[]>(this.apiUrl + '?id=beneficios');
   }
+
+
+  getAllExtras() : Observable<Catalogo[]>{
+    return this.http.get<Catalogo[]>(this.apiUrl+'?id=multiviajes');
+  }
+
   getOne(id: string | number): Observable<Catalogo[]> {
     throw new Error('Method not implemented.');
   }

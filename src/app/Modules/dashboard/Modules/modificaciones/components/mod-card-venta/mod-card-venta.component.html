@@ -1,0 +1,52 @@
+<div class="card">
+  <div class="top">
+    <i class="fa-solid fa-money-bill"></i>
+    <span>Detalles de la venta</span>
+
+
+  </div>
+  <hr>
+  <div class="detail">
+    <div class="field">
+      <span class="f-title">fecha de la Venta</span>
+      <span>{{venta.fecha_venta}}</span>
+    </div>
+    <div class="field">
+      <span class="f-title">Codigo Pasarela</span>
+      <span>{{venta.client_secret}}</span>
+    </div>
+    <div class="field">
+      <span class="f-title">
+        Precio
+      </span>
+      <span>
+        {{venta.precio | currency}}
+      </span>
+    </div>
+    <div class="field">
+      <span class="f-title">
+        Descuento
+      </span>
+      <span>
+        {{venta.descuento | currency}}
+      </span>
+    </div>
+    <div class="field">
+      <span class="f-title">
+        Plus
+      </span>
+      <span>
+        {{venta.plus | currency}}
+      </span>
+    </div>
+    <div class="field">
+      <span class="f-title">
+        Total Pago
+      </span>
+      <span>
+        {{venta.total_pago | currency}}
+      </span>
+    </div>
+
+  </div>
+</div>

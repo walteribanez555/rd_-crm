@@ -4,19 +4,38 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 @Component({
   selector: 'switch',
   template: `<div class="container">
-    <div class="option">
-      <input type="checkbox" [id]="indexPos" [(ngModel)]="isSelected" (click)="onChangeState()" />
-      <label for="{{indexPos}}" class="button"></label>
-    </div>
-    <span>seleccionar</span>
-  </div> `,
+  <div class="option">
+    <input
+      *ngIf="!isItemExtra; else extraTemplate"
+      type="checkbox"
+      [id]="indexPos"
+      [(ngModel)]="isSelected"
+      (click)="onChangeState()"
+    />
+    <label *ngIf="!isItemExtra" for="{{ indexPos }}" class="button"></label>
+
+    <ng-template #extraTemplate>
+      <input
+        type="checkbox"
+        [id]="indexPos + '-multi'"
+        [(ngModel)]="isSelected"
+        (click)="onChangeState()"
+      />
+    <label  for="{{ indexPos+ '-multi' }}" class="button"></label>
+
+    </ng-template>
+
+  </div>
+  <span>seleccionar</span>
+</div> `,
   styleUrls: ['./switch_btn.component.css'],
 })
 export class SwitchBtnComponent {
 
-  @Input() isSelected! : boolean;
+  @Input() isSelected!: boolean;
   @Output() changeState = new EventEmitter<boolean>();
-  @Input() indexPos! : number;
+  @Input() indexPos!: number;
+  @Input() isItemExtra: boolean = false;
 
   onChangeState() {
     this.isSelected = !this.isSelected;

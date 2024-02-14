@@ -1,0 +1,53 @@
+<div class="card">
+  <div class="top">
+    <i class="fa-solid fa-person"></i>
+    <span>Detalles del beneficiario</span>
+
+  </div>
+  <hr>
+
+  <div class="detail">
+    <div class="field">
+      <span class="f-title">Nombre(s)</span>
+      <span >
+        {{beneficiario.primer_nombre}}
+      </span>
+    </div>
+    <div class="field">
+      <span class="f-title">Apellido(s)</span>
+      <span >
+        {{beneficiario.primer_apellido}}
+      </span>
+    </div>
+    <div class="field">
+      <span class="f-title">Nro Identificacion</span>
+      <span >
+        {{beneficiario.nro_identificacion}}
+      </span>
+    </div>
+    <div class="field">
+      <span class="f-title">Fecha Nacimiento</span>
+      <span >{{beneficiario.fecha_nacimiento}}</span>
+    </div>
+    <div class="field">
+      <span class="f-title">Sexo</span>
+      <span >{{mapGender(beneficiario.sexo)}}</span>
+    </div>
+    <div class="field">
+      <span class="f-title" >Origen</span>
+      <span >{{beneficiario.origen}}</span>
+    </div>
+    <div class="field">
+      <span class="f-title">Email</span>
+      <span >
+        {{beneficiario.email}}
+      </span>
+    </div>
+    <div class="field">
+      <span class="f-title">telefono</span>
+      <span >{{beneficiario.telefono}}</span>
+    </div>
+
+
+  </div>
+</div>

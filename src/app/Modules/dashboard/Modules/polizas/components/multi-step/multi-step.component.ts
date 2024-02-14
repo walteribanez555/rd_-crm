@@ -76,6 +76,7 @@ import { Oficina } from 'src/app/Modules/core/models/Oficina';
 import { BeneficiarioUi } from '../../../../../shared/models/Beneficiario.ui';
 import { hasValidDestinies } from 'src/app/Modules/shared/utils/data/countries-region.ts/filter-countries.region';
 import { CountryRegion, countriesRegion } from 'src/app/Modules/shared/utils/data/countries-region.ts/countries-region';
+import { getExpirationDate, mapMultiviaje } from 'src/app/Modules/shared/utils/mappers/multiviaje.mappers';
 
 export interface ServByPlan {
   servicio: Servicio;
@@ -164,6 +165,11 @@ export class MultiStepComponent implements OnInit {
   extras: Extra[] = [];
   precios: Precio[] = [];
   cupones: Cupon[] = [];
+  multiviajes : Catalogo[] = [];
+
+
+  listPolizas : Poliza[] = [];
+
 
   serviciosToUi: ServicioUi[] | null = null;
 
@@ -230,6 +236,10 @@ export class MultiStepComponent implements OnInit {
         }),
         switchMap((data) => {
           this.catalogos = data;
+          return this.catalogosService.getAllExtras();
+        }),
+        switchMap((data) => {
+          this.multiviajes = data;
           return this.serviciosService.getAll();
         }),
         switchMap((servicios: Servicio[]) => {
@@ -266,7 +276,8 @@ export class MultiStepComponent implements OnInit {
               this.extras,
               item,
               this.precios,
-              this.cupones
+              this.cupones,
+              this.multiviajes,
             )
           );
 
@@ -370,12 +381,19 @@ export class MultiStepComponent implements OnInit {
   }
 
 
+  isCreatingPayment = false;
+
   createIntentPayment() {
+
+    if(this.isCreatingPayment){
+      return;
+    }
+
     const beneficiariosData: BeneficiarioUi[] =
       this.listForms[6].value.beneficiariosData;
 
     const titularBeneficiario = beneficiariosData[0];
-
+    this.isCreatingPayment = true;
 
 
 
@@ -409,6 +427,8 @@ export class MultiStepComponent implements OnInit {
             nro_contacto: titularBeneficiario.telefono,
             status: 1,
             office_id : oficce.office_id ?? 2,
+            contacto : 2,
+            persona_contacto: "ADMIN"
           };
 
           this.clientesService.create(nuevoCliente).subscribe({
@@ -416,6 +436,8 @@ export class MultiStepComponent implements OnInit {
               this.createVenta(cliente, this.listForms, oficce);
             },
             error: (err) => {
+              this.isCreatingPayment = false;
+
               this.onLoadProcess?.complete();
               this.onError(
                 'El email ya esta registrado a otro pasaporte o nro identificacion'
@@ -442,42 +464,50 @@ export class MultiStepComponent implements OnInit {
 
   createVenta(cliente: Cliente, forms: FormGroup[], oficina : Oficina) {
     const username = this.sessionService.getUser();
+    const multiviajes =(this.listForms[3].value.planSelected as ServicioUi).multiviajes.filter( m => m.isSelected === true );
 
-    const nuevaVenta: VentaToPost = {
-      username: username!,
-      office_id: oficina.office_id ?? 2,
-      cliente_id: cliente.id ?? cliente.cliente_id!,
-      tipo_venta: 2,
-      forma_pago: 1,
-      cantidad: `${this.listForms[6].value.beneficiariosData.length}`,
-      servicio_id: `${this.listForms[3].value.planSelected.servicio_id}`,
-      extras_id: `${(
-        this.listForms[5].value.ventaData.selectedExtras as Extra[]
-      )
-        .map((selectedExtra: Extra) => selectedExtra.beneficio_id)
-        .join(',')}`,
-      fecha_salida: this.listForms[1].value.initialDate as string,
-      fecha_retorno: this.listForms[1].value.finalDate,
-      status: 1,
-      plus: 0,
-      descuento: `${this.listForms[5].value.ventaData.total_cupones}`,
-      tipo_descuento: `${this.listForms[5].value.ventaData.tipo_cupones}`,
-    };
 
-    this.ventasService
+    const beneficiarios: BeneficiarioUi[] = this.listForms[6].value
+            .beneficiariosData as BeneficiarioUi[];
+
+    const requests : any[] = beneficiarios.map( ben => {
+
+      const nuevaVenta: VentaToPost = {
+        username: username!,
+        office_id: oficina.office_id ?? 2,
+        cliente_id: cliente.id ?? cliente.cliente_id!,
+        tipo_venta: 2,
+        forma_pago: 1,
+        cantidad: `1`,
+        servicio_id: `${this.listForms[3].value.planSelected.servicio_id}`,
+        extras_id: `${(
+          this.listForms[5].value.ventaData.selectedExtras as Extra[]
+        )
+          .map((selectedExtra: Extra) => selectedExtra.beneficio_id)
+          .join(',')}`,
+        fecha_salida: this.listForms[1].value.initialDate as string,
+        fecha_retorno: this.listForms[1].value.finalDate,
+        status: 2,
+        plus: 0,
+        descuento: `${(this.listForms[5].value.ventaData.total_cupones / beneficiarios.length) + this.listForms[5].value.ventaData.codigoDescuento}`,
+        tipo_descuento: `${this.listForms[5].value.ventaData.tipo_cupones}`,
+          multiviajes : mapMultiviaje(this.listForms[3].value.planSelected, this.listForms[1].value.finalDate)
+      };
+
+      return this.ventasService
       .create(nuevaVenta)
       .pipe(
-        mergeMap((respFromVentas: VentaResp) => {
-          return this.ventasService
-            .update(respFromVentas.venta_id ?? respFromVentas.id!, {
-              status: 2,
-              order_id: 'CRM',
-            })
-            .pipe(
-              catchError((err) => throwError(err)),
-              map(() => respFromVentas)
-            );
-        }),
+        // mergeMap((respFromVentas: VentaResp) => {
+        //   return this.ventasService
+        //     .update(respFromVentas.venta_id ?? respFromVentas.id!, {
+        //       status: 2,
+        //       order_id: 'CRM',
+        //     })
+        //     .pipe(
+        //       catchError((err) => throwError(err)),
+        //       map(() => respFromVentas)
+        //     );
+        // }),
         mergeMap((respFromVentas: VentaResp) => {
           return this.createExtras(respFromVentas, this.listForms).pipe(
             catchError((err) => throwError(err)),
@@ -485,10 +515,6 @@ export class MultiStepComponent implements OnInit {
           );
         }),
         mergeMap((respFromVentas: VentaResp) => {
-          const beneficiarios: BeneficiarioUi[] = this.listForms[6].value
-            .beneficiariosData as BeneficiarioUi[];
-
-          const requests : any[] = beneficiarios.map( beneficiario => {
             const nuevaPoliza: PolizaToPost = {
               venta_id: respFromVentas.id ?? respFromVentas.venta_id!,
               servicio_id: (this.listForms[3].value.planSelected as ServicioUi)
@@ -496,77 +522,176 @@ export class MultiStepComponent implements OnInit {
               destino: (this.listForms[0].value.toLocation as  CountryRegion[]).map(dest => dest.country).join(','),
               fecha_salida: this.listForms[1].value.initialDate,
               fecha_retorno: this.listForms[1].value.finalDate,
-              extra: (forms[5].value.ventaData.selectedExtras as Extra[]).length,
-              status: 4,
+              extra: (forms[5].value.ventaData.selectedExtras as Extra[])
+                .length,
+              status: 2,
+              multiviaje : multiviajes.length > 0 ? 2 : 1,
+              fecha_caducidad : getExpirationDate(this.listForms[1].value.finalDate),
+              username : 'WEBREDCARD'
+
             };
 
             return this.polizasService.create(nuevaPoliza);
-          })
-
-
-          return forkJoin(requests);
         }),
-        switchMap((polizas: any[]) => {
-          console.log(polizas);
-          this.listForms[8].get('polizaRespForm')?.setValue(polizas);
+        switchMap((poliza: Poliza) => {
+          this.listPolizas.push(poliza);
+          this.listForms[8].get('polizaRespForm')?.setValue(poliza);
 
-          const beneficiarios: BeneficiarioUi[] = this.listForms[6].value
-            .beneficiariosData as BeneficiarioUi[];
+            const beneficiarioToPost : BeneficiarioToPost = {
+              poliza_id : poliza.poliza_id ?? poliza.id!,
+              primer_apellido : ben.primer_apellido,
+              primer_nombre : ben.primer_nombre,
+              segundo_apellido : ben.segundo_apellido,
+              segundo_nombre : ben.segundo_nombre,
+              fecha_nacimiento : ben.fecha_nacimiento,
+              sexo : parseInt(ben.sexo),
+              origen : ben.origen.country,
+              email : ben.email,
+              telefono : ben.telefono,
+              nro_identificacion : ben.nro_identificacion,
 
-          const beneficiariosToIt: BeneficiarioToPost[] = polizas.map(
-            (poliza , index) => {
-              return {
-                poliza_id: poliza.poliza_id ?? poliza.id!,
-                primer_apellido: beneficiarios[index].primer_apellido,
-                primer_nombre: beneficiarios[index].primer_nombre,
-                segundo_apellido: beneficiarios[index].segundo_apellido,
-                segundo_nombre: beneficiarios[index].segundo_nombre,
-                fecha_nacimiento: DatesAction.invert_date(
-                  beneficiarios[index].fecha_nacimiento
-                ),
-                sexo: parseInt(beneficiarios[index].sexo),
-                origen: beneficiarios[index].origen.country,
-                email: beneficiarios[index].email,
-                telefono: beneficiarios[index].telefono,
-                nro_identificacion: beneficiarios[index].nro_identificacion,
-              };
             }
-          );
 
-          const requests: any[] = beneficiariosToIt.map((beneficiario) =>
-            this.beneficiariosService.create(beneficiario)
-          );
 
-          return forkJoin(requests);
+            console.log({beneficiarioToPost});
+
+           return this.beneficiariosService.create(beneficiarioToPost);
+
+
         }),
         catchError((error) => {
           console.error('Error occurred:', error.message);
           return throwError(error);
         })
       )
-      .subscribe({
-        next: (resp: Beneficiario[]) => {
-          this.onLoadProcess?.complete();
 
-          this.onSuccess(
-            'Venta Realizada Correctamente, redirigiendo a listado'
-          );
+    })
 
-          setTimeout(() => {
-            this.router.navigate(['../dashboard/poliza/list'], {
-              queryParams: {
-                beneficiarios: resp.map((ben) => ben.id).join(','),
-                cl_id: cliente.nro_identificacion,
-              },
-            });
-          }, 3000);
-        },
-        error: (err) => {
-          this.onLoadProcess?.complete();
-          this.onError('Ocurrio un error');
-        },
-        complete: () => {},
-      });
+    forkJoin(requests).subscribe({
+      next: (resp: Beneficiario[]) => {
+        this.onLoadProcess?.complete();
+        this.isCreatingPayment = false;
+        this.onSuccess(
+          'Venta Realizada Correctamente, redirigiendo a listado'
+        );
+        this.router.navigate(['../dashboard/poliza/detail'], {
+          queryParams: {
+            polizas :  this.listPolizas.map(poliza => poliza.id ?? poliza.poliza_id!).join(',')
+          },
+        });
+      },
+      error: (err) => {
+        console.log(err);
+        this.onLoadProcess?.complete();
+        this.onError('Ocurrio un error');
+      },
+      complete: () => {},
+    });
+
+
+
+    // const nuevaVenta: VentaToPost = {
+    //   username: username!,
+    //   office_id: oficina.office_id ?? 2,
+    //   cliente_id: cliente.id ?? cliente.cliente_id!,
+    //   tipo_venta: 2,
+    //   forma_pago: 1,
+    //   cantidad: `${this.listForms[6].value.beneficiariosData.length}`,
+    //   servicio_id: `${this.listForms[3].value.planSelected.servicio_id}`,
+    //   extras_id: `${(
+    //     this.listForms[5].value.ventaData.selectedExtras as Extra[]
+    //   )
+    //     .map((selectedExtra: Extra) => selectedExtra.beneficio_id)
+    //     .join(',')}`,
+    //   fecha_salida: this.listForms[1].value.initialDate as string,
+    //   fecha_retorno: this.listForms[1].value.finalDate,
+    //   status: 1,
+    //   plus: 0,
+    //   descuento: `${this.listForms[5].value.ventaData.total_cupones}`,
+    //   tipo_descuento: `${this.listForms[5].value.ventaData.tipo_cupones}`,
+    // };
+
+    // this.ventasService
+    //   .create(nuevaVenta)
+    //   .pipe(
+    //     mergeMap((respFromVentas: VentaResp) => {
+    //       return this.ventasService
+    //         .update(respFromVentas.venta_id ?? respFromVentas.id!, {
+    //           status: 2,
+    //           order_id: 'CRM',
+    //         })
+    //         .pipe(
+    //           catchError((err) => throwError(err)),
+    //           map(() => respFromVentas)
+    //         );
+    //     }),
+    //     mergeMap((respFromVentas: VentaResp) => {
+    //       return this.createExtras(respFromVentas, this.listForms).pipe(
+    //         catchError((err) => throwError(err)),
+    //         map(() => respFromVentas)
+    //       );
+    //     }),
+    //     mergeMap((respFromVentas: VentaResp) => {
+    //       const beneficiarios: BeneficiarioUi[] = this.listForms[6].value
+    //         .beneficiariosData as BeneficiarioUi[];
+
+    //       const requests : any[] = beneficiarios.map( beneficiario => {
+    //         const nuevaPoliza: PolizaToPost = {
+    //           venta_id: respFromVentas.id ?? respFromVentas.venta_id!,
+    //           servicio_id: (this.listForms[3].value.planSelected as ServicioUi)
+    //             .servicio_id,
+    //           destino: (this.listForms[0].value.toLocation as  CountryRegion[]).map(dest => dest.country).join(','),
+    //           fecha_salida: this.listForms[1].value.initialDate,
+    //           fecha_retorno: this.listForms[1].value.finalDate,
+    //           extra: (forms[5].value.ventaData.selectedExtras as Extra[]).length,
+    //           status: 4,
+    //         };
+
+    //         return this.polizasService.create(nuevaPoliza);
+    //       })
+
+
+    //       return forkJoin(requests);
+    //     }),
+    //     switchMap((polizas: any[]) => {
+    //       console.log(polizas);
+    //       this.listForms[8].get('polizaRespForm')?.setValue(polizas);
+
+    //       const beneficiarios: BeneficiarioUi[] = this.listForms[6].value
+    //         .beneficiariosData as BeneficiarioUi[];
+
+    //       const beneficiariosToIt: BeneficiarioToPost[] = polizas.map(
+    //         (poliza , index) => {
+    //           return {
+    //             poliza_id: poliza.poliza_id ?? poliza.id!,
+    //             primer_apellido: beneficiarios[index].primer_apellido,
+    //             primer_nombre: beneficiarios[index].primer_nombre,
+    //             segundo_apellido: beneficiarios[index].segundo_apellido,
+    //             segundo_nombre: beneficiarios[index].segundo_nombre,
+    //             fecha_nacimiento: DatesAction.invert_date(
+    //               beneficiarios[index].fecha_nacimiento
+    //             ),
+    //             sexo: parseInt(beneficiarios[index].sexo),
+    //             origen: beneficiarios[index].origen.country,
+    //             email: beneficiarios[index].email,
+    //             telefono: beneficiarios[index].telefono,
+    //             nro_identificacion: beneficiarios[index].nro_identificacion,
+    //           };
+    //         }
+    //       );
+
+    //       const requests: any[] = beneficiariosToIt.map((beneficiario) =>
+    //         this.beneficiariosService.create(beneficiario)
+    //       );
+
+    //       return forkJoin(requests);
+    //     }),
+    //     catchError((error) => {
+    //       console.error('Error occurred:', error.message);
+    //       return throwError(error);
+    //     })
+    //   )
+
 
 
 

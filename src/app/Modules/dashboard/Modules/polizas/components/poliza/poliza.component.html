@@ -7,12 +7,12 @@
 
   <div class="row error" *ngIf="!polizaForm.valid; else noValid" >
     <i class="fa-solid fa-circle-exclamation"></i>
-    <span style="padding-left: 20px;">Aun no esta rellenada correctamente la poliza</span>
+    <span style="padding-left: 20px;">Aun no esta rellenada correctamente el Voucher</span>
   </div>
   <ng-template  #noValid  >
     <div class="row success">
       <i class="fa-solid fa-square-check"></i>
-      <span style="padding-left: 20px;">Poliza Correcta</span>
+      <span style="padding-left: 20px;">Voucher Correcto</span>
     </div>
   </ng-template>
 
@@ -47,7 +47,19 @@
     <div class="title">
       <span>Fecha Nacimiento</span>
     </div>
-    <input-date [dateControl]="dateBirth!"  [ageControl]="ageInput!"  [travelDate]="finalDate" ></input-date>
+    <input type="date" name="date"  placeholder="mes/dia/año"  formControlName="date"   (change)="onChangeDate($event)" id="dateBirth">
+    <div class="details-input" [class.error]="isNotValidDate">
+      <div class="age-detail" *ngIf="isNotValidDate">
+        <span>Edad</span>
+        <span>{{ edad }}</span>
+      </div>
+      <span *ngIf="isNotValidDate">
+        No esta en el rango de {{ servicio!.edad_base }} -
+        {{ servicio!.edad_limite }}
+      </span>
+    </div>
+
+    <!-- <input-date [dateControl]="dateBirth!"  [ageControl]="ageInput!"  [travelDate]="finalDate" [servicio]="servicio" ></input-date> -->
   </div>
 
   <div class="field">
@@ -66,7 +78,7 @@
 
   <div class="field">
     <div class="title">
-      <span>Pais de origen</span>
+      <span>Pais de Residencia</span>
     </div>
     <select-custom  (onselectDestiny)="onSelectDestiny($event)" ></select-custom>
   </div>

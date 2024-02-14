@@ -18,7 +18,6 @@ export interface Beneficiario {
 
 
 export interface BeneficiarioToPost extends Omit<Beneficiario , 'beneficiario_id'| 'id'| 'edad'>{
-
 }
 
 // {

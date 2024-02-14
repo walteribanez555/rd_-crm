@@ -12,6 +12,10 @@ export class VentaMappers {
       (extra) => extra.isSelected
     );
 
+    const selectedMultiviaje = servicioUi.multiviajes.filter(
+      (multiviaje) => multiviaje.isSelected
+    )
+
 
     //By every Beneficiary is a poliza
     // servicioUi.extras = selectedExtras;
@@ -21,7 +25,13 @@ export class VentaMappers {
     });
 
 
-    const precioToData : number = servicioUi.precioSelected!;
+    let precioToData : number;
+    if(selectedMultiviaje.length > 0) {
+      precioToData = +selectedMultiviaje[0].catalogo.codigo;
+    }else{
+
+      precioToData = servicioUi.precioSelected!;
+    }
     const total : number[] = Array(beneficiarys).fill(precioToData);
     const plus : number[] =  Array(beneficiarys).fill( selectedExtras.reduce((accum , actualValue)=> (actualValue.extra_.tipo_valor === 1  ? (accum  + precioToData  * (actualValue.extra_.incremento / 100 )) : ( accum + actualValue.extra_.incremento ))  , 0) );
     const tipo_descuento : number[] = Array(beneficiarys).fill(1);
@@ -52,6 +62,7 @@ export class VentaMappers {
       servicioUi,
       selectedExtras,
       total_polizas,
+      codigoDescuento : null,
 
     };
 

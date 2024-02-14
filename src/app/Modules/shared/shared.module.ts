@@ -29,6 +29,7 @@ import { GeneratePdfService } from './Components/pdf/poliza-pdf/services/generat
 import { QRCodeModule } from 'angularx-qrcode';
 import { PolizaPdfComponent } from './Components/pdf/poliza-pdf/poliza-pdf.component';
 import { CardBeneficiarioComponent } from './Components/card-beneficiario/card-beneficiario.component';
+import { ConfirmPolizaComponent } from './Pages/confirm-poliza/confirm-poliza.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { CardBeneficiarioComponent } from './Components/card-beneficiario/card-b
     CardPolizaComponent,
     CardBeneficiarioComponent,
     ModalBeneficiarioComponent,
-    PolizaPdfComponent
+    PolizaPdfComponent,
+    ConfirmPolizaComponent,
   ],
   imports: [
     CommonModule,

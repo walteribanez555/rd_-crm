@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 import { PlanUi } from 'src/app/Modules/shared/models/Plan.ui';
 import { ServicioUi } from 'src/app/Modules/shared/models/Servicio.ui';
 import { VentaUi } from 'src/app/Modules/shared/models/Venta.ui';
+import { Cupon } from 'src/app/Modules/shared/models/data/Cupon';
 import { CountryRegion } from 'src/app/Modules/shared/utils/data/countries-region.ts/countries-region';
 import { VentaMappers } from 'src/app/Modules/shared/utils/mappers/venta.mappers';
 
@@ -38,7 +39,10 @@ export class DetailComponent implements OnInit {
   @Output() onBackStep = new EventEmitter();
 
   destinyList: CountryRegion[] = [];
-  origen? : CountryRegion
+  origen? : CountryRegion;
+
+
+  discountCode = "";
 
   selectedPlanesExtras: PlanUi[] = [];
 
@@ -47,7 +51,10 @@ export class DetailComponent implements OnInit {
   totalPayment = 0;
   ventaUi : VentaUi | null = null;
 
+  cuponesCode : Cupon[] = [];
+
   onChangeStep() {
+    console.log(this.ventaUi);
     this.forms[5].get('ventaData')?.setValue(this.ventaUi);
     this.onChangePage.emit();
   }
@@ -94,5 +101,38 @@ export class DetailComponent implements OnInit {
     this.totalPayment =
       totalExtras +
       (this.forms[3].get('planSelected')?.value as ServicioUi).precioSelected!;
+  }
+
+
+  findDiscount(){
+    // console.log(this.discountCode);
+
+
+    if(this.ventaUi?.codigoDescuento){
+      this.ventaUi.totalPago = this.ventaUi.totalPago + this.ventaUi.codigoDescuento;
+    }
+
+    this.ventaUi!.codigoDescuento = null;
+
+
+
+    const discounts = (this.forms[3].get('planSelected')?.value as ServicioUi).cuponesCode!;
+
+
+
+    const discountByCode = discounts.filter( discount => discount.nombre?.split('_')[1] == this.discountCode);
+    this.cuponesCode = discountByCode;
+
+    if(discountByCode.length>0){
+
+      this.ventaUi!.codigoDescuento = discountByCode[0].tipo_valor === 1 ?  (discountByCode[0].valor * (this.ventaUi!.totalPago /100)) : (discountByCode[0].valor)
+      this.ventaUi!.totalPago = this.ventaUi!.totalPago - this.ventaUi!.codigoDescuento;
+      // return;
+    }
+
+
+    console.log("No se encontro ningun cupon");
+
+
   }
 }

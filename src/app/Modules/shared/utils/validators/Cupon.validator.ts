@@ -11,4 +11,13 @@ export class CuponValidator{
     return (actualDate >= new Date(initialDate) && actualDate <= new Date(finalDate)) ;
   }
 
+
+  static isCodeCupon( cupon :Cupon) {
+    const cuponDetails = cupon.nombre?.split('_');
+    if(cuponDetails!.length > 1){
+      return true;
+    }
+    return false;
+  }
+
 }

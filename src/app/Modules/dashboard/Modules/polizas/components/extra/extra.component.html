@@ -3,25 +3,41 @@
     <i class="{{ plan.icono }}"></i>
   </div>
 
-  <div class="info">
-    <div class="details">
-      <div class="top">
-        <span>{{plan.beneficio}}</span>
+  <div>
+    <div class="info">
+      <div class="details">
+        <div class="top">
+          <span>{{plan.beneficio.split(';')[0]}}</span>
+
+        </div>
+        <span class="price">
+          {{plan.incremento + " %"}} - por persona
+        </span>
+        <div class="content">
+          <span>{{plan.complemento}}</span>
+        </div>
+
       </div>
-      <span class="price">
-        {{plan.incremento + " %"}} - por persona
-      </span>
-      <div class="content">
-        <span>{{plan.complemento}}</span>
-      </div>
+
+      <switch  [isSelected]="isSelected" [indexPos]="indexPos"  (changeState)="changeState($event)"></switch>
+
 
     </div>
-
-    <switch  [isSelected]="isSelected" [indexPos]="indexPos"  (changeState)="changeState($event)"></switch>
-
+    <div class="footer">
+      <button  (click)="onSeeMoreDetails(modalTemplate)" >Ver Mas</button>
+    </div>
 
   </div>
 
 
 
+
+
+
 </div>
+
+
+<ng-template #modalTemplate >
+
+</ng-template>
+

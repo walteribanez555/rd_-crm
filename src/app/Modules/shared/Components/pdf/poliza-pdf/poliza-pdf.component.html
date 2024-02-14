@@ -25,7 +25,7 @@
     </div>
     <div class="datos-beneficiario">
       <i style="color: var(--main-color); " class="fa-solid fa-circle-info fa-lg"></i>
-      <span style="color: var(--main-color); font-weight: 600; margin-left: 20px; font-size: 10px">Detalles de la Póliza</span>
+      <span style="color: var(--main-color); font-weight: 600; margin-left: 20px; font-size: 10px">Detalles deL Voucher</span>
       <div class="data">
         <div class="left">
           <div class="descriptions">
@@ -102,7 +102,7 @@
               <span>{{poliza?.fecha_salida!.split('T')[0]}}</span>
             </div>
             <div class="nombre-beneficiario">
-              <span>{{poliza?.fecha_retorno!.split('T')[0]}}</span>
+              <span>{{poliza?.multiviaje == 1 ? poliza?.fecha_retorno!.split('T')[0] : poliza?.fecha_caducidad!.split('T')[0]}}</span>
             </div>
 
             <div class="nombre-beneficiario">
@@ -133,7 +133,7 @@
 
       <div class="catalogo">
         <div class="description">
-          <span style="color: var(--main-color); margin-top: 10px; font-size: 12px;">PLAN {{servicioUi?.servicio}}</span>
+          <p style="color: var(--main-color); margin-top: 10px; font-size: 12px;">PLAN {{servicioUi?.servicio}}  <span style="color: var(--main-color); margin-top: 10px; font-size: 12px; font-weight: lighter;" *ngIf="poliza?.multiviaje==2" >- MULTIVIAJE</span> </p>
           <hr style="width: calc(100% - 50px); border: 1px solid gainsboro;">
         </div>
         <div class="beneficios">
@@ -151,15 +151,15 @@
               </div>
               <div class="cats" >
 
-                  <span *ngIf="beneficio.plan[0].cobertura != null; else incluye  " >{{  beneficio.plan[0].cobertura | currency:'USD':'$':'1.2-2' |uppercase}}</span>
+                  <span *ngIf="(beneficio.plan[0].cobertura != null && !(poliza?.multiviaje == 2 && beneficio.beneficio_id == 11)); else incluye  " >{{  beneficio.plan[0].cobertura | currency:'USD':'$':'1.2-2' |uppercase}}</span>
 
                   <ng-template  #incluye >
-                    <span  *ngIf="beneficio.plan[0].complemento =='1'; else noIncluye" >Incluye</span>
+                    <span  *ngIf="(beneficio.plan[0].complemento =='1' && !(poliza?.multiviaje == 2 && beneficio.beneficio_id == 11)); else noIncluye" >Incluye</span>
 
                     <ng-template  #noIncluye >
                       <span  *ngIf="beneficio.plan[0].complemento=='3'" > TKT </span>
 
-                      <span  *ngIf="beneficio.plan[0].complemento=='2'"  >No incluye</span>
+                      <span  *ngIf="beneficio.plan[0].complemento=='2' || (poliza?.multiviaje == 2 && beneficio.beneficio_id == 11) "  >No incluye</span>
                     </ng-template>
 
                   </ng-template>
@@ -179,7 +179,7 @@
         <i style="color: var(--main-color); position: absolute; top: -5px; right: 0;"
           class="fa-solid fa-circle-exclamation fa-xl"></i>
         <span>En caso de emergencia y de necesitar hacer uso de la asistencia debe comunicarse con
-          al numero de contacto:
+          el numero de contacto:
         </span>
 
         <div class="contacto">

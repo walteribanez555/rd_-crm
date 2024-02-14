@@ -28,8 +28,12 @@
         <span>{{poliza.poliza_id}}</span>
       </div>
       <div class="field">
+        <span class="title">Multiviajes</span>
+        <span >{{poliza.multiviaje == 2 ? "Aplica" : "No Aplica"}}</span>
+      </div>
+      <div class="field">
         <span class="title">Status</span>
-        <span class="status success">Espera</span>
+        <span [classList]="'status ' + getStatusPoliza(poliza.status)" >{{getStatusPoliza(poliza.status)}}</span>
       </div>
     </div>
 

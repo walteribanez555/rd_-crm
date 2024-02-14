@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { NotificationService } from 'src/app/Modules/shared/Components/notification/notification.service';
 import { BeneficiarioUi } from '../../../../../shared/models/Beneficiario.ui';
 import { CountryRegion } from 'src/app/Modules/shared/utils/data/countries-region.ts/countries-region';
+import { ServicioUi } from 'src/app/Modules/shared/models/Servicio.ui';
 
 
 @Component({
@@ -13,6 +14,8 @@ import { CountryRegion } from 'src/app/Modules/shared/utils/data/countries-regio
 })
 export class DatosPolizasComponent implements OnInit {
   private notificationService = inject(NotificationService);
+
+  planSelected : ServicioUi | null = null;
 
 
 
@@ -56,7 +59,7 @@ export class DatosPolizasComponent implements OnInit {
       apellidos : new FormControl(null, [Validators.required]),
       iden : new FormControl(null, [Validators.required]),
       email : new FormControl(null, [Validators.required]),
-      telf : new FormControl(null, [Validators.required]),
+      telf : new FormControl(''),
       sexo : new FormControl(null, [Validators.required]),
       edad : new FormControl(null,[Validators.required]),
       titular : new FormControl(false,[Validators.required]),
@@ -86,10 +89,18 @@ export class DatosPolizasComponent implements OnInit {
 
   mapData() {
 
+
+    if(this.polizasForm.length > 0) {
+      return;
+    }
+
     this.polizasForm = [];
 
     const adultQuantity : number = this.forms[2].get('adultQuantity')?.value;
     const seniorQuantity : number = this.forms[2].get('seniorQuantity')?.value;
+
+    this.planSelected = this.forms[3].get('planSelected')?.value;
+
 
 
     this.travelDate = this.forms[1].get('finalDate')?.value;
@@ -116,12 +127,15 @@ export class DatosPolizasComponent implements OnInit {
 
   setBeneficiarios(){
 
+    // console.log(this.polizasForm);
+
     if(!this.polizasForm.every( polizaform => polizaform.valid)){
       return;
     }
 
+    this.listBeneficiarios = [];
+
     this.polizasForm.forEach(polizaForm => {
-      console.log(polizaForm.value);
       const {nombres, apellidos, edad, email,iden,telf,sexo, titular, date, origen  } = polizaForm.value;
 
       const nuevaBeneficiario : BeneficiarioUi = {

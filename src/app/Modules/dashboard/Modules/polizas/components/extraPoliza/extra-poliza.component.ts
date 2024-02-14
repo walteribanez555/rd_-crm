@@ -11,28 +11,26 @@ import { ServicioUi } from 'src/app/Modules/shared/models/Servicio.ui';
 })
 export class ExtraPolizaComponent implements OnInit {
   ngOnInit(): void {
+    this.onSelectedPlan?.subscribe({
+      next: (service: ServicioUi) => {
+        this.selectedService = service;
+        this.daysQuantity = this.forms[1].value.quantityDays;
 
-    this.onSelectedPlan?.subscribe(
-      {
-        next : ( service : ServicioUi )  => {
-          console.log(service);
-          this.selectedService = service;
-        }
-      }
-    )
+      },
+    });
+
 
   }
+  @Input() forms!: FormGroup[];
 
 
   @Output() onChangePage = new EventEmitter();
   @Output() onBackStep = new EventEmitter();
 
+  @Input() onSelectedPlan?: Observable<ServicioUi>;
 
-  @Input() onSelectedPlan? : Observable<ServicioUi>;
-
-  selectedService : ServicioUi | null = null;
-
-
+  selectedService: ServicioUi | null = null;
+  daysQuantity : number = 0;
 
   onChangeStep() {
     this.onChangePage.emit();
@@ -42,10 +40,20 @@ export class ExtraPolizaComponent implements OnInit {
     this.onBackStep.emit();
   }
 
-  onSelectedExtra(pos : number) {
-    this.selectedService!.extras[pos].isSelected = !this.selectedService!.extras[pos].isSelected;
+  onSelectedExtra(pos: number) {
+    this.selectedService!.extras[pos].isSelected =
+      !this.selectedService!.extras[pos].isSelected;
   }
 
+  onSelectedMultiviaje(pos: number) {
+    this.selectedService!.multiviajes[pos].isSelected =
+      !this.selectedService!.multiviajes[pos].isSelected;
+  }
+
+  parseToInt( quantString : string): number{
+    // console.log(quantString);
+    return parseInt(quantString);
+  }
 
 
 }

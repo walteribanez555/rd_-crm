@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, inject } from '@angular/core';
 import { CountriesISO, codigos } from './countries-iso.data';
 import { FormControl } from '@angular/forms';
 
@@ -9,37 +9,47 @@ import { FormControl } from '@angular/forms';
 })
 export class InputTelfComponent {
   ngOnInit(): void {
+    this.cdr.detectChanges();
     this.filteredCountries = this.countries;
-    this.filterByCode();
-    this.telfControl?.registerOnChange(() => {
-      this.filterByCode();
-    });
+    // this.filterByCode();
+    // this.telfControl?.registerOnChange(() => {
+    //   this.filterByCode();
+    // });
   }
 
-  filterByCode() {
-    if ((this.telfControl?.value as string).startsWith('N')) {
-      return;
-    }
+  // filterByCode() {
+
+  //   console.log(this.telfControl);
+
+  //   if ((this.telfControl?.value as string).startsWith('N')) {
+  //     return;
+  //   }
 
 
-    const numberComposed = (this.telfControl!.value as string).split('-');
-    this.inputTelf = numberComposed[1];
+  //   if(!this.telfControl){
 
-    console.log(numberComposed[1]);
+  //   }
 
-    const country = this.countries.filter((country) =>
-      country.phone_code
-        .startsWith(numberComposed[0].toLowerCase())
-    )[0];
 
-    this.updateActualName(country);
+  //   const numberComposed = (this.telfControl!.value as string).split('-');
+  //   // this.inputTelf = numberComposed[1];
 
-  }
+  //   console.log(numberComposed[1]);
+
+  //   const country = this.countries.filter((country) =>
+  //     country.phone_code
+  //       .startsWith(numberComposed[0].toLowerCase())
+  //   )[0];
+
+  //   this.updateActualName(country);
+
+  // }
 
   isToggle: boolean = false;
   searchInput: string = 'Select Country';
   selectedCountry: CountriesISO | null = null;
 
+  private cdr = inject(ChangeDetectorRef);
   searchText: string = '';
 
   inputTelf: string | null = null;
@@ -55,6 +65,23 @@ export class InputTelfComponent {
     this.searchInput =
       selectedCountry.name + ' (' + selectedCountry.phone_code + ')';
     this.isToggle = false;
+
+    // console.log(this.telfControl?.value);
+
+    if(!this.telfControl){
+      return;
+    }
+
+    const inputData = (this.telfControl?.value as string).split('-');
+
+    if(inputData.length>1){
+      inputData[0] = selectedCountry.phone_code
+    }else{
+      inputData.unshift(selectedCountry.phone_code)
+    }
+
+    this.telfControl?.setValue(inputData.join('-'));
+    // this.cdr.detectChanges();
   }
 
   filterBySearch() {
@@ -69,11 +96,17 @@ export class InputTelfComponent {
 
   onWriteInput(event: any) {
     // this.inputTelf = event;
-    if (this.inputTelf && this.selectedCountry) {
-      this.telfControl?.setValue(
-        this.selectedCountry.phone_code + '-' + this.inputTelf
-      );
-    }
+    // console.log(this.inputTelf);
+
+    // this.inputTelf = this.selectedCountry?.phone_code + '-' + this.inputTelf
+    this.telfControl?.setValue(
+      this.inputTelf
+    )
+    // if (this.inputTelf && this.selectedCountry) {
+    //   this.telfControl?.setValue(
+    //     this.selectedCountry.phone_code + '-' + this.inputTelf
+    //   );
+    // }
   }
 
   countries: CountriesISO[] = codigos;

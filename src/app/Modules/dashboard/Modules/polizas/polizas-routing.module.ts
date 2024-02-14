@@ -6,6 +6,7 @@ import { EditPolizaComponent } from './pages/edit-poliza/edit-poliza.component';
 import { PolizaComponent } from './pages/poliza/poliza.component';
 import { CreateComponent } from './pages/create/create.component';
 import { BeneficiarioComponent } from './components/beneficiario/beneficiario.component';
+import { DetailsComponent } from './pages/details/details.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
         component : CreateComponent
       },
       {
+        path : 'detail',
+        component :  DetailsComponent,
+      },
+      {
         path : ':id/edit',
         component : EditPolizaComponent,
       },
@@ -28,7 +33,8 @@ const routes: Routes = [
         path : ':id',
         component : PolizaComponent,
 
-      }
+      },
+
 
     ]
   }

@@ -57,6 +57,12 @@ export class RolStructureComponent implements OnInit {
       ]
     },
     {
+      area : 'Modificaciones',
+      area_permissions : [
+        "Buscar,"
+      ]
+    },
+    {
       area : 'Descuentos',
       area_permissions : [
         "administrar",

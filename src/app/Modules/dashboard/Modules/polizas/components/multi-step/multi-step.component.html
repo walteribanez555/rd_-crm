@@ -11,7 +11,7 @@
     <planes [class.hidden]="actualStep !==4" [planForm]="planForm" [observerSelection]="observerServiciosUi"
       (onSelectedPlan)="onPlanSelected($event)" (onBackStep)="onChangeStep(3)" (onChangePage)="onChangeStep(5)"
       [class.appears]="actualStep == 4" [serviciosUi]="serviciosToUi"></planes>
-    <extra-poliza [class.hidden]="actualStep!==5" [onSelectedPlan]="observerOnSelectedPlan"
+    <extra-poliza [class.hidden]="actualStep!==5" [onSelectedPlan]="observerOnSelectedPlan" [forms]="listForms"
       (onBackStep)="onChangeStep(4)" (onChangePage)="onChangeStep(6)" [class.appears]="actualStep == 5"></extra-poliza>
     <detail [class.hidden]="actualStep!==6" [onDetail]="observerOnShowDetails" [forms]="listForms"
       (onBackStep)="onChangeStep(5)" (onChangePage)="onChangeStep(7)" [class.appears]="actualStep == 6"></detail>
@@ -104,13 +104,7 @@
               <p>Rellena la informacion</p>
             </div>
           </li>
-          <li class="step" (click)="onStepClicked(8)" [class.active]="actualStep >= 8">
-            <span> 8</span>
-            <div class="data-step">
-              <span>Paso 8:</span>
-              <p>Pagar</p>
-            </div>
-          </li>
+
         </ul>
       </div>
 

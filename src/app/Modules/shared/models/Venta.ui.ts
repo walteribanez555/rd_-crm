@@ -1,6 +1,7 @@
 import { ExtraUi } from "./Extra.ui";
 import { PlanUi } from "./Plan.ui";
 import { ServicioUi } from "./Servicio.ui";
+import { Cupon } from "./data/Cupon";
 
 export interface VentaUi {
   total : number[];
@@ -17,5 +18,6 @@ export interface VentaUi {
   total_polizas :number;
   total_cupones : number;
   tipo_cupones : number;
+  codigoDescuento : number | null,
 
 }

@@ -19,4 +19,23 @@ export class CardPolizaComponent {
 
   @Input() isClient : boolean =true;
 
+  getStatusPoliza(state: number) {
+    switch (state) {
+      case 1:
+        return "Proceso"
+      case 2:
+        return "Espera"
+      case 3:
+        return "Activa"
+      case 4:
+        return "Congelada"
+      case 5:
+        return "Reembolso"
+      case 6:
+        return "Anulada"
+      default :
+        return "Vencida"
+    }
+  }
+
 }

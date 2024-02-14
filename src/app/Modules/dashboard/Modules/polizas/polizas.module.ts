@@ -34,6 +34,10 @@ import { ModalService } from './components/modal-plan-details/services/modal-ser
 import { CoreModule } from 'src/app/Modules/core/core.module';
 import { OficinasModule } from '../oficinas/oficinas.module';
 import { SharedModule } from 'src/app/Modules/shared/shared.module';
+import { MultiviajeComponent } from './components/multiviaje/multiviaje.component';
+import { ExtraDetailService } from './components/extra/extra-detail/extraDetail.service';
+import { ExtraDetailComponent } from './components/extra/extra-detail/extraDetail.component';
+import { DetailsComponent } from './pages/details/details.component';
 
 
 @NgModule({
@@ -62,7 +66,10 @@ import { SharedModule } from 'src/app/Modules/shared/shared.module';
     PlanesComponent,
     PolizaItemComponent,
     PolizaComponent,
-    DatesToTravelComponent
+    DatesToTravelComponent,
+    MultiviajeComponent,
+    ExtraDetailComponent,
+    DetailsComponent
   ],
   imports: [
     CommonModule,
@@ -76,7 +83,7 @@ import { SharedModule } from 'src/app/Modules/shared/shared.module';
     OficinasModule,
   ],
   providers: [
-    ModalService
+    ModalService,ExtraDetailService
   ]
 })
 export class PolizasModule { }
