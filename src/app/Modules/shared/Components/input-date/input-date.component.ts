@@ -18,13 +18,13 @@ import { Servicio } from 'src/app/Modules/core/models/Servicio.model';
   selector: 'input-date',
 
   template: `<div class="input-date">
-    <input
+    <!-- <input
       type="text"
       [(ngModel)]="date"
       (keyup)="onDeleteWrite($event)"
       placeholder="dd-mm-yyyy"
       autocomplete="false"
-    />
+    /> -->
     <div class="details-input" [class.error]="isNotValidDate">
       <div class="age-detail" *ngIf="ages">
         <span>Edad</span>
@@ -91,13 +91,19 @@ export class InputDateComponent implements OnInit {
       this.ages = this.datesAction.yearsBetweenDates(
         arrayToMap.join('-'),
         this.travelDate!
-      );
+      ) -1;
+
+
+
 
       if (this.servicio) {
+
         if (
-          this.ages! > this.servicio.edad_limite ||
+          this.ages! >= this.servicio.edad_limite ||
           this.ages! < this.servicio.edad_base
         ) {
+
+
           this.isNotValidDate = true;
 
           this.onSetValidDate.emit(null);

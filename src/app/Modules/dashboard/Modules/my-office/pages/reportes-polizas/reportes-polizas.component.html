@@ -24,10 +24,15 @@
     <label for="poliza">Filtrar por Nro de Voucher</label>
     <input  (input)="searchByPoliza($event)"   type="text" name="poliza" placeholder="Nro de Voucher">
   </div>
+  <div  class="field" style="width: 100%; padding: 20px 10px; flex-wrap: nowrap; flex-direction: column;align-items: flex-start;">
+    <label for="nro_identificacion">Filtrar por Nombre de la persona</label>
+    <input  (input)="searchTermByNameBen($event)"   type="text" name="nro_identificacion" placeholder="Nombre de la persona">
+  </div>
 
 
   <div class="info">
     <div class="table-data info"  >
+
 
       <table  >
         <thead>
@@ -55,8 +60,8 @@
         <tbody>
           <tr  *ngFor="let venta of ventasFiltered "   [routerLink]="'../../poliza/'+venta.venta_id"  [queryParams]="{ poliza_id : venta.poliza_id , beneficiario_id : venta.beneficiario_id}" >
             <td>
-              <span class="status"  [ngClass]="getStatusPoliza(venta.poliza_st)"
-              >{{getStatusPoliza(venta.poliza_st)}}</span>
+              <span class="status"  [ngClass]="getStatusPoliza(venta)"
+              >{{getStatusPoliza(venta)}}</span>
             </td>
             <td>{{venta.fecha_venta.split('T')[0].split('-').join('/')}}</td>
             <td>{{venta.fecha_salida.split('T')[0].split('-').join('/')}}</td>

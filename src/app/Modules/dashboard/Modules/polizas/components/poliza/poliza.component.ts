@@ -26,13 +26,15 @@ export class PolizaItemComponent implements OnInit {
 
   onChangeDate(event : any) {
     // console.log(event.target.value);
-    const birthday  = this.polizaForm.get('date')?.value;
+    // console.log(event.target.value);
+    const birthday  = event.target.value;
 
 
 
     this.edad = this.datesAction.yearsBetweenDates(birthday,this.finalDate );
+    // console.log(this.edad);
 
-    if(this.edad >= this.servicio.edad_limite){
+    if(this.edad > this.limitAge || this.edad < this.servicio.edad_base){
       this.isNotValidDate= true;
       return;
     }
@@ -49,6 +51,7 @@ export class PolizaItemComponent implements OnInit {
   @Input() polizaForm! : FormGroup;
   @Input() finalDate! : string;
   @Input() servicio! : ServicioUi;
+  @Input() limitAge! : number;
 
   sexoInput :FormControl | null = null;
   telfInput : FormControl | null = null;

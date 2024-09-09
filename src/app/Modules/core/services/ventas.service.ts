@@ -49,4 +49,13 @@ export class VentasService implements CRUDService<Venta> {
   delete(id: string | number): Observable<any> {
     throw new Error('Method not implemented.');
   }
+
+  onEdit(id : string | number, data : any) : Observable<any>{
+    const url = `https://ut4cimde9b.execute-api.us-east-1.amazonaws.com/dev_v2/products?id=${id}`;
+
+    return this.http.put<any>(url, {
+      total_pago : data.total_pago,
+      descuento : data.descuento
+    });
+  }
 }

@@ -86,6 +86,7 @@
       <hr>
 
       <button  (click)="downloadAllCanvas()" >Descargar Voucher</button>
+      <button (click)="reSendEmail()" > Reenviar Voucher</button>
     </div>
 
     <ng-template #NoActions>
@@ -101,4 +102,4 @@
 
 <div class="modal-backdrop" (click)="close()" ></div>
 
-<poliza-pdf  (isLoaded)="getCanva($event)" [beneficiario]="beneficiario" [servicioUi]="servicioUi" [poliza]="poliza" [venta]="venta" ></poliza-pdf>
+<poliza-pdf  (isLoaded)="getCanva($event)" [beneficiario]="beneficiario" [servicioUi]="servicioUi" [poliza]="poliza" [venta]="venta" [isWithPrice]="isWithPrice!" ></poliza-pdf>

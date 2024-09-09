@@ -23,9 +23,9 @@ export class ErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       catchError((error) => {
-        console.log('Error por aqui');
+        // console.log('Error por aqui');
 
-        console.log(error);
+        // console.log(error);
         if (error instanceof HttpErrorResponse) {
           if (error.error instanceof ErrorEvent) {
             console.log(`Error event`);
@@ -38,7 +38,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 break;
 
               case 498:
-                console.log('Expiro la Sesion');
+                // console.log('Expiro la Sesion');
                 Token.deleteToken();
                 localStorage.removeItem('rol_id');
                 localStorage.removeItem('client_id');
@@ -47,7 +47,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 break;
             }
 
-            throw new Error();
+            throw new Error("Expiro la sesion,iniciar nuevamente sesion");
           }
         } else {
           console.log('An error ocurred');

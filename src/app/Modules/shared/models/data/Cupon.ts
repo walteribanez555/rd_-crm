@@ -8,6 +8,7 @@ export interface Cupon {
     status: number,
     tipo_valor : number,
     valor: number,
+    oficina_id : string | null,
 
 
 

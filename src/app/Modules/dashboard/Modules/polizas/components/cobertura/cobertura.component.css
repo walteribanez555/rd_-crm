@@ -51,6 +51,11 @@ hr{
 }
 
 
+.sub-item .cats{
+  text-align: end;
+}
+
+
 @media (max-width:768px) {
 
   .sub-item .tipe-state{

@@ -19,6 +19,7 @@ export function MapToServicioUi(
   precios: Precio[],
   cupones: Cupon[],
   multiviajes: Catalogo[],
+  countryOffice : string
 ): ServicioUi {
   // const beneficiosFiltered = beneficios.map((beneficio) =>
   //  {
@@ -63,7 +64,9 @@ export function MapToServicioUi(
     (cupon) =>
       cupon.servicio_id === servPlan.servicio.servicio_id &&
       CuponValidator.validDate(cupon) &&
-      !CuponValidator.isCodeCupon(cupon)
+      CuponValidator.isUrlValidCupon(cupon) &&
+      !CuponValidator.isCodeCupon(cupon) &&
+      (CuponValidator.isWithValidCountry(cupon, countryOffice)  > 0)
   );
 
   const cuponesWithCode = cupones.filter(
@@ -75,6 +78,12 @@ export function MapToServicioUi(
 
   console.log({cuponesWithCode});
 
+
+
+
+  // console.log({PAISSS: countryOffice});
+  // const items ={ countries :  ["Bolivia" , "La paz"], quantity:1,daysMin:60};
+  // console.log(JSON.stringify(items));
 
   const multiviajesFiltered: MultiviajeUI[] = multiviajes
     .filter((multiviaje) => multiviaje.nivel === servPlan.servicio.servicio_id)

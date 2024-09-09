@@ -10,7 +10,7 @@
   <hr>
   <div class="row">
     <div class="list">
-      <poliza *ngFor="let poliza of polizasForm"  [polizaForm]="poliza"  [finalDate]="travelDate!"  [servicio]="planSelected!" ></poliza>
+      <poliza *ngFor="let poliza of polizasForm; let i = index" [limitAge]="ageGroupLimit[i]" [polizaForm]="poliza"  [finalDate]="travelDate!"  [servicio]="planSelected!" ></poliza>
 
     </div>
     <div class="details">

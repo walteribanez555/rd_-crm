@@ -12,7 +12,7 @@
         <input (keyup)="filterBySearch()" spellcheck="false" type="text" placeholder="Search" [(ngModel)]="searchText">
       </div>
       <ul class="options">
-        <li *ngFor="let country of  filteredCountries" (click)="updateActualName(country)">{{country.country}}</li>
+        <li *ngFor="let country of  filteredCountries" (click)="updateActualName(country)">{{getCountryByIso2(country.iso2)}}</li>
       </ul>
     </div>
 

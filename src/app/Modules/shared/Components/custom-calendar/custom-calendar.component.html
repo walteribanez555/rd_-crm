@@ -3,12 +3,12 @@
 
     <div>
       <button (click)="changeMonth(-1)" class="btn-prev">
-        <i class="fa-solid fa-circle-chevron-left fa-2xl"></i>
+        <img src="assets/icons/arrow_back.svg">
       </button>
     </div>
     <div>
       <button (click)="changeMonth(1)" class="btn-next">
-        <i class="fa-solid fa-circle-chevron-right fa-2xl"></i>
+        <img src="assets/icons/arrow_next.svg">
       </button>
     </div>
     <h1>{{dateSelect._i | date:'MMMM, yyyy'}}</h1>

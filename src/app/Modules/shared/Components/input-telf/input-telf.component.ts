@@ -68,9 +68,7 @@ export class InputTelfComponent {
 
     // console.log(this.telfControl?.value);
 
-    if(!this.telfControl){
-      return;
-    }
+
 
     const inputData = (this.telfControl?.value as string).split('-');
 

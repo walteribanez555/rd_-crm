@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, inject } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Poliza } from 'src/app/Modules/core/models/Poliza.model';
 import { Venta } from 'src/app/Modules/core/models/Venta.model';
 
 @Component({
@@ -9,11 +11,18 @@ import { Venta } from 'src/app/Modules/core/models/Venta.model';
 })
 export class ModalVentaComponent {
   ngOnInit(): void {
-    console.log(this.venta);
+    this.formPoliza = new FormGroup({
+      total_pago : new FormControl(this.venta.total_pago, [Validators.required]),
+      descuento : new FormControl(this.venta.descuento, [Validators.required]),
+    });
   }
 
 
+  formPoliza? : FormGroup;
+
+
   @Input() venta! : Venta;
+  @Input() poliza! : Poliza;
 
   @Output() closeEvent = new EventEmitter();
   @Output() submitEvent = new EventEmitter();
@@ -27,7 +36,7 @@ export class ModalVentaComponent {
 
   submit( )  : void {
     this.elementRef.nativeElement.remove();
-    this.submitEvent.emit(this.venta);
+    this.submitEvent.emit(this.formPoliza?.value);
   }
 
 

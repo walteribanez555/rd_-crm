@@ -22,7 +22,7 @@ export class OficinasService {
     );
   }
 
-  getById( id : string) : Observable<Oficina[]> {
+  getById( id : string | number) : Observable<Oficina[]> {
     let params = new HttpParams();
     params = params.append('id', id);
 

@@ -6,6 +6,10 @@ import { Beneficiario } from 'src/app/Modules/core/models/Beneficiario.model';
 import { Poliza } from 'src/app/Modules/core/models/Poliza.model';
 import { Venta } from 'src/app/Modules/core/models/Venta.model';
 import { ServicioUi } from '../../../models/Servicio.ui';
+import { Observable, Subject, switchMap } from 'rxjs';
+import { PolizasService } from 'src/app/Modules/core/services';
+import { NotificationService } from '../../notification/notification.service';
+import { Size, PositionMessage } from '../../notification/enums';
 
 
 
@@ -29,18 +33,22 @@ export class ModalBeneficiarioComponent {
 
 
   private cdr = inject(ChangeDetectorRef);
+  private polizaService = inject(PolizasService);
 
 
   @Input() size? ='md';
   @Input() title? = 'Modal title';
   @Input() beneficiario? : Beneficiario;
   @Input() servicioUi? : ServicioUi;
+  @Input() isWithPrice? = true;
 
   @Input() poliza? : Poliza;
   @Input() venta? : Venta;
 
   @Output() closeEvent = new EventEmitter();
   @Output() submitEvent = new EventEmitter();
+
+  private notificacionModalService = inject(NotificationService);
 
 
   close(){
@@ -146,6 +154,61 @@ export class ModalBeneficiarioComponent {
   }
 
 
+  reSendEmail() {
+
+    console.log(this.canvasDataMap);
+
+    const process= new Subject();
+    const observer= process.asObservable();
+
+    this.onLoading(observer);
+
+    this.cdr.detectChanges();
+
+    const allCanvases = this.canvasDataMap.map(
+      canva => canva.canva
+    ) as HTMLCanvasElement[];
+    this.cdr.detectChanges();
+    this.cdr.detectChanges();
+
+
+    this.pdfService.getPdfBase64(...allCanvases).pipe(
+      switchMap( (resp) => {
+        const data = resp;
+        const email = this.beneficiario?.email;
+        const fileName = `voucher ${this.poliza?.poliza_id}`;
+
+
+        const dto = {
+          email,
+          file : {
+            fileName,
+            data
+          }
+        }
+
+
+        return this.polizaService.resendEmail(dto);
+      }),
+
+
+    ).subscribe({
+      next: (resp) => {
+        process.complete();
+
+        this.onSuccess("Voucher enviado correctamente");
+      },
+      error : (err) => {
+        process.error(err);
+      },
+      complete : () => {
+
+      }
+    })
+
+  }
+
+
   downloadBeneficiario( beneficiario_id : number){
 
       const canva = this.canvasDataMap.map(canvas => canvas.canva);
@@ -172,6 +235,36 @@ export class ModalBeneficiarioComponent {
 
   }
 
+
+  onSuccess(message: string) {
+    this.notificacionModalService.show(message, {
+      size: Size.normal,
+      duration: 3000,
+      positions: [PositionMessage.center],
+      imageUrl: 'assets/icons/check.svg',
+      closeOnTouch: true,
+    });
+  }
+
+  onError(message: string) {
+    this.notificacionModalService.show(message, {
+      size: Size.normal,
+      duration: 3000,
+      positions: [PositionMessage.center],
+      imageUrl: 'assets/icons/warning.svg',
+      closeOnTouch: true,
+    });
+  }
+
+  onLoading(observerProcess: Observable<any>) {
+    this.notificacionModalService.show('Cargando', {
+      size: Size.normal,
+      positions: [PositionMessage.center],
+      imageUrl: 'assets/icons/loading.svg',
+      closeOnTouch: false,
+      notifier: observerProcess,
+    });
+  }
 
 
 }

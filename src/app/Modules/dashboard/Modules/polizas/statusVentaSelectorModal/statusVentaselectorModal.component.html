@@ -1,0 +1,17 @@
+<div class="modal">
+  <div class="modal-header">
+    Selecciona el estado del pago
+    <span class="modal-close"  (click)="close()" >x</span>
+  </div>
+  <div class="modal-content">
+    <select [formControl]="selectedStatus" >
+      <option value="1" > Impaga</option>
+      <option value="2" > Paga</option>
+    </select>
+  </div>
+  <div class="modal-footer">
+    <button (click)="submit()" >Submit</button>
+  </div>
+</div>
+
+<div class="modal-backdrop" (click)="close()" ></div>

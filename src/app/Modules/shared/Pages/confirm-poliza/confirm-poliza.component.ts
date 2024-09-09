@@ -19,6 +19,8 @@ import { ServicioUi } from '../../models/Servicio.ui';
 import { Cupon } from '../../models/data/Cupon';
 import { MapToServicioUi } from '../../utils/mappers/servicio.mappers';
 import { HttpClient } from '@angular/common/http';
+import { OficinasService } from 'src/app/Modules/core/services/oficinas.service';
+import { Oficina } from 'src/app/Modules/core/models/Oficina';
 
 @Component({
   selector: 'app-confirm-poliza',
@@ -31,7 +33,6 @@ export class ConfirmPolizaComponent implements OnInit {
 
     const polizas_id : string[]   = data.split(',');
     const requests : any[] = [];
-
 
 
     const process = new Subject();
@@ -90,10 +91,13 @@ export class ConfirmPolizaComponent implements OnInit {
       switchMap((resp: Beneficio[]) => {
         this.beneficios = resp;
         return this.preciosService.getAll();
-      })
+      }),
+      switchMap(( precios : Precio[]) => {
+        this.precios = precios;
+        return this.oficinaService.getById(this.ventas[0].office_id);
+      }),
     ).subscribe({
       next: ( data ) => {
-        this.precios = data as Precio[];
 
         this.servicioUi = MapToServicioUi(
           this.catalogos,
@@ -102,7 +106,8 @@ export class ConfirmPolizaComponent implements OnInit {
           this.planes!,
           this.precios,
           this.cupones,
-          this.multiviajes
+          this.multiviajes,
+          "DEFAULT",
         );
 
         this.servicioUi.precioSelected =
@@ -127,6 +132,8 @@ export class ConfirmPolizaComponent implements OnInit {
 
 
   private http = inject(HttpClient);
+  isWithPrice = true;
+
 
   downloadPdf() {
     const pdfUrl = `/assets/pdf/CONDICIONADOREDCARD.pdf`;
@@ -176,6 +183,7 @@ export class ConfirmPolizaComponent implements OnInit {
   private preciosService = inject(PreciosService);
   private catalogosService = inject(CatalogosService);
   private beneficiosService = inject(BeneficiosService);
+  private oficinaService = inject(OficinasService);
 
   private activeParams = inject(ActivatedRoute);
 

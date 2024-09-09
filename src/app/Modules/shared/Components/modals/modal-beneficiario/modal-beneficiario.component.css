@@ -149,6 +149,13 @@
   padding: 10px 20px;
 }
 
+.actions {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
 .info{
   overflow-y: auto;
 }

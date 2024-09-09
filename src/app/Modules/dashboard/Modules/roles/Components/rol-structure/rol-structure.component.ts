@@ -36,43 +36,57 @@ export class RolStructureComponent implements OnInit {
       area : 'Administracion Oficinas',
       area_permissions : [
         "administrar",
-      ]
+      ],
+      action_permissions : []
     },
     {
       area : 'Administracion Roles',
       area_permissions : [
         "administrar",
-      ]
+      ],
+      action_permissions : []
+
     },
     {
       area : 'Usuarios',
       area_permissions : [
         "administrar",
-      ]
+      ],
+      action_permissions : []
+
     },
     {
       area: 'Mi Oficina',
       area_permissions : [
         "administrar"
-      ]
+      ],
+      action_permissions : []
+
     },
     {
       area : 'Modificaciones',
       area_permissions : [
         "Buscar,"
-      ]
+      ],
+      action_permissions : []
+
+
     },
     {
       area : 'Descuentos',
       area_permissions : [
         "administrar",
-      ]
+      ],
+      action_permissions : []
+
     },
     {
       area : "Cupones",
       area_permissions : [
         "Polizas"
-      ]
+      ],
+      action_permissions : []
+
     },
 
     {
@@ -84,7 +98,9 @@ export class RolStructureComponent implements OnInit {
        "polizas/:id",
        "polizas/:id/edit",
 
-      ]
+      ],
+      action_permissions : []
+
     },
 
     {
@@ -92,14 +108,18 @@ export class RolStructureComponent implements OnInit {
       area_permissions : [
         "listado-siniestros",
         "siniestro/:id",
-      ]
+      ],
+      action_permissions : []
+
     },
     {
       area : 'Reembolsos',
       area_permissions : [
         "reembolso/:id",
         "listado-reembolso",
-      ]
+      ],
+      action_permissions : []
+
     },
     {
       area : 'Cupones',
@@ -108,27 +128,51 @@ export class RolStructureComponent implements OnInit {
         "cupones/:id",
         "cupones/:id/editar",
         "crear-cupones",
-      ]
+      ],
+      action_permissions : []
+
     },
     {
       area : 'descuentos',
       area_permissions : [
         'list',
         'create'
-      ]
+      ],
+      action_permissions : []
+
     },
     {
       area: 'Ventas y Reportes',
       area_permissions : [
         "Ventas",
         "Siniestros",
-      ]
+      ],
+      action_permissions : []
+
     },
     {
       area: 'Marketing',
       area_permissions : [
         "notificaciones",
-      ]
+      ],
+      action_permissions : []
+
+    },
+    {
+      area: 'Polizas',
+      area_permissions : [
+        "status",
+      ],
+      action_permissions : []
+
+    },
+    {
+      area: 'Polizas',
+      area_permissions : [
+        "comision",
+      ],
+      action_permissions : []
+
     }
   ]
 
@@ -137,7 +181,7 @@ export class RolStructureComponent implements OnInit {
 
 
   updateList(data : any){
-    this.rolToForm = updateRol(data.action,data.area, data.toAdd, this.rolToForm);
+    this.rolToForm = updateRol(data.action,data.area, data.toAdd , this.rolToForm);
 
     this.inputControl?.setValue(this.rolToForm);
 

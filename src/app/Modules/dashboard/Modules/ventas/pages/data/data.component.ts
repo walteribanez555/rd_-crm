@@ -9,6 +9,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { float } from 'html2canvas/dist/types/css/property-descriptors/float';
 import { ngxCsv } from 'ngx-csv';
+import { platform } from 'os';
 import { Observable, Subject, of, switchMap } from 'rxjs';
 import { Oficina, OficinaUi } from 'src/app/Modules/core/models/Oficina';
 import { Reporte } from 'src/app/Modules/core/models/Reporte.model';
@@ -21,13 +22,21 @@ import {
   PositionMessage,
 } from 'src/app/Modules/shared/Components/notification/enums';
 import { NotificationService } from 'src/app/Modules/shared/Components/notification/notification.service';
+import * as Xlsx from 'xlsx';
 
 @Component({
   templateUrl: './data.component.html',
   styleUrls: ['./data.component.css'],
 })
 export class DataComponent implements OnInit {
+
+
   ngOnInit(): void {
+
+    const locale = navigator.language; console.log(locale);
+    var numero = 1548789.15.toLocaleString();
+    console.log("Número: " + numero);
+
     const process = new Subject();
     const observer = process.asObservable();
 
@@ -96,7 +105,6 @@ export class DataComponent implements OnInit {
     idHijo: number,
     arreglo: OficinaUi[]
   ): OficinaUi | null {
-
     let elementoEncontrado = null;
 
     const office = this.getOfficeById(idHijo).map((ofi) => {
@@ -107,7 +115,7 @@ export class DataComponent implements OnInit {
       return oficinaUi;
     })[0];
 
-    if(office.address === "REGION"){
+    if (office.address === 'REGION') {
       return office;
     }
 
@@ -127,9 +135,10 @@ export class DataComponent implements OnInit {
           if (hijoEncontrado) {
             if (hijoEncontrado.address == 'REGION') {
               elementoEncontrado = hijoEncontrado;
-
             } else {
-              elementoEncontrado = this.getOffice(hijoEncontrado.office_dep).map((oficina) => {
+              elementoEncontrado = this.getOffice(
+                hijoEncontrado.office_dep
+              ).map((oficina) => {
                 const oficinaUi: OficinaUi = {
                   hijos: [],
                   ...oficina,
@@ -174,6 +183,7 @@ export class DataComponent implements OnInit {
     });
   }
 
+
   private route = inject(ActivatedRoute);
   private reportesService = inject(ReportesService);
   private officeService = inject(OficinasService);
@@ -215,12 +225,13 @@ export class DataComponent implements OnInit {
   }
 
   getOffice(office_code: string) {
-    const oficcess = this.oficina.filter((ofi) => ofi.office_code == office_code);
+    const oficcess = this.oficina.filter(
+      (ofi) => ofi.office_code == office_code
+    );
     return oficcess;
   }
 
-  getOfficeById( office_id : number){
-
+  getOfficeById(office_id: number) {
     const oficcess = this.oficina.filter((ofi) => ofi.office_id == office_id);
     console.log(oficcess);
     return oficcess;
@@ -232,6 +243,17 @@ export class DataComponent implements OnInit {
       .map((servicio) => servicio.servicio);
   }
 
+
+  getServiceType(service_id : number) {
+    return this.servicios
+      .filter( (servicio) => servicio.servicio_id === service_id)
+      .map( (servicio ) =>
+        servicio.status == 1 ? 'NORMAL' : 'NETO'
+      )
+  }
+
+
+
   getStatusClass(status: number) {
     return {
       success: status === 2,
@@ -239,12 +261,49 @@ export class DataComponent implements OnInit {
     };
   }
 
-  getStatusString(status: number) {
-    return status == 1 ? 'realizado' : 'proceso';
+  getFormaPago(tipo: number) {
+    switch (tipo) {
+      case 1:
+        return 'oficina';
+      case 2:
+        return 'web';
+      case 3:
+        return 'comparaBien.pe';
+      case 4:
+        return 'comparaBien.mx';
+      case 5:
+        return 'comparaBien.br';
+      case 6 :
+        return 'comparaBien.co';
+      case 7 :
+        return 'comparaBien.es';
+        default:
+        return 'oficina';
+    }
   }
 
-  getStatusPoliza(state: number) {
-    switch (state) {
+  getStatusString(status: number) {
+    return status == 2 ? 'realizado' : 'proceso';
+  }
+
+  getStatusPoliza(venta: Reporte) {
+    if (venta.poliza_st < 3 && venta.poliza_st > 1) {
+      const actualDate = new Date();
+      const outDate = new Date(venta.fecha_salida.split('T')[0]);
+      const returnDate = new Date(venta.fecha_retorno.split('T')[0]);
+
+      const expireDate = new Date(venta.fecha_caducidad.split('T')[0]);
+
+      if((actualDate > returnDate && venta.multiviaje == 1) || (venta.multiviaje > 1 && actualDate > expireDate)) {
+        return "vencida"
+      }
+
+      if (actualDate > outDate) {
+        return 'activa';
+      }
+    }
+
+    switch (venta.poliza_st) {
       case 1:
         return 'proceso';
       case 2:
@@ -263,87 +322,101 @@ export class DataComponent implements OnInit {
   }
 
   makeCsvVen() {
-    const nameFile = 'reporte ventas-' + new Date().toISOString().split('T')[0];
+    const nameFile =
+      'reporte_ventas-' + new Date().toISOString().split('T')[0] + '.xlsx';
 
-    var options = {
-      fieldSeparator: ';',
-      quoteStrings: '"',
-      decimalseparator: 'locale',
-      showLabels: true,
-      showTitle: true,
-      title: 'Report data',
-      useBom: true,
-      headers: [
-        'venta',
-        'status',
-        'Oficina',
-        'username',
-        'representante',
-        'fecha venta',
-        'forma pago',
-        'cantidad',
-        'precio',
-        'total',
-        'plus',
-        'descuento',
-        'descuento extra',
-        'total_pago',
-        'poliza',
-        'status poliza',
-        'destino',
-        'dias',
-        'fecha salida',
-        'fecha retorno',
-        'beneficiario',
-        'nombres',
-        'apellidos',
-        'identificacion',
-        'fecha nacimiento',
-        'edad',
-        'origen',
-        'email',
-        'telefono',
-      ],
-    };
+    const headers = [
+      'venta',
+      'fecha venta',
+      'poliza',
+      'oficina',
+      'username',
+      'plan',
+      'tipo',
+      'edad',
+      'destino',
+      'fecha salida',
+      'fecha retorno',
+      'dias',
+      'cantidad',
+      'precio',
+      'total',
+      'plus',
+      'descuento',
+      'descuentro extra',
+      'total pago',
+      'comision',
+      'total voucher',
+      'status poliza',
+      'multiviaje',
+      'representante',
+      'nombres',
+      'apellidos',
+      'fecha nacimiento',
+      'identificacion',
+      'origen',
+      'email',
+      'telefono',
+      'beneficiario',
+      'forma pago',
+      'status',
+    ];
+
+    console.log({ventas: this.ventas});
 
     const data = this.ventas.map((venta) => {
-      return {
-        venta: venta.venta_id,
-        status: this.getStatusString(venta.status),
-        oficina: this.getOficces(venta.office_id),
-        username: venta.username,
-        representante: this.buscarRegionPorEncima(
-          venta.office_id,
-          this.oficinaArbol
-        )?.city,
-        'fecha venta': venta.fecha_venta.split('T')[0],
-        'forma pago': 'efectivo',
-        cantidad: venta.cantidad,
-        precio: parseFloat(venta.precio),
-        total: parseFloat(venta.total),
-        plus: venta.plus,
-        descuento: parseFloat(venta.descuento),
-        'descuento extra': venta.descuento_extra,
-        'total pagado': venta.total_pago,
-        poliza: venta.poliza_id,
-        'status poliza': this.getStatusPoliza(venta.poliza_st),
-        destino: venta.destino,
-        dias: venta.nro_dias,
-        'fecha salida': venta.fecha_salida.split('T')[0],
-        'fecha retorno': venta.fecha_retorno.split('T')[0],
-        beneficiario: venta.beneficiario_id,
-        nombres: venta.primer_nombre,
-        apellidos: venta.primer_apellido,
-        identificacion: venta.nro_identificacion,
-        'fecha nacimiento': venta.fecha_nacimiento.split('T')[0],
-        edad: venta.edad,
-        origen: venta.origen,
-        email: venta.email,
-        telefono: venta.telefono,
-      };
+      return [
+        venta.venta_id,
+        venta.fecha_venta.split('T')[0],
+        venta.poliza_id,
+        this.getOfficeById(venta.office_id)[0].office_name,
+        venta.username,
+        this.getService(venta.servicio_id),
+        this.getServiceType(venta.servicio_id),
+        venta.edad,
+        venta.destino,
+        venta.fecha_salida.split('T')[0],
+        venta.fecha_retorno.split('T')[0],
+        venta.nro_dias,
+        venta.cantidad,
+        parseFloat(venta.precio).toLocaleString(undefined,
+          {'minimumFractionDigits':2,'maximumFractionDigits':2}),
+        parseFloat(venta.total).toLocaleString(undefined,
+          {'minimumFractionDigits':2,'maximumFractionDigits':2}),
+        venta.plus,
+        parseFloat(venta.descuento).toLocaleString(undefined,
+          {'minimumFractionDigits':2,'maximumFractionDigits':2}),
+        venta.descuento_extra.toLocaleString(undefined,
+          {'minimumFractionDigits':2,'maximumFractionDigits':2}),
+          (venta.total_pago - venta.comision).toLocaleString(undefined,
+            {'minimumFractionDigits':2,'maximumFractionDigits':2}),
+
+        venta.comision.toLocaleString(undefined,
+          {'minimumFractionDigits':2,'maximumFractionDigits':2}),
+          (venta.total_pago).toLocaleString(undefined,
+            {'minimumFractionDigits':2,'maximumFractionDigits':2}),
+        this.getStatusPoliza(venta),
+        venta.multiviaje > 1 ? "Aplica" : "No Aplica",
+        this.buscarRegionPorEncima(venta.office_id, this.oficinaArbol)?.city,
+        venta.primer_nombre,
+        venta.primer_apellido,
+        venta.fecha_nacimiento.split('T')[0],
+        venta.nro_identificacion,
+        venta.origen,
+        venta.email,
+        venta.telefono,
+        venta.beneficiario_id,
+        this.getFormaPago(venta.forma_pago),
+        this.getStatusString(venta.status),
+      ];
     });
 
-    new ngxCsv(data, nameFile, options);
+    const wb = Xlsx.utils.book_new();
+    const ws = Xlsx.utils.aoa_to_sheet([headers, ...data]);
+
+
+    Xlsx.utils.book_append_sheet(wb, ws, 'Report Data');
+    Xlsx.writeFile(wb, nameFile);
   }
 
   onSuccess(message: string) {

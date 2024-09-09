@@ -30,6 +30,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { PolizaPdfComponent } from './Components/pdf/poliza-pdf/poliza-pdf.component';
 import { CardBeneficiarioComponent } from './Components/card-beneficiario/card-beneficiario.component';
 import { ConfirmPolizaComponent } from './Pages/confirm-poliza/confirm-poliza.component';
+import { TranslatePipe } from './utils/data/languages/translatePipe.pipe';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { ConfirmPolizaComponent } from './Pages/confirm-poliza/confirm-poliza.co
     ModalBeneficiarioComponent,
     PolizaPdfComponent,
     ConfirmPolizaComponent,
+    TranslatePipe
   ],
   imports: [
     CommonModule,

@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject
 import { locationTravel } from './locationTravel';
 import { FormGroup } from '@angular/forms';
 import { CountryRegion } from 'src/app/Modules/shared/utils/data/countries-region.ts/countries-region';
+import { CountryRegionLng } from 'src/app/Modules/shared/utils/data/countries-region.ts/country-region-lng';
 
 @Component({
   selector: 'dates-to-travel',
@@ -37,7 +38,7 @@ export class DatesToTravelComponent {
     this.onChangePage.emit();
   }
 
-  onSelectedDestiny( destiny : CountryRegion) {
+  onSelectedDestiny( destiny : CountryRegionLng) {
 
 
     this.locations.push({
@@ -49,7 +50,7 @@ export class DatesToTravelComponent {
 
   }
 
-  onSelectedOrigen( place : CountryRegion) {
+  onSelectedOrigen( place : CountryRegionLng) {
     this.places.get('fromLocation')?.setValue(place);
   }
 

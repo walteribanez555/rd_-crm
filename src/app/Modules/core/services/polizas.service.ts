@@ -74,6 +74,16 @@ export class PolizasService implements CRUDService<Poliza> {
   update(id: string | number, item: any): Observable<any> {
     return this.http.put(this.apiUrl + `?id=${id}`, item);
   }
+
+
+  resendEmail( item : any) {
+    const emailApiUrl = "https://sye51vqrjh.execute-api.us-east-1.amazonaws.com/dev/emails";
+
+
+    return this.http.post(emailApiUrl, item);
+  }
+
+
   delete(id: string | number): Observable<any> {
     throw new Error('Method not implemented.');
   }

@@ -23,6 +23,10 @@ export class CatalogosService implements CRUDService<Catalogo> {
     return this.http.get<Catalogo[]>(this.apiUrl+'?id=multiviajes');
   }
 
+  getAllUrls() : Observable<Catalogo[]>{
+    return this.http.get<Catalogo[]>(this.apiUrl+'?id=direcciones');
+  }
+
   getOne(id: string | number): Observable<Catalogo[]> {
     throw new Error('Method not implemented.');
   }

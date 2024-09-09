@@ -19,12 +19,17 @@ export class AgesTravelerComponent {
   @Input() agesForm! : FormGroup;
 
 
+  youngDate : number = 0;
   adultDate : number = 0;
   seniorDate : number = 0;
 
 
+
+
+
   onChangeStep() {
 
+    this.agesForm.get('youngQuantity')?.setValue(this.youngDate);
     this.agesForm.get('adultQuantity')?.setValue(this.adultDate);
     this.agesForm.get('seniorQuantity')?.setValue(this.seniorDate);
 
@@ -33,6 +38,21 @@ export class AgesTravelerComponent {
 
   onBackStepBtn() {
     this.onBackStep.emit();
+  }
+
+  onChangeYoungDate( item : number ){
+
+    if(this.seniorDate>0) {
+      this.onAlertMessage("Ya se ha seleccionado a adultos mayores");
+      return;
+    }
+
+    if(this.youngDate === 0 && item === -1) {
+      this.onAlertMessage("No puede ser menor que 0");
+      return;
+    }
+
+    this.youngDate += item;
   }
 
   onChangeAdultDate( item : number ){

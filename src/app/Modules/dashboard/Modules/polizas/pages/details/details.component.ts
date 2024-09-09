@@ -17,17 +17,25 @@ import { ServByPlan } from '../../components/multi-step/multi-step.component';
 import { MapToServicioUi } from 'src/app/Modules/shared/utils/mappers/servicio.mappers';
 import { ServicioUi } from 'src/app/Modules/shared/models/Servicio.ui';
 import { Size, PositionMessage } from 'src/app/Modules/shared/Components/notification/enums';
+import { OficinasService } from 'src/app/Modules/core/services/oficinas.service';
+import { Oficina } from 'src/app/Modules/core/models/Oficina';
 
 @Component({
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css'],
 })
 export class DetailsComponent  implements OnInit {
+  private oficinaService = inject( OficinasService);
+
+
+  isWithPrice = true;
+
   ngOnInit(): void {
     const data = this.activeParams.snapshot.queryParams['polizas']
 
     const polizas_id : string[]   = data.split(',');
     const requests : any[] = [];
+
 
 
 
@@ -87,10 +95,24 @@ export class DetailsComponent  implements OnInit {
       switchMap((resp: Beneficio[]) => {
         this.beneficios = resp;
         return this.preciosService.getAll();
-      })
+      }),
+      switchMap(( resp : Precio[]) => {
+        this.precios = resp;
+        return this.oficinaService.getById(this.ventas[0]?.office_id!);
+      }),
     ).subscribe({
-      next: ( data ) => {
-        this.precios = data as Precio[];
+      next: ( data  ) => {
+
+        this.isWithPrice = !((data as Oficina[])[0].phone.includes(";"));
+
+        if(!this.isWithPrice){
+          console.log("Sin precio");
+        }
+
+
+
+
+        // this.precios = data as Precio[];
 
         this.servicioUi = MapToServicioUi(
           this.catalogos,
@@ -99,7 +121,8 @@ export class DetailsComponent  implements OnInit {
           this.planes!,
           this.precios,
           this.cupones,
-          this.multiviajes
+          this.multiviajes,
+          "DEFAULT"
         );
 
         this.servicioUi.precioSelected =

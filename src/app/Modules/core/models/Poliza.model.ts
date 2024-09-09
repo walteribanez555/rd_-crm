@@ -8,7 +8,7 @@ export interface Poliza {
   destino:       string;
   fecha_salida:  string;
   fecha_retorno: string;
-  nro_poliza:    null;
+  nro_poliza:    number | null;
   multiviaje : number;
   nro_dias:      number;
   extra:         number;
@@ -22,7 +22,7 @@ export interface Poliza {
 
 
 
-export interface PolizaToPost extends Omit<Poliza , 'poliza_id' | 'id' | 'nro_poliza' | 'nro_dias' | 'fecha_emision'|'modificaciones'| 'fecha_modificacion'| 'observaciones' > {
+export interface PolizaToPost extends Omit<Poliza , 'poliza_id' | 'id' | 'nro_dias' | 'fecha_emision'|'modificaciones'| 'fecha_modificacion'| 'observaciones' > {
   username : string;
 
 }

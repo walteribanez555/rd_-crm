@@ -21,6 +21,7 @@ export interface Venta {
   descuento_extra: number;
   servicio_id : string;
   client_secret : string;
+  comision : number;
   // extras_total:    string;
 }
 

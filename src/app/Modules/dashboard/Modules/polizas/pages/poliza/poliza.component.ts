@@ -19,6 +19,8 @@ import { ServByPlan } from '../../components/multi-step/multi-step.component';
 import { Location } from '@angular/common';
 import { ServicioUi } from 'src/app/Modules/shared/models/Servicio.ui';
 import { Catalog } from 'aws-sdk/clients/sagemaker';
+import { OficinasService } from 'src/app/Modules/core/services/oficinas.service';
+import { Oficina } from 'src/app/Modules/core/models/Oficina';
 
 @Component({
   templateUrl: './poliza.component.html',
@@ -39,6 +41,7 @@ export class PolizaComponent implements OnInit {
   private preciosService = inject(PreciosService);
   private catalogosService = inject(CatalogosService);
   private beneficiosService = inject(BeneficiosService);
+  private oficinaService = inject( OficinasService);
 
   constructor( ){
 
@@ -64,6 +67,8 @@ export class PolizaComponent implements OnInit {
   extras: Extra[] = [];
   beneficios: Beneficio[] = [];
   servicioUi: ServicioUi | null = null;
+  oficina : Oficina | null = null;
+  isWithPrice = true;
 
 
   onLoadProcess?: Subject<any>;
@@ -133,13 +138,20 @@ export class PolizaComponent implements OnInit {
         this.extras = resp;
         return this.beneficiosService.getAll();
       }),
+      switchMap(( resp : Beneficio[]) => {
+        this.beneficios = resp;
+        return this.oficinaService.getById(this.venta?.office_id!);
+      }),
       catchError((error) => {
         console.error('Error in switchMap chain:', error);
         return throwError(error); // Rethrow the error to propagate it to the outer subscription
       })
     ).subscribe({
       next: (resp: any) => {
-        this.beneficios = resp;
+        this.oficina = resp[0];
+        if(this.oficina?.phone.includes(";")){
+          this.isWithPrice =false;
+        }
 
         this.servicioUi = MapToServicioUi(
           this.catalogos,
@@ -149,6 +161,7 @@ export class PolizaComponent implements OnInit {
           this.precios,
           this.cupones,
           this.multiviajes,
+          "DEFAULT",
         );
 
         this.servicioUi.precioSelected =

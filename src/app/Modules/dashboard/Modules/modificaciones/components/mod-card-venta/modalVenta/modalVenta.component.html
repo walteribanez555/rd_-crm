@@ -5,15 +5,23 @@
   </div>
 
 
-  <form class="modal-content">
+  <form class="modal-content" [formGroup]="this.formPoliza!"  (ngSubmit)="this.submit()" >
 
     <div class="field">
-      <span class="f-title">Venta</span>
+      <span class="f-title" >Venta</span>
 
     </div>
 
     <div class="field">
+      <span class="f-title" >Precio</span>
+      <input type="text" name="total_pago" formControlName="total_pago">
+    </div>
 
+    <div class="field">
+      <span class="f-title">
+        Descuento
+      </span>
+     <input type="text" name="descuento" formControlName="descuento"  >
     </div>
 
     <div class="actions">

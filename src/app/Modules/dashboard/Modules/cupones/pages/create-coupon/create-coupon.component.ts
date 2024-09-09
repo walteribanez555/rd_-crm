@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, Subject, forkJoin, switchMap } from 'rxjs';
 import {
+  CatalogosService,
   CuponesService,
   ServiciosService,
 } from 'src/app/Modules/core/services';
@@ -15,6 +16,8 @@ import { loadingAnimation } from 'src/app/Modules/shared/animations/loading.anim
 import { Cupon, CuponToPost } from 'src/app/Modules/core/models/Cupon.model';
 import { DatesAction } from 'src/app/Modules/shared/utils/dates/dates-action';
 import { ServicioUi } from '../../models/Servicio.ui.model';
+import { Catalogo } from 'src/app/Modules/core/models/Catalogo.model';
+import { url } from 'inspector';
 
 @Component({
   templateUrl: './create-coupon.component.html',
@@ -58,6 +61,13 @@ export class CreateCouponComponent implements OnInit {
         this.hasLoaded = true;
       },
     });
+
+
+    this.catalogoService.getAllUrls().subscribe({
+      next: (resp) => {
+        this.list_urls = resp;
+      }
+    })
   }
 
   selectItem(servicio: any) {
@@ -77,6 +87,7 @@ export class CreateCouponComponent implements OnInit {
   }
 
   list_servicios: ServicioUi[] | null = null;
+  list_urls  : Catalogo[] = [];
 
   createCuponForm: FormGroup | null = null;
 
@@ -88,6 +99,10 @@ export class CreateCouponComponent implements OnInit {
   fecha_hasta = new FormControl(null, Validators.required);
   status = new FormControl(null, Validators.required);
   isCode = new FormControl(false, Validators.required);
+  urlDestiny  = new FormControl(null, Validators.required);
+
+
+
   onSuccess(message: string) {
     this.notificacionesModalService.show(message, {
       size: Size.normal,
@@ -119,6 +134,7 @@ export class CreateCouponComponent implements OnInit {
   }
 
   createCupon() {
+
     if (this.oneAtLeast()) {
       const requests: any[] = [];
 
@@ -126,8 +142,11 @@ export class CreateCouponComponent implements OnInit {
         if (serv.isSelected) {
           const cuponToPost: CuponToPost = this.mapServToCupon(
             serv,
-            this.createCuponForm?.value
+            this.createCuponForm?.value,
+            this.urlDestiny.value!
           );
+
+          console.log({cuponToPost});
           requests.push(this.cuponesService.create(cuponToPost));
         }
       });
@@ -158,16 +177,19 @@ export class CreateCouponComponent implements OnInit {
     });
   }
 
-  mapServToCupon(serv: ServicioUi, infoCuponForm: any): CuponToPost {
+  mapServToCupon(serv: ServicioUi, infoCuponForm: any, urlDestiny : string): CuponToPost {
+
+
+
 
     const cuponToPost: CuponToPost = {
       servicio_id: serv.servicio_id,
       oficina_id: infoCuponForm.oficina_id,
       tipo_valor: infoCuponForm.tipo_valor,
-      nombre: (infoCuponForm.isCode as boolean) ? `CODE_${infoCuponForm.nombre}` :  infoCuponForm.nombre,
+      nombre: (infoCuponForm.isCode as boolean) ? `CODE_${infoCuponForm.nombre}-${urlDestiny}` :  `${infoCuponForm.nombre}-${urlDestiny}`,
       valor: infoCuponForm.valor,
-      fecha_hasta: DatesAction.invert_date(this.fecha_hasta.value!),
-      fecha_desde: DatesAction.invert_date(this.fecha_desde.value!),
+      fecha_hasta:this.fecha_hasta.value!,
+      fecha_desde: this.fecha_desde.value!,
       status: 1,
     };
     return cuponToPost;
@@ -176,4 +198,5 @@ export class CreateCouponComponent implements OnInit {
   private cuponesService = inject(CuponesService);
   private serviciosService = inject(ServiciosService);
   private notificacionesModalService = inject(NotificationService);
+  private catalogoService = inject(CatalogosService);
 }

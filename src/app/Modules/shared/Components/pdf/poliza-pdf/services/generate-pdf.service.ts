@@ -10,11 +10,8 @@ export class GeneratePdfService {
   constructor() { }
 
 
-  generatePdfFromCanvas(...canvases: HTMLCanvasElement[]) {
-    if (canvases.length === 0) {
-      console.warn('No canvases provided for PDF generation.');
-      return;
-    }
+  generatePdfFromCanvas(...canvases: HTMLCanvasElement[] ) {
+
 
     const doc = new jsPDF('p', 'pt', 'a4');
 
@@ -31,19 +28,60 @@ export class GeneratePdfService {
       doc.addImage(img, 'JPEG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'SLOW');
     });
 
-    doc.save(`redcard_policie.pdf`);
+
+    return doc;
+
+  }
+
+
+  downloadPdfFromCanvas(...canvases : HTMLCanvasElement[]){
+
+    if (canvases.length === 0) {
+      console.warn('No canvases provided for PDF generation.');
+      return;
+    }
+
+    const doc = this.generatePdfFromCanvas(...canvases);
+    doc?.save(`redcard_policie.pdf`);
+
+
   }
 
   generatePdfAsync(...canvases: HTMLCanvasElement[]): Observable<void> {
     console.log(...canvases);
     return new Observable<void>(observer => {
       try {
-        this.generatePdfFromCanvas(...canvases);
+        this.downloadPdfFromCanvas(...canvases);
         observer.next();
         observer.complete();
       } catch (error) {
         observer.error(error);
       }
     });
+  }
+
+
+
+  getPdfBase64(...canvases: HTMLCanvasElement[]) : Observable<string>{
+    console.log(...canvases);
+    return new Observable<string>(observer => {
+      try{
+        const doc = this.generatePdfFromCanvas(...canvases);
+        const base64String = this.convertPdfToBase64(doc);
+
+        observer.next(base64String);
+        observer.complete();
+      }catch(error){
+        observer.error(error);
+      }
+    })
+  }
+
+
+
+
+  convertPdfToBase64(pdf: jsPDF): string {
+    const dataUri = pdf.output('datauristring');
+    return dataUri.split(',')[1];
   }
 }

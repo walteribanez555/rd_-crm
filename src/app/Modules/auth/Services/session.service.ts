@@ -30,9 +30,8 @@ export class SessionService {
   private officeService = inject(OficinasService);
   private apiUrl = environment.apiAuthUrl + '/sessions';
 
-
-  private rols : Rol[] = [];
-  private oficces : Oficina[] = [];
+  private rols: Rol[] = [];
+  private oficces: Oficina[] = [];
 
   login(intentLogin: IntentLogin): Observable<ResponseLogin> {
     return this.http.post<ResponseLogin>(this.apiUrl, intentLogin).pipe(
@@ -54,60 +53,77 @@ export class SessionService {
     );
   }
 
-
-  getRolsFromUser()  : Observable<Rol[]> {
+  getRolsFromUser(): Observable<Rol[]> {
     // console.log(this.rols, "Desde el servicio");
-    if(this.rols.length == 0) {
+    if (this.rols.length == 0) {
       const rols_id = localStorage.getItem('rol_id')?.split(',');
-      const requests : any[] =  rols_id!.map( rol => this.rolService.getById(rol));
+      const requests: any[] = rols_id!.map((rol) =>
+        this.rolService.getById(rol)
+      );
       return forkJoin(requests).pipe(
-        map( resp => {
-          return resp.flat();
-        })
-      )
-    }
-
-
-    return of(this.rols);
-  }
-
-
-  getOfficesFromUser() : Observable<Oficina[]> {
-
-    if(this.oficces.length == 0 ) {
-      const oficces_id = localStorage.getItem('office_id')?.split(',');
-      const requests : any[] = oficces_id!.map( ofi => this.officeService.getById(ofi) );
-      return this.officeService.getAll().pipe(
         map((resp) => {
-          return resp.filter( ofi => oficces_id!.includes(ofi.office_id.toString()));
+          return resp.flat();
         })
       );
     }
 
-    return of(this.oficces);
+    return of(this.rols);
   }
 
+  isActionValidForUser(action: string): Observable<boolean> {
+    return this.getRolsFromUser().pipe(
+      map( resp => {
+
+        const permissionsList = resp.map((item) =>
+          JSON.parse(item.rol_structure)
+        );
+
+       const permissionArea : string[][] = permissionsList.map( permission => permission.permissions[0].area_permissions);
+       console.log({permissionArea});
+       console.log(action);
+
+       return permissionArea.flat().includes(action);
+      })
+    )
+  }
+
+  getOfficesFromUser(): Observable<Oficina[]> {
+    if (this.oficces.length == 0) {
+      const oficces_id = localStorage.getItem('office_id')?.split(',');
+      const requests: any[] = oficces_id!.map((ofi) =>
+        this.officeService.getById(ofi)
+      );
+      return this.officeService.getAll().pipe(
+        map((resp) => {
+          return resp.filter((ofi) =>
+            oficces_id!.includes(ofi.office_id.toString())
+          );
+        })
+      );
+    }
+    return of(this.oficces);
+  }
 
   getUser() {
     return localStorage.getItem('client_id');
   }
 
-
   logout() {
     localStorage.removeItem('client_id');
     localStorage.removeItem('office_id');
+    localStorage.removeItem('rol_id');
     Token.deleteToken();
   }
 
   receiveRols = mergeMap((usersById: User[]) => {
     const rols = usersById[0].rol_id;
-    localStorage.setItem('rol_id', rols );
+    localStorage.setItem('rol_id', rols);
     return of(usersById);
   });
 
   receiveOficces = mergeMap((userById: User[]) => {
     const user = userById[0];
-    localStorage.setItem('office_id',user.office_id);
+    localStorage.setItem('office_id', user.office_id);
     return of(userById);
     //CASO DE QUERER CONSULTAR, GUARDAR Y ENVIAR DE NUEVO EL USUARIO
     // const requests: any[] = offices.map((ofi) =>

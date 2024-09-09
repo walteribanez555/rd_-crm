@@ -11,7 +11,10 @@ import { Router } from '@angular/router';
 import { routeSideNav } from '../../interfaces/routes.model';
 import { SessionService } from 'src/app/Modules/auth/Services/session.service';
 import { Observable, Subject } from 'rxjs';
-import { Size, PositionMessage } from 'src/app/Modules/shared/Components/notification/enums';
+import {
+  Size,
+  PositionMessage,
+} from 'src/app/Modules/shared/Components/notification/enums';
 import { NotificationService } from 'src/app/Modules/shared/Components/notification/notification.service';
 
 @Component({
@@ -57,22 +60,22 @@ export class SidebarComponent {
       ],
     },
     {
-      label : 'Modificaciones',
-      isDropdownOpen : false,
-      dropdownHeight : '0',
-      icon : 'fa-solid fa-file-pen',
+      label: 'Modificaciones',
+      isDropdownOpen: false,
+      dropdownHeight: '0',
+      icon: 'fa-solid fa-file-pen',
       submenuItems: [
         {
-          label : 'buscar',
-          icon : 'fa-solid fa-magnifying-glass',
-          route : 'modificaciones/filter',
+          label: 'buscar',
+          icon: 'fa-solid fa-magnifying-glass',
+          route: 'modificaciones/filter',
         },
         {
-          label : 'Lista',
-          icon : 'fa-solid fa-magnifying-glass',
-          route : 'modificaciones/list'
-        }
-      ]
+          label: 'Lista',
+          icon: 'fa-solid fa-magnifying-glass',
+          route: 'modificaciones/list',
+        },
+      ],
     },
     {
       label: 'Usuarios',
@@ -129,7 +132,6 @@ export class SidebarComponent {
           route: 'cupones/create',
           icon: 'fa-solid fa-magnifying-glass-dollar',
         },
-
       ],
     },
 
@@ -157,6 +159,11 @@ export class SidebarComponent {
       dropdownHeight: '0',
       icon: 'fa-solid fa-person-falling-burst',
       submenuItems: [
+        {
+          label: 'Vouchers',
+          route: 'myoficina',
+          icon: 'fa-solid fa-money-bill',
+        },
         {
           label: 'Siniestros',
           route: 'siniestro/list',
@@ -209,7 +216,6 @@ export class SidebarComponent {
         },
       ],
     },
-
   ];
 
   private cdr = inject(ChangeDetectorRef);
@@ -224,6 +230,13 @@ export class SidebarComponent {
 
     this.onLoading(observerProcess);
 
+    this.sessionService.isActionValidForUser('status').subscribe({
+      next: (resp) => {
+        resp ? console.log('Valid') : console.log('Invalido');
+      },
+      error: (err) => {},
+      complete: () => {},
+    });
 
     this.sessionService.getRolsFromUser().subscribe((routes) => {
       const routesForUser = routes
@@ -232,7 +245,9 @@ export class SidebarComponent {
         .flat()
         .map((route) => route.area);
 
-      this.menuItemsFiltered = this.menuItems.filter(menuItem => routesForUser.includes(menuItem.label));
+      this.menuItemsFiltered = this.menuItems.filter((menuItem) =>
+        routesForUser.includes(menuItem.label)
+      );
 
       process.complete();
     });
@@ -266,9 +281,6 @@ export class SidebarComponent {
   }
 
   private notificacionModalService = inject(NotificationService);
-
-
-
 
   onSuccess(message: string) {
     this.notificacionModalService.show(message, {

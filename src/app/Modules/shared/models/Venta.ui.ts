@@ -11,13 +11,17 @@ export interface VentaUi {
   beneficiarys : number;
   precioToData : number;
   servicioUi : ServicioUi;
-  totalPago : number;
-  total_descuento : number;
-  total_plus : number;
+  totalPago : number[];
+  total_descuento : number[];
+  total_plus : number[];
   selectedExtras : PlanUi[];
   total_polizas :number;
-  total_cupones : number;
+  total_cupones : number[];
   tipo_cupones : number;
   codigoDescuento : number | null,
+  totalPagoGrupal : number;
+  totalDescuentoGrupal : number;
+  totalCuponesGrupal : number;
+  comision : number;
 
 }

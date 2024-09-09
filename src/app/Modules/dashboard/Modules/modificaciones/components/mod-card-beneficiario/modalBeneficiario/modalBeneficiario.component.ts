@@ -13,6 +13,8 @@ export class ModalBeneficiarioComponent  implements OnInit {
 
   private cdr = inject(ChangeDetectorRef);
   ngOnInit(): void {
+    console.log(this.beneficiario.fecha_nacimiento);
+
     this.beneficiarioForm = new FormGroup({
       primer_nombre : new FormControl(this.beneficiario.primer_nombre, [Validators.required]),
       primer_apellido : new FormControl(this.beneficiario.primer_apellido,[Validators.required]),

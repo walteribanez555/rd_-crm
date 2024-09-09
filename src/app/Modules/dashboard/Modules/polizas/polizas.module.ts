@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 
 import { PolizasRoutingModule } from './polizas-routing.module';
 import { EditPolizaComponent } from './pages/edit-poliza/edit-poliza.component';
@@ -38,6 +38,9 @@ import { MultiviajeComponent } from './components/multiviaje/multiviaje.componen
 import { ExtraDetailService } from './components/extra/extra-detail/extraDetail.service';
 import { ExtraDetailComponent } from './components/extra/extra-detail/extraDetail.component';
 import { DetailsComponent } from './pages/details/details.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { StatusVentaSelectorModalComponent } from './statusVentaSelectorModal/statusVentaSelectorModal.component';
+import { ComisionVentaSelectorModalComponent } from './comisionVentaSelectorModal/comisionVentaSelectorModal.component';
 
 
 @NgModule({
@@ -69,7 +72,9 @@ import { DetailsComponent } from './pages/details/details.component';
     DatesToTravelComponent,
     MultiviajeComponent,
     ExtraDetailComponent,
-    DetailsComponent
+    DetailsComponent,
+    StatusVentaSelectorModalComponent,
+    ComisionVentaSelectorModalComponent,
   ],
   imports: [
     CommonModule,

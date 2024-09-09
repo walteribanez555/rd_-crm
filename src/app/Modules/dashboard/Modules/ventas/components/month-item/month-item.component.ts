@@ -21,10 +21,8 @@ export class MonthItemComponent {
   }
 
   getFirstAndLastDateOfMonth(year: number, month: number): { firstDate: string, lastDate: string } {
-    // Create a Date object for the given year and month (months are zero-based in JavaScript/TypeScript)
     const firstDate = new Date(year, month, 1).toISOString().split('T')[0];
 
-    // Calculate the last date of the next month and subtract one day to get the last date of the current month
     const nextMonth = new Date(year, month + 1, 1);
     const lastDate = new Date(nextMonth.getTime() - 1).toISOString().split('T')[0];
 

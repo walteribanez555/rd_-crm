@@ -42,15 +42,26 @@
         <div class="title">
           <span>Fecha inicial</span>
         </div>
-        <input-date [dateControl]="fecha_desde"></input-date>
+        <input type="date" [formControl]="fecha_desde">
       </div>
 
       <div class="field">
         <div class="title">
           <span>Fecha final</span>
         </div>
-        <input-date [dateControl]="fecha_hasta"></input-date>
+        <input type="date" [formControl]="fecha_hasta">
       </div>
+
+      <div class="field">
+        <div class="title">
+          <span>Paginas a Aplicar</span>
+        </div>
+        <select name="urlDestiny" [formControl]="urlDestiny">
+          <option *ngFor="let opt  of list_urls"  [value]="opt.codigo"  >{{opt.etiqueta}}</option>
+        </select>
+      </div>
+
+
 
       <div class="field">
         <div class="title">

@@ -32,9 +32,18 @@
   width: 100%;
 }
 
+.tn{
+  background: #726f6f;
+}
+
+
 span.plan-name {
   font-weight: bold;
   font-size: 25px;
+}
+
+span.discount {
+  text-decoration: line-through;
 }
 
 .info {
@@ -107,8 +116,33 @@ tag {
   color: white;
 }
 
+.tn .info .field .see-more{
+  background-color: var(--body-bg);
+}
+
+.tn .info .field .price {
+  color : white;
+}
+
+.tn .info .field span{
+  color: white;
+}
+
+.tn .info .field span.see-more {
+  color: var(--text-color);
+}
 
 .TEXTO {
   color: red;
+}
+
+.tag{
+  background-color: white;
+  color: var(--main-color);
+  border: gainsboro;
+  border-radius: 2px;
+  padding: 2px 5px;
+  font-size: 12px;
+  font-weight: bold;
 }
 

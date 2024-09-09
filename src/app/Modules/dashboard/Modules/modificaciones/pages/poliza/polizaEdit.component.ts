@@ -16,7 +16,7 @@ import {
   VentasService,
 } from 'src/app/Modules/core/services';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subject, switchMap, tap } from 'rxjs';
+import { Observable, Subject, debounceTime, distinctUntilChanged, of, switchMap, tap } from 'rxjs';
 import { ModCardPolizaService } from '../../components/mod-card-poliza/modalPoliza/mod-card-poliza.service';
 import { ModCardVentaService } from '../../components/mod-card-venta/modalVenta/mod-card-venta.service';
 import { ModModifierService } from '../../components/mod-modifier/mod-modifier.service';
@@ -45,8 +45,13 @@ export class PolizaEditComponent implements OnInit {
     const observerProcess = process.asObservable();
     this.onLoading(observerProcess);
 
+
+
+
     this.loadData(process);
   }
+
+
 
   beneficiario?: Beneficiario;
   poliza?: Poliza;
@@ -72,10 +77,7 @@ export class PolizaEditComponent implements OnInit {
       })
       .subscribe({
         next: (data) => {
-          data.fecha_nacimiento = DatesAction.invert_date(
-            data.fecha_nacimiento
-          );
-
+          // data.fecha_nacimiento
           const process= new Subject();
           const observer= process.asObservable();
           this.onLoading(observer);
@@ -154,10 +156,31 @@ export class PolizaEditComponent implements OnInit {
 
   }
 
+
+
+
   editVent() {
-    this.modalVenService.open({ venta: this.venta! }).subscribe({
+    this.modalVenService.open({ venta: this.venta!, poliza : this.poliza! }).subscribe({
       next: (data) => {
-        console.log(data);
+        const process = new Subject();
+        const observer = process.asObservable();
+        this.onLoading(observer);
+
+        this.ventasService.onEdit(this.venta?.venta_id!, {
+          total_pago : data.total_pago,
+          descuento : data.descuento
+        }).subscribe({
+          next : ( resp ) => {
+            process.complete();
+            this.onSuccess("Venta Modificada correctamente");
+          },
+          error : ( err) => {
+            process.complete();
+            this.onError(err);
+          }
+        })
+
+
       },
       error: (err) => {},
       complete: () => {},

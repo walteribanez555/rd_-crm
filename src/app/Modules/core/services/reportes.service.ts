@@ -34,8 +34,6 @@ export class ReportesService {
 
     const apiToReport = this.apiUrl+'/reporteVentas';
     return this.http.get<Reporte[]>(apiToReport, {params});
-
-
   }
 
   getByOffice( id : string | number, initialDate : string, finalDate : string ) : Observable<Reporte[]>{
@@ -75,6 +73,29 @@ export class ReportesService {
   getByNroIdentificacion( nro_identificaion : string) : Observable<Reporte[]> {
     const apiToReport = this.apiUrl+'/reporteVentas'+`?nro_identificacion=${nro_identificaion}`;
 
+    return this.http.get<Reporte[]>(apiToReport);
+
+  }
+
+
+  getByNumPoliza( numPoliza : number | string) : Observable<Reporte[]> {
+    let params = new HttpParams();
+
+    params.append('id', numPoliza);
+
+    const apiToReport = this.apiUrl+'/reportePolizas'+`?id=${numPoliza}`;
+
+    return this.http.get<Reporte[]>(apiToReport,{params});
+  }
+
+
+  getByBen( beneficiary : string ) : Observable<Reporte[]> {
+    let params = new HttpParams();
+    const urlToReportBeneficiary = "https://tx7tiu3ra2.execute-api.us-east-1.amazonaws.com/dev/"
+
+
+    params.append('id', beneficiary);
+    const apiToReport = urlToReportBeneficiary +`?id=${beneficiary}`;
     return this.http.get<Reporte[]>(apiToReport);
 
   }

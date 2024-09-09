@@ -107,35 +107,46 @@
             </div>
             <div class="item">
               <div class="left">
-                <span>Plus</span>
+                <span>Plus / Voucher</span>
               </div>
               <div class="right">
-                {{ventaUi.total_plus | currency}}
+                {{ventaUi.total_plus[0]  | currency}}
               </div>
             </div>
-            <div class="item discount" *ngIf="ventaUi.total_descuento > 0">
+            <div class="item discount" *ngIf="ventaUi.totalDescuentoGrupal > 0">
               <div class="left">
                 <span>Descuento</span>
               </div>
               <div class="right">
-                {{ventaUi.total_descuento | currency}}
+                {{ventaUi.totalDescuentoGrupal | currency}}
               </div>
             </div>
 
             <div class="item discount" *ngIf="ventaUi!.codigoDescuento">
               <div class="left">
-                <span>Codigo Descuento</span>
+                <span>Código</span>
               </div>
               <div class="right">
                 {{(ventaUi!.codigoDescuento ) | currency}}
               </div>
             </div>
-            <div class="item discount"  *ngIf="ventaUi.total_cupones > 0">
+            <div class="item discount"  *ngIf="ventaUi.totalCuponesGrupal > 0">
               <div class="left">
-                <span>Cupones</span>
+                <span>Descuento base</span>
               </div>
               <div class="right">
-                {{ ventaUi.total_cupones | currency }}
+                {{ ventaUi.totalCuponesGrupal | currency }}
+              </div>
+            </div>
+            <div class="field" *ngIf="withComission">
+              <span>Aplicar Comision por voucher USD ($) </span>
+              <div class="item">
+                <div class="left">
+                  <input type="number" [(ngModel)]="comisionQuantity" >
+                </div>
+                <div class="right" >
+                  <button (click)="applyComission()" >Aplicar</button>
+                </div>
               </div>
             </div>
             <div class="field">
@@ -156,7 +167,7 @@
                 <span class="total" style="font-weight: bold;">Total</span>
               </div>
               <div class="right">
-                <span style="font-weight: bold;" >{{ventaUi.totalPago | currency}}</span>
+                <span style="font-weight: bold;" >{{ventaUi.totalPagoGrupal | currency}}</span>
               </div>
             </div>
           </div>

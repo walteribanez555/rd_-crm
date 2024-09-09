@@ -13,7 +13,7 @@
 
 
       <card-beneficiario *ngFor="let beneficiario of beneficiarios; let i = index" [beneficiario]="beneficiario!"
-        style="margin: 10px 0px;" [servicioUi]="servicioUi!" [poliza]="polizas[i]"
+        style="margin: 10px 0px;" [servicioUi]="servicioUi!" [poliza]="polizas[i]"  [isWithPrice]="isWithPrice"
         [venta]="ventas[i]"></card-beneficiario>
     </div>
 

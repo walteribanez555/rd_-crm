@@ -1,4 +1,4 @@
-import { CountryRegion } from "../utils/data/countries-region.ts/countries-region";
+import { CountryRegionLng } from "../utils/data/countries-region.ts/country-region-lng";
 
 export interface BeneficiarioUi {
   primer_nombre : string;
@@ -9,7 +9,7 @@ export interface BeneficiarioUi {
   fecha_nacimiento : string;
   edad  : string;
   sexo : string;
-  origen : CountryRegion;
+  origen : CountryRegionLng;
   email : string;
   telefono: string;
   isTitular : boolean;

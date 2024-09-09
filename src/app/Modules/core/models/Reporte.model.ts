@@ -35,6 +35,9 @@ export interface Reporte {
   origen:             string;
   email:              string;
   telefono:           string;
+  multiviaje:         number;
+  fecha_caducidad:    string;
+  comision:            number;
 }
 
 
@@ -80,4 +83,5 @@ export interface ReporteSiniestro {
   pais_ocurrencia:    string;
   ciudad_ocurrencia:  string;
   url_archivo:        string;
+  comision:           number;
 }

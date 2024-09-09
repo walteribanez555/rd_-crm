@@ -25,7 +25,7 @@ export class ModalBenService {
     @Inject(DOCUMENT) private document: Document,
   ) {}
 
-  open(content: TemplateRef<any>, options?: { size?: string; title?: string , servicioUi: ServicioUi, beneficiario : Beneficiario, poliza : Poliza, venta : Venta }) {
+  open(content: TemplateRef<any>, options?: { size?: string; title?: string , servicioUi: ServicioUi, beneficiario : Beneficiario, poliza : Poliza, venta : Venta, isWithPrice : boolean }) {
     const modalComponentFactory = this.resolver.resolveComponentFactory(
       ModalBeneficiarioComponent
     );
@@ -42,6 +42,7 @@ export class ModalBenService {
     modalComponent.instance.venta = options?.venta;
     modalComponent.instance.closeEvent.subscribe(()=> this.closeModal());
     modalComponent.instance.submitEvent.subscribe(() => this.submitModal());
+    modalComponent.instance.isWithPrice = options?.isWithPrice;
 
     modalComponent.hostView.detectChanges();
 

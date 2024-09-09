@@ -3,13 +3,14 @@ import { ComponentFactoryResolver, Inject, Injectable, Injector, inject } from '
 import { Subject } from 'rxjs';
 import { Venta } from 'src/app/Modules/core/models/Venta.model';
 import { ModalVentaComponent } from './modalVenta.component';
+import { Poliza } from 'src/app/Modules/core/models/Poliza.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModCardVentaService {
 
-  private modalNotifier? : Subject<Venta>;
+  private modalNotifier? : Subject<any>;
 
   private resolver = inject(ComponentFactoryResolver);
   private injector = inject(Injector)
@@ -17,7 +18,7 @@ export class ModCardVentaService {
 
   constructor(@Inject(DOCUMENT) private document : Document) { }
 
-  open(options : { venta : Venta }){
+  open(options : { venta : Venta, poliza : Poliza }){
     const modalComponentFactory = this.resolver.resolveComponentFactory(ModalVentaComponent);
     const modalComponent = modalComponentFactory.create(this.injector,[]);
 
@@ -31,6 +32,7 @@ export class ModCardVentaService {
 
 
     modalComponent.instance.venta = options.venta;
+    modalComponent.instance.poliza = options.poliza;
 
     modalComponent.hostView.detectChanges();
 
@@ -46,7 +48,7 @@ export class ModCardVentaService {
     this.modalNotifier?.complete();
   }
 
-  submitModal(resp : Venta) {
+  submitModal(resp : any) {
     this.modalNotifier?.next(resp);
     this.closeModal();
   }

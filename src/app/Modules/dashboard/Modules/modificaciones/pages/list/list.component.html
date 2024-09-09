@@ -3,7 +3,7 @@
     <div class="title">
       <!-- <i class="fa-solid fa-earth-americas  fa-xl" style="color: var(--main-color);"></i> -->
 
-      <span>Listado de Polizas</span>
+      <span>Listado de Vouchers</span>
     </div>
   </div>
 
@@ -52,8 +52,8 @@
         <tbody>
           <tr  *ngFor="let venta of ventasFiltered " [routerLink]="'../'+venta.venta_id"  [queryParams]="{ poliza_id : venta.poliza_id}" >
             <td>
-              <span class="status"  [ngClass]="getStatusPoliza(venta.poliza_st)"
-              >{{getStatusPoliza(venta.poliza_st)}}</span>
+              <span class="status"  [ngClass]="getStatusPoliza(venta)"
+              >{{getStatusPoliza(venta)}}</span>
             </td>
             <td>{{venta.fecha_venta.split('T')[0].split('-').join('/')}}</td>
             <td>{{venta.fecha_salida.split('T')[0].split('-').join('/')}}</td>

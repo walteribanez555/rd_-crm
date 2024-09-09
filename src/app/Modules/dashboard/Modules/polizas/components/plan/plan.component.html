@@ -1,26 +1,28 @@
-<div class="container"  [class.selected]="servicioUi.isSelected">
-  <div class="top"  (click)="changeState()">
+<div class="container" [ngClass]="
+  {
+    'selected' : servicioUi.isSelected,
+
+  }
+
+"  [class.selected]="servicioUi.isSelected"   >
+  <div class="top"  [class.tn]="servicioUi.status == 2"  (click)="changeState()">
     <span>Plan</span>
     <span class="plan-name">{{servicioUi.servicio}}</span>
+    <div *ngIf="servicioUi.status == 2" class="tag">
+      <span>TARIFA NETA</span>
+    </div>
     <span>Precio por Persona</span>
-    <span style="font-size: 20px; font-weight: bold;">{{ servicioUi.precioSelected | currency }}</span>
+    <span style="font-size: 20px; font-weight: bold;"  [class.discount]="getDiscount(servicioUi)" >{{ servicioUi.precioSelected | currency }}</span>
+    <span *ngIf="priceWithDiscount>0 && servicioUi.precioSelected != priceWithDiscount"  style="font-size: 20px; font-weight: bold;"  >{{priceWithDiscount | currency}}</span>
   </div>
-  <div class="info">
-    <div class="field">
-      <span>Cobertura de:</span>
+  <div class="info"  >
+    <div class="field" >
+      <span class="text-field" >Cobertura de:</span>
       <span class="price">{{servicioUi.cobertura_global | currency}}</span>
     </div>
 
-    <!-- <div class="field">
-      <span>Regiones que Abarca</span>
-      <div class="regions">
-        <tag  *ngFor="let tag of tags"  [tag]="tag"></tag>
-
-      </div>
-
-    </div> -->
     <div class="field">
-      <span>Rango de Edad</span>
+      <span >Rango de Edad</span>
       <div class="price">
         <span>{{servicioUi.edad_base}}</span>
         <span>-</span>
