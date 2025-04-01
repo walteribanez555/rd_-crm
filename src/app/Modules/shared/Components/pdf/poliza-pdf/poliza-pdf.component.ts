@@ -6,6 +6,8 @@ import { Venta } from 'src/app/Modules/core/models/Venta.model';
 import { countrys } from '../../../utils/data/countries-lng';
 import { Translations } from '../../../utils/data/countries-region.ts/country-region-lng';
 import { obtenerNombreTraducido } from '../../../utils/filters/country-filter';
+import { PolizaExtra } from 'src/app/Modules/core/models/PolizaExtra.model';
+import { ExtraPolizaUi } from 'src/app/Modules/dashboard/Modules/polizas/pages/poliza/poliza.component';
 
 
 
@@ -21,6 +23,7 @@ export class PolizaPdfComponent  implements OnInit {
     console.log(this.poliza);
     console.log(this.beneficiario);
     console.log(this.servicioUi);
+    console.log({extrasPoliza : this.extrasPoliza});
 
 
 
@@ -34,6 +37,7 @@ export class PolizaPdfComponent  implements OnInit {
   @Input() poliza? : Poliza;
   @Input() venta? : Venta;
   @Input() isWithPrice = true;
+  @Input() extrasPoliza? : ExtraPolizaUi[];
   actualDate = new Date().toDateString();
 
 

@@ -19,6 +19,9 @@ import { ServicioUi } from 'src/app/Modules/shared/models/Servicio.ui';
 import { Size, PositionMessage } from 'src/app/Modules/shared/Components/notification/enums';
 import { OficinasService } from 'src/app/Modules/core/services/oficinas.service';
 import { Oficina } from 'src/app/Modules/core/models/Oficina';
+import { PolizaExtra } from 'src/app/Modules/core/models/PolizaExtra.model';
+import { PolizasExtrasService } from 'src/app/Modules/core/services/polizas-extras.service';
+import { ExtraPolizaUi } from '../poliza/poliza.component';
 
 @Component({
   templateUrl: './details.component.html',
@@ -98,8 +101,25 @@ export class DetailsComponent  implements OnInit {
       }),
       switchMap(( resp : Precio[]) => {
         this.precios = resp;
+        return this.extraPolizaService.getAll();
+      }),
+
+      switchMap((resp: PolizaExtra[]) => {
+
+        console.log({resp});
+        // this.servicio = resp[0];
+        this.polizaExtraUi = resp.filter( e => e.venta_id === this.polizas[0]?.venta_id).map( e => {
+          return {
+            ...e,
+            extra: this.extras.filter( ex => ex.beneficio_id === e.beneficio_id)[0]
+          }
+        })
+
         return this.oficinaService.getById(this.ventas[0]?.office_id!);
       }),
+
+
+
     ).subscribe({
       next: ( data  ) => {
 
@@ -159,7 +179,7 @@ export class DetailsComponent  implements OnInit {
   beneficios: Beneficio[] = [];
   servicioUi: ServicioUi | null = null;
   multiviajes: Catalogo[] = [];
-
+  polizaExtraUi : ExtraPolizaUi[] = [];
 
 
 
@@ -174,6 +194,7 @@ export class DetailsComponent  implements OnInit {
   private preciosService = inject(PreciosService);
   private catalogosService = inject(CatalogosService);
   private beneficiosService = inject(BeneficiosService);
+  private extraPolizaService = inject(PolizasExtrasService);
 
   private activeParams = inject(ActivatedRoute);
 

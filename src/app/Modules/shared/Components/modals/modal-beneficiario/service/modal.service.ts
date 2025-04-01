@@ -13,6 +13,8 @@ import { Beneficiario } from 'src/app/Modules/core/models/Beneficiario.model';
 import { Poliza } from 'src/app/Modules/core/models/Poliza.model';
 import { Venta } from 'src/app/Modules/core/models/Venta.model';
 import { ServicioUi } from 'src/app/Modules/shared/models/Servicio.ui';
+import { PolizaExtra } from 'src/app/Modules/core/models/PolizaExtra.model';
+import { ExtraPolizaUi } from 'src/app/Modules/dashboard/Modules/polizas/pages/poliza/poliza.component';
 
 @Injectable()
 export class ModalBenService {
@@ -25,7 +27,7 @@ export class ModalBenService {
     @Inject(DOCUMENT) private document: Document,
   ) {}
 
-  open(content: TemplateRef<any>, options?: { size?: string; title?: string , servicioUi: ServicioUi, beneficiario : Beneficiario, poliza : Poliza, venta : Venta, isWithPrice : boolean }) {
+  open(content: TemplateRef<any>, options?: { size?: string; title?: string , servicioUi: ServicioUi, beneficiario : Beneficiario, poliza : Poliza, venta : Venta, isWithPrice : boolean, polizaExtra? : ExtraPolizaUi[] }) {
     const modalComponentFactory = this.resolver.resolveComponentFactory(
       ModalBeneficiarioComponent
     );
@@ -43,6 +45,7 @@ export class ModalBenService {
     modalComponent.instance.closeEvent.subscribe(()=> this.closeModal());
     modalComponent.instance.submitEvent.subscribe(() => this.submitModal());
     modalComponent.instance.isWithPrice = options?.isWithPrice;
+    modalComponent.instance.polizaExtra = options?.polizaExtra;
 
     modalComponent.hostView.detectChanges();
 

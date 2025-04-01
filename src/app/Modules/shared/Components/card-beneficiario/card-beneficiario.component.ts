@@ -13,6 +13,8 @@ import { Poliza } from 'src/app/Modules/core/models/Poliza.model';
 import { Venta } from 'src/app/Modules/core/models/Venta.model';
 import { ServicioUi } from '../../models/Servicio.ui';
 import { ModalBenService } from '../modals/modal-beneficiario/service/modal.service';
+import { PolizaExtra } from 'src/app/Modules/core/models/PolizaExtra.model';
+import { ExtraPolizaUi } from 'src/app/Modules/dashboard/Modules/polizas/pages/poliza/poliza.component';
 
 @Component({
   selector: 'card-beneficiario',
@@ -36,6 +38,7 @@ export class CardBeneficiarioComponent implements OnInit {
   @Input() poliza?: Poliza;
   @Input() venta?: Venta;
   @Input() isWithPrice: boolean = true;
+  @Input() polizasExtra? : ExtraPolizaUi[];
 
   openModal(modalTemplate: TemplateRef<any>) {
 
@@ -54,6 +57,7 @@ export class CardBeneficiarioComponent implements OnInit {
         poliza: this.poliza!,
         venta: this.venta!,
         isWithPrice: this.isWithPrice,
+        polizaExtra : this.polizasExtra,
       })
       .subscribe((action: any) => {
         console.log('modalAction', action);

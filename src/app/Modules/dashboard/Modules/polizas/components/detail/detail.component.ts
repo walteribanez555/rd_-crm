@@ -118,7 +118,9 @@ export class DetailComponent implements OnInit {
         youngQuantity,
       },
       0,
-      this.forms[1].get('quantityDays')?.value as number
+      this.forms[1].get('quantityDays')?.value as number,
+      this.forms['0'].get('fromLocation')?.value.iso2,
+      this.forms['0'].get('toLocation')?.value.iso2 ? this.forms['0'].get('toLocation')?.value.iso2  : this.forms['0'].get('toLocation')?.value
     );
 
     console.log(this.ventaUi);

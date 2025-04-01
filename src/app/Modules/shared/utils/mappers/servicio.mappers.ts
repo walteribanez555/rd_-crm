@@ -65,9 +65,11 @@ export function MapToServicioUi(
       cupon.servicio_id === servPlan.servicio.servicio_id &&
       CuponValidator.validDate(cupon) &&
       CuponValidator.isUrlValidCupon(cupon) &&
-      !CuponValidator.isCodeCupon(cupon) &&
-      (CuponValidator.isWithValidCountry(cupon, countryOffice)  > 0)
+      !CuponValidator.isCodeCupon(cupon)
+      // (CuponValidator.isWithValidCountry(cupon, countryOffice)  > 0)
   );
+
+  console.log({cuponesFiltered, servPlan});
 
   const cuponesWithCode = cupones.filter(
     (cupon) =>
@@ -75,9 +77,6 @@ export function MapToServicioUi(
       CuponValidator.validDate(cupon) &&
       CuponValidator.isCodeCupon(cupon)
   );
-
-  console.log({cuponesWithCode});
-
 
 
 

@@ -436,7 +436,7 @@ export class MultiStepComponent implements OnInit {
             email: titularBeneficiario.email,
             nro_contacto: titularBeneficiario.telefono,
             status: 1,
-            office_id : this.oficcesPerUser[0].office_id ?? 2,
+            office_id : 2,
             contacto : 2,
             persona_contacto: "ADMIN"
           };

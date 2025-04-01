@@ -11,6 +11,7 @@ export interface Extra {
   icono:          Icono | null;
   beneficio_id : number;
   tipo_valor : number;
+  descripcion? : string;
 
 }
 

@@ -10,6 +10,8 @@ import { Observable, Subject, switchMap } from 'rxjs';
 import { PolizasService } from 'src/app/Modules/core/services';
 import { NotificationService } from '../../notification/notification.service';
 import { Size, PositionMessage } from '../../notification/enums';
+import { PolizaExtra } from 'src/app/Modules/core/models/PolizaExtra.model';
+import { ExtraPolizaUi } from 'src/app/Modules/dashboard/Modules/polizas/pages/poliza/poliza.component';
 
 
 
@@ -41,6 +43,7 @@ export class ModalBeneficiarioComponent {
   @Input() beneficiario? : Beneficiario;
   @Input() servicioUi? : ServicioUi;
   @Input() isWithPrice? = true;
+  @Input() polizaExtra? : ExtraPolizaUi[];
 
   @Input() poliza? : Poliza;
   @Input() venta? : Venta;

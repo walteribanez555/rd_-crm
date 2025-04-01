@@ -21,6 +21,14 @@ import { ServicioUi } from 'src/app/Modules/shared/models/Servicio.ui';
 import { Catalog } from 'aws-sdk/clients/sagemaker';
 import { OficinasService } from 'src/app/Modules/core/services/oficinas.service';
 import { Oficina } from 'src/app/Modules/core/models/Oficina';
+import { PolizasExtrasService } from 'src/app/Modules/core/services/polizas-extras.service';
+import { PolizaExtra } from 'src/app/Modules/core/models/PolizaExtra.model';
+
+
+
+export interface ExtraPolizaUi extends PolizaExtra {
+  extra : Extra;
+}
 
 @Component({
   templateUrl: './poliza.component.html',
@@ -38,7 +46,7 @@ export class PolizaComponent implements OnInit {
   private planesService = inject(PlanesService);
   private beneficiarioService = inject(BeneficiariosService);
   private cuponesService = inject(CuponesService);
-  private preciosService = inject(PreciosService);
+  private polizaExtraService = inject(PolizasExtrasService);
   private catalogosService = inject(CatalogosService);
   private beneficiosService = inject(BeneficiosService);
   private oficinaService = inject( OficinasService);
@@ -70,6 +78,9 @@ export class PolizaComponent implements OnInit {
   oficina : Oficina | null = null;
   isWithPrice = true;
 
+  polizaExtra: PolizaExtra[] = [];
+
+  polizaExtraUi : ExtraPolizaUi[] = [];
 
   onLoadProcess?: Subject<any>;
   observerProcess?: Observable<any>;
@@ -109,14 +120,15 @@ export class PolizaComponent implements OnInit {
         this.listBeneficiarios= resp;
         return this.servicioService.getOne(this.poliza!.servicio_id);
       }),
-      switchMap((resp: Servicio[]) => {
-        this.servicio = resp[0];
-        return this.planesService.getOne(this.servicio!.servicio_id).pipe(
+      switchMap(( resp :  Servicio[]) => {
+         this.servicio = resp[0];
+         return this.planesService.getOne(this.servicio!.servicio_id).pipe(
           map((planesData) => {
             return { servicio: this.servicio, planes: planesData };
           })
         );
       }),
+
       switchMap((resp: any) => {
         console.log({resp});
         this.planes = resp;
@@ -140,6 +152,21 @@ export class PolizaComponent implements OnInit {
       }),
       switchMap(( resp : Beneficio[]) => {
         this.beneficios = resp;
+
+        return this.polizaExtraService.getAll();
+
+      }),
+      switchMap((resp: PolizaExtra[]) => {
+
+        console.log({resp});
+        // this.servicio = resp[0];
+        this.polizaExtraUi = resp.filter( e => e.venta_id === this.poliza?.venta_id).map( e => {
+          return {
+            ...e,
+            extra: this.extras.filter( ex => ex.beneficio_id === e.beneficio_id)[0]
+          }
+        })
+
         return this.oficinaService.getById(this.venta?.office_id!);
       }),
       catchError((error) => {

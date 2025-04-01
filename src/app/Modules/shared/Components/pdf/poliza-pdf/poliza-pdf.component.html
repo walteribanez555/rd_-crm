@@ -136,15 +136,34 @@
 
       <div class="catalogo">
         <div class="description">
-          <p style="color: var(--main-color); margin-top: 10px; font-size: 12px;">PLAN {{servicioUi?.servicio}} <span
+          <p style="color: var(--main-color); margin-top: 10px; font-size: 12px;">{{servicioUi?.servicio}} <span
               style="color: var(--main-color); margin-top: 10px; font-size: 12px; font-weight: lighter;"
               *ngIf="poliza?.multiviaje==2">- MULTIVIAJE</span>
-              <span *ngIf="isWithEuros(poliza?.destino!) "  style="color: var(--main-color); margin-top: 10px; font-size: 12px; font-weight: lighter;">{{"- "}} COBERTURA : {{servicioUi?.cobertura_global | currency:'EUR'}}</span>
-              <span *ngIf="!isWithEuros(poliza?.destino!)"  style="color: var(--main-color); margin-top: 10px; font-size: 12px; font-weight: lighter;">{{"- "}} COBERTURA : {{servicioUi?.cobertura_global | currency}}</span>
+              <span *ngIf="isWithEuros(poliza?.destino!) "  style="color: var(--main-color); margin-top: 10px; font-size: 12px; font-weight: lighter;">{{"- "}}  {{servicioUi?.cobertura_global | currency:'EUR'}}</span>
+              <span *ngIf="!isWithEuros(poliza?.destino!)"  style="color: var(--main-color); margin-top: 10px; font-size: 12px; font-weight: lighter;">{{"- "}}  {{servicioUi?.cobertura_global | currency}}</span>
           </p>
           <hr style="width: calc(100% - 50px); border: 1px solid gainsboro;">
         </div>
         <div class="beneficios">
+          <div class="beneficio" *ngIf="extrasPoliza && extrasPoliza.length > 0" >
+            <div class="title" >
+              <span>Extras</span>
+            </div>
+            <div>
+              <div class="list-cats" *ngFor="let extraPoliza of extrasPoliza">
+                <div class="cats" style="border-right:1px solid var(--main-color);" >
+                  <span>{{extraPoliza.extra.descripcion!.split(';')[0]}}</span>
+                </div>
+                <div class="cats">
+                  <span>{{ 'Incluye'| TranslatePipe}}</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+
           <div class="beneficio" *ngFor="let catalogo of servicioUi?.catalogos">
             <div class="title" *ngIf="catalogo.valor!=4">
               <span>{{catalogo.etiqueta | TranslatePipe}}</span>
@@ -220,11 +239,6 @@
         <div class="info">
           <div class="line">
             <hr>
-
-            <!-- <div class="img">
-              <img src="assets/images/isologo-rojo.png" alt="">
-            </div> -->
-
           </div>
           <div class="date">
             <span>{{actualDate}}</span>

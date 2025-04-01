@@ -8,7 +8,9 @@ export class VentaMappers {
     servicioUi: ServicioUi,
     ageBeneficiary: any,
     descuentoExtra: number,
-    days: number
+    days: number,
+    origen : string,
+    destiny : string,
   ): VentaUi {
     const selectedExtras = servicioUi.extras.filter(
       (extra) => extra.isSelected
@@ -73,13 +75,15 @@ export class VentaMappers {
             servicioUi.listcupones,
             listBeneficiariesLimitGroup[index],
             item,
-            days
+            days,
+            origen,
           ) +
           this.getDiscountByGroupDetails(
             servicioUi.listcupones,
             listBeneficiariesLimitGroup.length,
             item,
-            days
+            days,
+            origen,
           )
     );
     const tipo_descuento: number[] = Array(
@@ -165,21 +169,20 @@ export class VentaMappers {
     cupones: Cupon[],
     age: number,
     totalPago: number,
-    quantityDays: number
+    quantityDays: number,
+    origin: string,
   ) {
+
+    console.log(origin);
+    console.log(cupones)
+
     const total = cupones.reduce((accum, actualItem) => {
-      console.log(
-        actualItem,
-        CuponValidator.isWithPolicie(actualItem, {
-          beneficiarAgeLimit: age,
-          days: quantityDays,
-        })
-      );
 
       if (
         CuponValidator.isWithPolicie(actualItem, {
           beneficiarAgeLimit: age,
           days: quantityDays,
+          origin,
         }) > 0
       ) {
         console.log('Aqui es verdadero por persona');
@@ -212,24 +215,18 @@ export class VentaMappers {
     cupones: Cupon[],
     quantityPersons: number,
     totalPago: number,
-    quantityDays: number
+    quantityDays: number,
+    origin : string,
   ) {
     // const total = cupones.reduce( (accum, actualItem) => CuponValidator.isWithPolicie(actualItem, { quantity : quantityPersons , days : quantityDays} ) ?
     //                                                                                                                                       accum + (actualItem.tipo_valor === 1 ?  (actualItem.valor * (totalPago /100)) : (actualItem.valor))
     //                                                                                                                                   : accum,0 );
     const total = cupones.reduce((accum, actualItem) => {
-      console.log(
-        CuponValidator.isWithPolicie(actualItem, {
-          quantity: quantityPersons,
-          days: quantityDays,
-        }),
-        actualItem
-      );
-
       if (
         CuponValidator.isWithPolicie(actualItem, {
           quantity: quantityPersons,
           days: quantityDays,
+          origin,
         }) === 3
       ) {
         console.log('Aqui es verdadero por grupo');

@@ -45,14 +45,6 @@ export function hasValidDestinies(
     listDestiny.iso2 = listDestiny.iso2.toLocaleUpperCase();
   });
 
-  console.log({
-    originDestiny,
-    listDestinies,
-    regionsService,
-    negativeListRegion,
-    countriesService,
-    negativeCountriesService,
-  });
 
   return listDestinies.every((dest) => {
 

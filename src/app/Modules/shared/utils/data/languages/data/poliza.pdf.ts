@@ -63,6 +63,12 @@ export const PdfPoliza : Language[] = [
     }
   },
   {
+    word : 'Atención Médica por enfermedad no preexistente',
+    translations : {
+      en : 'Medical assistance for non-pre-existing illness'
+    }
+  },
+  {
     word : 'Teléfono',
     translations : {
       en : 'Phone'

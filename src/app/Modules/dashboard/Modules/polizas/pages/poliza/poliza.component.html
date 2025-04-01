@@ -14,7 +14,7 @@
         <div class="list">
           <card-poliza [poliza]="poliza!" [servicio]="servicio!" [isClient]="isClient"  [beneficiario]="listBeneficiarios[0]"  ></card-poliza>
           <card-beneficiario *ngFor="let beneficiario of listBeneficiarios; let i = index" [beneficiario]="beneficiario!" [isWithPrice]="isWithPrice"
-            style="margin: 10px 0px;" [servicioUi]="servicioUi!" [poliza]="poliza!" [venta]="venta!"></card-beneficiario>
+            style="margin: 10px 0px;" [servicioUi]="servicioUi!" [poliza]="poliza!" [venta]="venta!"  [polizasExtra]="polizaExtraUi"   ></card-beneficiario>
         </div>
 
       </ng-template>

@@ -18,9 +18,9 @@ export class CuponValidator {
       return true;
     }
 
-    console.log(window.location.hostname);
 
-    if (cuponDetails![1] === window.location.hostname) {
+
+    if (cuponDetails![1] == window.location.hostname) {
       return true;
     }
 
@@ -36,9 +36,11 @@ export class CuponValidator {
   }
 
   static isWithPolicie(cupon: Cupon, data: any) {
+
     if (!cupon.oficina_id) return 1;
 
     const policie = JSON.parse(cupon.oficina_id);
+
 
     if (
       policie.agelimit != undefined &&
@@ -48,7 +50,6 @@ export class CuponValidator {
       policie.quantity == 1 &&
       policie.daysMin != undefined &&
       policie.daysMin >= data.days
-
     ) {
       console.log('Si es valido como unico y verdadero');
       return 2;
@@ -59,7 +60,7 @@ export class CuponValidator {
 
 
 
-    console.log({ policie, data });
+
 
     if (
       policie.quantity != undefined &&
